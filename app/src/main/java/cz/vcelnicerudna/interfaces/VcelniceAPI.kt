@@ -1,6 +1,7 @@
 package cz.vcelnicerudna.interfaces
 
 import cz.vcelnicerudna.configuration.APIConstants
+import cz.vcelnicerudna.models.HomeText
 import cz.vcelnicerudna.models.News
 import io.reactivex.Observable
 import retrofit2.Retrofit
@@ -10,6 +11,10 @@ import retrofit2.http.GET
 
 
 interface VcelniceAPI {
+
+    @GET(APIConstants.HOME_TEXT_URL)
+    fun getHomeText(): Observable<HomeText>
+
     @GET(APIConstants.NEWS_URL)
     fun getNews(): Observable<Array<News>>
 

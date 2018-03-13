@@ -1,11 +1,9 @@
 package cz.vcelnicerudna
 
 import android.os.Bundle
-import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -15,15 +13,14 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 
-
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -43,12 +40,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             VcelniceAPI.create()
         }
         var disposable: Disposable? = null
+        var disposableText: Disposable? = null
         disposable =
             vcelniceAPI.getNews()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { result -> Log.d("MainActivity", result[0].text) },
+                    { error -> Log.d("MainActivity", "error " + error.message) }
+            )
+        disposableText =
+            vcelniceAPI.getHomeText()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { result -> main_container.text = result.title },
                     { error -> Log.d("MainActivity", "error " + error.message) }
             )
     }
@@ -75,44 +81,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.action_settings -> return true
             else -> return super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.nav_home -> {
-
-            }
-            R.id.nav_photo -> {
-
-            }
-            R.id.nav_video -> {
-
-            }
-            R.id.nav_certificates -> {
-
-            }
-            R.id.nav_region -> {
-
-            }
-            R.id.nav_news -> {
-
-            }
-            R.id.nav_recipes -> {
-
-            }
-            R.id.nav_prices -> {
-
-            }
-            R.id.nav_call -> {
-
-            }
-            R.id.nav_email -> {
-
-            }
-        }
-
-        drawer_layout.closeDrawer(GravityCompat.START)
-        return true
     }
 }

@@ -1,6 +1,5 @@
 package cz.vcelnicerudna
 
-import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
@@ -9,7 +8,6 @@ import android.text.Html
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -54,11 +52,8 @@ class MainActivity : BaseActivity() {
             .subscribe(
                 {
                     result ->
-                        main_title_container.text = result.title
-//                        main_text_container.text = result.text
-                        main_text_container.text = Html.fromHtml(result.text)
-                        main_image.setImageURI(Uri.parse(APIConstants.VCELNICE_BASE_URL + result.icon))
-                        Log.d("MainActivity", Uri.parse(APIConstants.VCELNICE_BASE_URL + result.icon).toString())
+                        main_title.text = result.title
+                        main_text.text = Html.fromHtml(result.text)
                 },
                 { error -> Log.d("MainActivity", "error " + error.message) }
         )

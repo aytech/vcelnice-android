@@ -8,6 +8,7 @@ import android.text.Html
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -54,6 +55,12 @@ class MainActivity : BaseActivity() {
                     result ->
                         main_title.text = result.title
                         main_text.text = Html.fromHtml(result.text)
+                        GlideApp
+                                .with(this)
+                                .load(APIConstants.VCELNICE_BASE_URL + result.icon)
+                                .placeholder(R.mipmap.ic_default_image)
+                                .fitCenter()
+                                .into(main_image)
                 },
                 { error -> Log.d("MainActivity", "error " + error.message) }
         )

@@ -1,15 +1,17 @@
 package cz.vcelnicerudna
 
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.text.Html
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -39,24 +41,27 @@ class MainActivity : BaseActivity() {
         val vcelniceAPI by lazy {
             VcelniceAPI.create()
         }
-        var disposable: Disposable? = null
-        var disposableText: Disposable? = null
-        disposable =
-            vcelniceAPI.getNews()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { result -> Log.d("MainActivity", result[0].text) },
-                    { error -> Log.d("MainActivity", "error " + error.message) }
-            )
-        disposableText =
-            vcelniceAPI.getHomeText()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { result -> main_container.text = result.title },
-                    { error -> Log.d("MainActivity", "error " + error.message) }
-            )
+        vcelniceAPI.getNews()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result -> Log.d("MainActivity", result[0].text) },
+                { error -> Log.d("MainActivity", "error " + error.message) }
+        )
+        vcelniceAPI.getHomeText()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    result ->
+                        main_title_container.text = result.title
+//                        main_text_container.text = result.text
+                        main_text_container.text = Html.fromHtml(result.text)
+                        main_image.setImageURI(Uri.parse(APIConstants.VCELNICE_BASE_URL + result.icon))
+                        Log.d("MainActivity", Uri.parse(APIConstants.VCELNICE_BASE_URL + result.icon).toString())
+                },
+                { error -> Log.d("MainActivity", "error " + error.message) }
+        )
     }
 
     override fun onBackPressed() {

@@ -8,30 +8,30 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_home"
             android:title="@string/home" />
-        <item
-            android:id="@+id/nav_photo"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/photo" />
-        <item
-            android:id="@+id/nav_video"
-            android:icon="@drawable/ic_menu_video"
-            android:title="@string/video" />
-        <item
-            android:id="@+id/nav_certificates"
-            android:icon="@drawable/ic_menu_description"
-            android:title="@string/certificates" />
-        <item
-            android:id="@+id/nav_region"
-            android:icon="@drawable/ic_menu_region"
-            android:title="@string/region" />
+        <!--<item-->
+            <!--android:id="@+id/nav_photo"-->
+            <!--android:icon="@drawable/ic_menu_gallery"-->
+            <!--android:title="@string/photo" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_video"-->
+            <!--android:icon="@drawable/ic_menu_video"-->
+            <!--android:title="@string/video" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_certificates"-->
+            <!--android:icon="@drawable/ic_menu_description"-->
+            <!--android:title="@string/certificates" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_region"-->
+            <!--android:icon="@drawable/ic_menu_region"-->
+            <!--android:title="@string/region" />-->
         <item
             android:id="@+id/nav_news"
             android:icon="@drawable/ic_menu_news"
             android:title="@string/news" />
-        <item
-            android:id="@+id/nav_recipes"
-            android:icon="@drawable/ic_menu_recipes"
-            android:title="@string/recipes" />
+        <!--<item-->
+            <!--android:id="@+id/nav_recipes"-->
+            <!--android:icon="@drawable/ic_menu_recipes"-->
+            <!--android:title="@string/recipes" />-->
         <item
             android:id="@+id/nav_prices"
             android:icon="@drawable/ic_menu_prices"

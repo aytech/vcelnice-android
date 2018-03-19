@@ -1,5 +1,6 @@
 package cz.vcelnicerudna
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.design.widget.NavigationView
@@ -19,26 +20,28 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> {
-
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
-            R.id.nav_photo -> {
-
-            }
-            R.id.nav_video -> {
-
-            }
-            R.id.nav_certificates -> {
-
-            }
-            R.id.nav_region -> {
-
-            }
+//            R.id.nav_photo -> {
+//
+//            }
+//            R.id.nav_video -> {
+//
+//            }
+//            R.id.nav_certificates -> {
+//
+//            }
+//            R.id.nav_region -> {
+//
+//            }
             R.id.nav_news -> {
-
+                val intent = Intent(this, NewsActivity::class.java)
+                startActivity(intent)
             }
-            R.id.nav_recipes -> {
-
-            }
+//            R.id.nav_recipes -> {
+//
+//            }
             R.id.nav_prices -> {
 
             }

@@ -18,4 +18,6 @@
     <string name="call">Call</string>
     <string name="email">Email</string>
     <string name="jan_saroch">Jan Šaroch</string>
+    <string name="app_name_news">Včelnice Rudná - Zprávy</string>
+    <string name="app_name_prices">Včelnice Rudná - Ceny</string>
 </resources>

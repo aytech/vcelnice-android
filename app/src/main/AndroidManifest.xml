@@ -19,11 +19,14 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="www.vseuslugi.cz"
                     android:scheme="http" />
@@ -31,16 +34,12 @@
         </activity>
         <activity
             android:name=".NewsActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:host="www.vseuslugi.cz"
-                    android:scheme="http" />
-            </intent-filter>
-        </activity>
+            android:label="@string/app_name_news"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PricesActivity"
+            android:label="@string/app_name_prices"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

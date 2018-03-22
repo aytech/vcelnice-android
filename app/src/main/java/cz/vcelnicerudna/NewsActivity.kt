@@ -30,7 +30,7 @@ class NewsActivity : BaseActivity() {
         recyclerView = findViewById<RecyclerView>(R.id.news_recycler_view).apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
+//            setHasFixedSize(false)
 
             // use a linear layout manager
             layoutManager = viewManager
@@ -49,7 +49,7 @@ class NewsActivity : BaseActivity() {
                 .subscribe(
                         {
                             result ->
-                                Log.d("NewsActivity", "Result: ${result.size}")
+                                Log.d("NewsActivity", "Loading data: ${result[0]}")
                                 viewAdapter.loadNewData(result)
                         },
                         {

@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/news_recycler_view"
-    android:scrollbars="vertical"
-    tools:showIn="@layout/app_bar_news">
-</android.support.v7.widget.RecyclerView>
+    android:fitsSystemWindows="true"
+    tools:context=".NewsActivity">
+
+    <include
+        android:id="@+id/app_toolbar"
+        layout="@layout/app_toolbar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/news_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/app_toolbar"
+        android:scrollbars="vertical" />
+</RelativeLayout>

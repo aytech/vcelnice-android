@@ -34,6 +34,7 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_home -> {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+                finish()
             }
 //            R.id.nav_photo -> {
 //
@@ -50,6 +51,7 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_news -> {
                 val intent = Intent(this, NewsActivity::class.java)
                 startActivity(intent)
+                finish()
             }
 //            R.id.nav_recipes -> {
 //
@@ -57,6 +59,7 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_prices -> {
                 val intent = Intent(this, PricesActivity::class.java)
                 startActivity(intent)
+                finish()
             }
             R.id.nav_call -> {
 

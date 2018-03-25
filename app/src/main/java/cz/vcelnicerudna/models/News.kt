@@ -4,9 +4,9 @@ import java.util.*
 
 class News {
     var id: Int = 0
-    lateinit var title: String
-    lateinit var text: String
-    lateinit var icon: String
-    lateinit var created: Date
-    lateinit var updated: Date
+    var title: String? = null
+    var text: String? = null
+    var icon: String? = null
+    private var created: Date? = null
+    private var updated: Date? = null
 }

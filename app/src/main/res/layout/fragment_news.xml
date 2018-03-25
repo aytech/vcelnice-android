@@ -2,14 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
     android:orientation="horizontal">
 
     <ImageView
-        android:contentDescription="News icon"
         android:id="@+id/news_icon"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@mipmap/ic_default_image" />
+        android:contentDescription="@string/news_default_icon"
+        android:src="@mipmap/ic_bee" />
 
     <LinearLayout
         android:id="@+id/news_description_container"
@@ -24,7 +28,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:maxLines="2" />
+            android:maxLines="2"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingStart="8dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/news_description"
@@ -33,6 +41,9 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="2"
+            android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:textIsSelectable="false" />
     </LinearLayout>
 </RelativeLayout>

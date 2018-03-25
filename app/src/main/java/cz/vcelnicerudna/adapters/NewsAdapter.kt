@@ -1,15 +1,17 @@
 package cz.vcelnicerudna.adapters
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import cz.vcelnicerudna.GlideApp
 import cz.vcelnicerudna.R
+import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.models.News
 
-class NewsAdapter(private var newsDataSet: Array<News>) :
+class NewsAdapter(var context: Context, private var newsDataSet: Array<News>) :
         RecyclerView.Adapter<NewsViewHolder>() {
 
     // Provide a reference to the views for each data item
@@ -26,7 +28,6 @@ class NewsAdapter(private var newsDataSet: Array<News>) :
         val textView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.fragment_news, parent, false) as View
         // set the view's size, margins, paddings and layout parameters
-        Log.d("NewsAdapter", "Loading data: $textView")
         return NewsViewHolder(textView)
     }
 
@@ -34,8 +35,18 @@ class NewsAdapter(private var newsDataSet: Array<News>) :
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-//        holder.textView.text = newsDataSet[position].text
-        Log.d("NewsAdapter", "Loading data: $holder")
+        val newsItem: News = newsDataSet[position]
+        holder.titleView.text = newsItem.title
+        holder.descriptionView.text = Html.fromHtml(newsItem.text)
+        if (newsItem.icon != null) {
+            GlideApp
+                .with(context)
+                .load(APIConstants.VCELNICE_BASE_URL + newsItem.icon)
+                .placeholder(R.mipmap.ic_bee)
+                .fitCenter()
+                .into(holder.imageView)
+
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -6,19 +6,21 @@
 
     <string name="action_settings">Settings</string>
     <string name="jan_saroch_email_cz">jan.saroch@email.cz</string>
-    <string name="home">Home</string>
-    <string name="photo">Photo</string>
+    <string name="home">Domů</string>
+    <string name="photo">Foto</string>
     <string name="video">Video</string>
-    <string name="certificates">Certificates</string>
+    <string name="certificates">Certifikáty</string>
     <string name="region">Region</string>
-    <string name="news">News</string>
-    <string name="recipes">Recipes</string>
-    <string name="prices">Prices</string>
-    <string name="communicate">Communicate</string>
-    <string name="call">Call</string>
+    <string name="news">Novinky</string>
+    <string name="recipes">Recepty</string>
+    <string name="price_list">Ceník</string>
+    <string name="contact">Kontakt</string>
+    <string name="call">Volat</string>
     <string name="email">Email</string>
     <string name="jan_saroch">Jan Šaroch</string>
     <string name="app_name_news">Včelnice Rudná - Zprávy</string>
     <string name="app_name_prices">Včelnice Rudná - Ceny</string>
-    <string name="news_default_icon">News default icon</string>
+    <string name="news_default_icon">Novinky - výchozí ikona</string>
+    <string name="reserve">Rezervovat</string>
+    <string name="prices_default_icon">Ceník - výchozí ikona</string>
 </resources>

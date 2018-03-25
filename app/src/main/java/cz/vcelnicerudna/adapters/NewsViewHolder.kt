@@ -6,8 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import cz.vcelnicerudna.R.id.*
 
-class NewsViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-    var imageView: ImageView = itemView!!.findViewById(news_icon)
-    var titleView: TextView = itemView!!.findViewById(news_title)
-    var descriptionView: TextView = itemView!!.findViewById(news_description)
+class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    var imageView: ImageView = itemView.findViewById(news_icon)
+    var titleView: TextView = itemView.findViewById(news_title)
+    var descriptionView: TextView = itemView.findViewById(news_description)
 }

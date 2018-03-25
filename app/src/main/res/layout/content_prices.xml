@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".NewsActivity">
+    tools:context=".PricesActivity">
 
     <include
         android:id="@+id/app_toolbar"
         layout="@layout/app_toolbar" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/news_recycler_view"
+        android:id="@+id/prices_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/app_toolbar"

@@ -3,6 +3,7 @@ package cz.vcelnicerudna.interfaces
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.models.HomeText
 import cz.vcelnicerudna.models.News
+import cz.vcelnicerudna.models.Price
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -17,6 +18,9 @@ interface VcelniceAPI {
 
     @GET(APIConstants.NEWS_URL)
     fun getNews(): Observable<Array<News>>
+
+    @GET(APIConstants.PRICES_URL)
+    fun getPrices(): Observable<Array<Price>>
 
     companion object {
         fun create(): VcelniceAPI {

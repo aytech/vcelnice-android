@@ -47,13 +47,10 @@ class NewsActivity : BaseActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        {
-                            result ->
-                                Log.d("NewsActivity", "Loading activity data: ${result[0]}")
-                                viewAdapter.loadNewData(result)
+                        { result ->
+                            viewAdapter.loadNewData(result)
                         },
-                        {
-                            error ->
+                        { error ->
                             Log.d("NewsActivity", "error " + error.message)
                         }
                 )

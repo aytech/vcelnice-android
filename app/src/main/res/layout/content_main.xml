@@ -56,7 +56,7 @@
                 android:layout_below="@id/main_text"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@string/jan_saroch"
-                android:src="@mipmap/ic_default_image" />
+                android:src="@mipmap/ic_bee" />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

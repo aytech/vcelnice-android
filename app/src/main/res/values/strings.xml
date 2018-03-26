@@ -24,4 +24,7 @@
     <string name="news_default_icon">Novinky - výchozí ikona</string>
     <string name="reserve">Rezervovat</string>
     <string name="prices_default_icon">Ceník - výchozí ikona</string>
+    <string name="your_message">Vaše zpráva</string>
+    <string name="your_email_address">Vaše emailová adresa</string>
+    <string name="send">Odeslat</string>
 </resources>

@@ -27,11 +27,11 @@ class NewsAdapter(var context: Context, private var newsDataSet: Array<News>) :
         holder.descriptionView.text = Html.fromHtml(newsItem.text)
         if (newsItem.icon != null) {
             GlideApp
-                .with(context)
-                .load(APIConstants.VCELNICE_BASE_URL + newsItem.icon)
-                .placeholder(R.mipmap.ic_bee)
-                .fitCenter()
-                .into(holder.imageView)
+                    .with(context)
+                    .load(APIConstants.VCELNICE_BASE_URL + newsItem.icon)
+                    .placeholder(R.mipmap.ic_bee)
+                    .fitCenter()
+                    .into(holder.imageView)
 
         }
     }

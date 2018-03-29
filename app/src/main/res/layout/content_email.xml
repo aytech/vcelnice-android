@@ -10,6 +10,7 @@
         layout="@layout/app_toolbar" />
 
     <ScrollView
+        android:id="@+id/main_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/app_toolbar">
@@ -34,18 +35,26 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:hint="@string/your_email_address"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/colorText"
                 app:backgroundTint="@color/colorPrimary" />
 
+            <TextView
+                android:id="@+id/email_error_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@android:color/holo_red_dark"
+                android:textStyle="italic"
+                android:visibility="invisible" />
+
             <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
                 android:height="100dp"
                 android:gravity="top"
                 android:hint="@string/your_message"
@@ -54,6 +63,7 @@
                 app:backgroundTint="@color/colorPrimary" />
 
             <Button
+                android:id="@+id/send_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

@@ -28,4 +28,6 @@
     <string name="your_email_address">Vaše emailová adresa</string>
     <string name="send">Odeslat</string>
     <string name="background">Background</string>
+    <string name="email_invalid">E-mailová adresa není platná</string>
+    <string name="email_empty">Zadejte e-mailovou adresu</string>
 </resources>

@@ -29,5 +29,6 @@
     <string name="send">Odeslat</string>
     <string name="background">Background</string>
     <string name="email_invalid">E-mailová adresa není platná</string>
+    <string name="prices_not_found">Ceníky nebyly nalezeny</string>
     <string name="email_empty">Zadejte e-mailovou adresu</string>
 </resources>

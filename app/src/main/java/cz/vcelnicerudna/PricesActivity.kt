@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.View
 import cz.vcelnicerudna.adapters.PricesAdapter
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.content_prices.*
 
 class PricesActivity : BaseActivity() {
 
@@ -48,7 +50,12 @@ class PricesActivity : BaseActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result ->
-                            viewAdapter.loadNewData(result)
+                            if (result.isEmpty()) {
+                                empty_message.visibility = View.VISIBLE
+                            } else {
+                                empty_message.visibility = View.GONE
+                                viewAdapter.loadNewData(result)
+                            }
                         },
                         { error ->
                             Log.d("PricesActivity", "error " + error.message)

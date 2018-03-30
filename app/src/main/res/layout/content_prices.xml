@@ -3,12 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appBackground"
     android:fitsSystemWindows="true"
     tools:context=".PricesActivity">
 
     <include
         android:id="@+id/app_toolbar"
         layout="@layout/app_toolbar" />
+
+    <TextView
+        android:id="@+id/empty_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_toolbar"
+        android:gravity="center"
+        android:paddingTop="20dp"
+        android:text="@string/prices_not_found"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold|italic"
+        android:visibility="gone" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/prices_recycler_view"

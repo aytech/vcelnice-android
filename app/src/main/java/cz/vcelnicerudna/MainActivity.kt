@@ -1,11 +1,12 @@
 package cz.vcelnicerudna
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.text.Html
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -53,23 +54,27 @@ class MainActivity : BaseActivity() {
 
     private fun loadHomeText() {
         vcelniceAPI.getHomeText()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    result ->
-                    main_title.text = result.title
-                    main_text.text = Html.fromHtml(result.text)
-                    GlideApp
-                        .with(this)
-                        .load(APIConstants.VCELNICE_BASE_URL + result.icon)
-                        .placeholder(R.mipmap.ic_default_image)
-                        .fitCenter()
-                        .into(main_image)
-                },
-                {
-                    error -> Log.d("MainActivity", "error " + error.message)
-                }
-            )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { result ->
+                            loading_content.visibility = View.GONE
+                            main_image.visibility = View.VISIBLE
+                            main_title.text = result.title
+                            main_text.text = Html.fromHtml(result.text)
+                            GlideApp
+                                    .with(this)
+                                    .load(APIConstants.VCELNICE_BASE_URL + result.icon)
+                                    .placeholder(R.mipmap.ic_default_image)
+                                    .fitCenter()
+                                    .into(main_image)
+                        },
+                        { _ ->
+                            loading_content.visibility = View.GONE
+                            val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+                            snackbar.setAction(getString(R.string.close), { snackbar.dismiss() })
+                            snackbar.show()
+                        }
+                )
     }
 }

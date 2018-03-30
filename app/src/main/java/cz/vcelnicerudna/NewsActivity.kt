@@ -1,13 +1,15 @@
 package cz.vcelnicerudna
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
+import android.view.View
 import cz.vcelnicerudna.adapters.NewsAdapter
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.content_news.*
 
 class NewsActivity : BaseActivity() {
 
@@ -48,10 +50,14 @@ class NewsActivity : BaseActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result ->
+                            loading_content.visibility = View.GONE
                             viewAdapter.loadNewData(result)
                         },
-                        { error ->
-                            Log.d("NewsActivity", "error " + error.message)
+                        { _ ->
+                            loading_content.visibility = View.GONE
+                            val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+                            snackbar.setAction(getString(R.string.close), { snackbar.dismiss() })
+                            snackbar.show()
                         }
                 )
     }

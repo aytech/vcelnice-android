@@ -3,6 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/appBackground"
@@ -12,6 +13,12 @@
     <include
         android:id="@+id/app_toolbar"
         layout="@layout/app_toolbar" />
+
+    <ProgressBar
+        android:id="@+id/loading_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -57,7 +64,8 @@
                 android:layout_below="@id/main_text"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@string/jan_saroch"
-                android:src="@mipmap/ic_bee" />
+                android:src="@mipmap/ic_bee"
+                android:visibility="gone" />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

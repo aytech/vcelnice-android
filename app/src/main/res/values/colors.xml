@@ -7,4 +7,5 @@
     <color name="colorPrimaryBackground">#F4C669</color>
     <color name="colorHint">#808080</color>
     <color name="appBackground">#FDF1DF</color>
+    <color name="white">#FFFFFFFF</color>
 </resources>

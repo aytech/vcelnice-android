@@ -5,12 +5,17 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.support.design.R.id.snackbar_text
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import cz.vcelnicerudna.configuration.AppConstants
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_toolbar.*
@@ -63,5 +68,16 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    fun getThemedSnackbar(view: View, message: Int, length: Int): Snackbar {
+        val snackbar = Snackbar.make(view, getString(message), length)
+        snackbar.setActionTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        // Set text color
+        val snackbarView: View = snackbar.view
+        val snackBarTextView: TextView = snackbarView.findViewById(snackbar_text)
+        snackBarTextView.setTextColor(ContextCompat.getColor(this, R.color.white))
+
+        return snackbar
     }
 }

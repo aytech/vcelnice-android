@@ -1,9 +1,9 @@
 package cz.vcelnicerudna
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import cz.vcelnicerudna.adapters.PricesAdapter
 import cz.vcelnicerudna.interfaces.VcelniceAPI
@@ -50,6 +50,7 @@ class PricesActivity : BaseActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result ->
+                            loading_content.visibility = View.GONE
                             if (result.isEmpty()) {
                                 empty_message.visibility = View.VISIBLE
                             } else {
@@ -57,8 +58,11 @@ class PricesActivity : BaseActivity() {
                                 viewAdapter.loadNewData(result)
                             }
                         },
-                        { error ->
-                            Log.d("PricesActivity", "error " + error.message)
+                        { _ ->
+                            loading_content.visibility = View.GONE
+                            val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+                            snackbar.setAction(getString(R.string.close), { snackbar.dismiss() })
+                            snackbar.show()
                         }
                 )
     }

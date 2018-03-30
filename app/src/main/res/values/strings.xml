@@ -31,4 +31,6 @@
     <string name="email_invalid">E-mailová adresa není platná</string>
     <string name="prices_not_found">Ceníky nebyly nalezeny</string>
     <string name="email_empty">Zadejte e-mailovou adresu</string>
+    <string name="close">Zavřít</string>
+    <string name="network_error">Chyba sítě</string>
 </resources>

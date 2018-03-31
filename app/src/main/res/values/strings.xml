@@ -28,9 +28,10 @@
     <string name="your_email_address">Vaše emailová adresa</string>
     <string name="send">Odeslat</string>
     <string name="background">Background</string>
-    <string name="email_invalid">E-mailová adresa není platná</string>
     <string name="prices_not_found">Ceníky nebyly nalezeny</string>
-    <string name="email_empty">Zadejte e-mailovou adresu</string>
+    <string name="enter_valid_email">Zadejte platnou e-mailovou adresu</string>
     <string name="close">Zavřít</string>
     <string name="network_error">Chyba sítě</string>
+    <string name="enter_message">Zadejte zprávu</string>
+    <string name="contact_sent_success">Zpráva byla odeslána, děkujeme</string>
 </resources>

@@ -1,6 +1,7 @@
 package cz.vcelnicerudna.interfaces
 
 import cz.vcelnicerudna.configuration.APIConstants
+import cz.vcelnicerudna.models.EmailResponse
 import cz.vcelnicerudna.models.HomeText
 import cz.vcelnicerudna.models.News
 import cz.vcelnicerudna.models.Price
@@ -8,7 +9,10 @@ import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.POST
 
 
 interface VcelniceAPI {
@@ -21,6 +25,12 @@ interface VcelniceAPI {
 
     @GET(APIConstants.PRICES_URL)
     fun getPrices(): Observable<Array<Price>>
+
+    @POST(APIConstants.EMAIL_POST_URL)
+    @FormUrlEncoded
+    fun postContactMessage(
+            @Field("email") email: String,
+            @Field("message") message: String): Observable<EmailResponse>
 
     companion object {
         fun create(): VcelniceAPI {

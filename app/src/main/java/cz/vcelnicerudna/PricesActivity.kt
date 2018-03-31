@@ -55,6 +55,7 @@ class PricesActivity : BaseActivity() {
                                 empty_message.visibility = View.VISIBLE
                             } else {
                                 empty_message.visibility = View.GONE
+                                prices_recycler_view.visibility = View.VISIBLE
                                 viewAdapter.loadNewData(result)
                             }
                         },

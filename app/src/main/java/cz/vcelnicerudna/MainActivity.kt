@@ -4,14 +4,16 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.text.Html
+import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
+import cz.vcelnicerudna.R.layout.activity_main
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_toolbar.*
 import kotlinx.android.synthetic.main.content_main.*
 
 
@@ -23,7 +25,8 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(activity_main)
+        setSupportActionBar(app_toolbar)
         super.actionBarToggleWithNavigation(this)
         loadHomeText()
     }
@@ -42,16 +45,6 @@ class MainActivity : BaseActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        when (item.itemId) {
-            R.id.action_settings -> return true
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-
     private fun loadHomeText() {
         vcelniceAPI.getHomeText()
                 .subscribeOn(Schedulers.io())
@@ -62,6 +55,7 @@ class MainActivity : BaseActivity() {
                             main_image.visibility = View.VISIBLE
                             main_title.text = result.title
                             main_text.text = Html.fromHtml(result.text)
+                            Log.d("MainActivity", result.title)
                             GlideApp
                                     .with(this)
                                     .load(APIConstants.VCELNICE_BASE_URL + result.icon)

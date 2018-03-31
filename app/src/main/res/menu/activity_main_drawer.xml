@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="@layout/nav_header_main">
 
     <group android:checkableBehavior="single">
         <item
@@ -17,7 +17,6 @@
             android:icon="@drawable/ic_menu_prices"
             android:title="@string/price_list" />
     </group>
-
     <item android:title="@string/contact">
         <menu>
             <item
@@ -30,5 +29,4 @@
                 android:title="@string/email" />
         </menu>
     </item>
-
 </menu>

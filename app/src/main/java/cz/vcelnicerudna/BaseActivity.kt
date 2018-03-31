@@ -3,8 +3,6 @@ package cz.vcelnicerudna
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.design.R.id.snackbar_text
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
@@ -21,11 +19,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_toolbar.*
 
 open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        setSupportActionBar(app_toolbar)
-    }
 
     fun actionBarToggleWithNavigation(activity: Activity) {
         val toggle = ActionBarDrawerToggle(

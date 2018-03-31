@@ -1,6 +1,7 @@
 package cz.vcelnicerudna.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import cz.vcelnicerudna.GlideApp
 import cz.vcelnicerudna.R
+import cz.vcelnicerudna.ReserveActivity
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.models.Price
 
@@ -34,6 +36,8 @@ class PricesAdapter(var context: Context, private var dataSet: Array<Price>) :
                     .into(holder.imageView)
         }
         holder.button.setOnClickListener { view ->
+            val intent = Intent(context, ReserveActivity::class.java)
+            context.startActivity(intent)
             Snackbar.make(view, "Reserve: ${item.title} ${item.price} Kč (${item.weight})", Snackbar.LENGTH_LONG).show()
         }
     }

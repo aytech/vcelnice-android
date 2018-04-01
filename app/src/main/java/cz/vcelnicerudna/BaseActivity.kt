@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.app_toolbar.*
 open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     fun actionBarToggleWithNavigation(activity: Activity) {
+        setSupportActionBar(app_toolbar)
         val toggle = ActionBarDrawerToggle(
                 activity,
                 drawer_layout,

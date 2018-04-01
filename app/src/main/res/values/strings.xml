@@ -18,8 +18,8 @@
     <string name="call">Volat</string>
     <string name="email">Email</string>
     <string name="jan_saroch">Jan Šaroch</string>
-    <string name="app_name_news">Včelnice Rudná - Zprávy</string>
-    <string name="app_name_prices">Včelnice Rudná - Ceny</string>
+    <string name="app_name_news">Včelnice Rudná - Novinky</string>
+    <string name="app_name_prices">Včelnice Rudná - Ceník</string>
     <string name="app_name_email">Včelnice Rudná - Email</string>
     <string name="news_default_icon">Novinky - výchozí ikona</string>
     <string name="reserve">Rezervovat</string>

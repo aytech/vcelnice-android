@@ -1,8 +1,39 @@
 package cz.vcelnicerudna.models
 
-class Price {
+import android.os.Parcel
+import android.os.Parcelable
+
+class Price() : Parcelable {
     var title: String? = null
     var price: Int = 0
     var weight: String? = null
     var image: String? = null
+
+    constructor(parcel: Parcel) : this() {
+        title = parcel.readString()
+        price = parcel.readInt()
+        weight = parcel.readString()
+        image = parcel.readString()
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(title)
+        parcel.writeInt(price)
+        parcel.writeString(weight)
+        parcel.writeString(image)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Price> {
+        override fun createFromParcel(parcel: Parcel): Price {
+            return Price(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Price?> {
+            return arrayOfNulls(size)
+        }
+    }
 }

@@ -37,11 +37,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/number_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@android:color/holo_red_dark"
+                android:textStyle="italic"
+                android:visibility="invisible" />
+
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:hint="@string/your_email_address"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/colorText"

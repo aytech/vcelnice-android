@@ -36,4 +36,8 @@ class Price() : Parcelable {
             return arrayOfNulls(size)
         }
     }
+
+    fun getStringRepresentation(): String {
+        return "$title ($weight) - $price Kč"
+    }
 }

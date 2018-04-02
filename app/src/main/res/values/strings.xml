@@ -34,7 +34,9 @@
     <string name="network_error">Chyba sítě</string>
     <string name="enter_message">Zadejte zprávu</string>
     <string name="contact_sent_success">Zpráva byla odeslána, děkujeme</string>
+    <string name="reservation_sent_success">Rezervace byla odeslána, děkujeme</string>
     <string name="app_name_reservation">Včelnice Rudná - Rezervace</string>
     <string name="price_icon_description">Med - cena</string>
     <string name="number_of_glasses">Počet sklenic</string>
+    <string name="enter_number_of_glasses">Zadejte počet sklenic</string>
 </resources>

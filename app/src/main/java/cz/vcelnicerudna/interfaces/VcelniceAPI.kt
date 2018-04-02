@@ -1,10 +1,7 @@
 package cz.vcelnicerudna.interfaces
 
 import cz.vcelnicerudna.configuration.APIConstants
-import cz.vcelnicerudna.models.EmailResponse
-import cz.vcelnicerudna.models.HomeText
-import cz.vcelnicerudna.models.News
-import cz.vcelnicerudna.models.Price
+import cz.vcelnicerudna.models.*
 import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -31,6 +28,14 @@ interface VcelniceAPI {
     fun postContactMessage(
             @Field("email") email: String,
             @Field("message") message: String): Observable<EmailResponse>
+
+    @POST(APIConstants.RESERVE_POST_URL)
+    @FormUrlEncoded
+    fun reserve(
+            @Field("amount") amount: Int,
+            @Field("email") email: String,
+            @Field("message") message: String,
+            @Field("title") title: String): Observable<ReservationResponse>
 
     companion object {
         fun create(): VcelniceAPI {

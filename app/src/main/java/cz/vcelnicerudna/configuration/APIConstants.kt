@@ -8,5 +8,6 @@ class APIConstants {
         const val NEWS_URL = "api/v1/news/"
         const val PRICES_URL = "api/v1/prices/"
         const val EMAIL_POST_URL = "api/v1/contact/"
+        const val RESERVE_POST_URL = "api/v1/reserve/"
     }
 }

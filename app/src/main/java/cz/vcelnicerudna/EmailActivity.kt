@@ -5,10 +5,12 @@ import android.support.design.widget.Snackbar
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
+import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.content_email.*
+import java.net.URLEncoder
 
 class EmailActivity : BaseActivity() {
 
@@ -51,7 +53,9 @@ class EmailActivity : BaseActivity() {
     }
 
     private fun postContactMessage() {
-        vcelniceAPI.postContactMessage(email.text.toString(), message.text.toString())
+        val emailParam: String = email.text.toString()
+        val messageParam: String = URLEncoder.encode(message.text.toString(), StringConstants.UTF_8)
+        vcelniceAPI.postContactMessage(emailParam, messageParam)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

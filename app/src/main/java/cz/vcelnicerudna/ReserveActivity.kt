@@ -11,12 +11,14 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.Price
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_reserve.*
 import kotlinx.android.synthetic.main.app_toolbar.*
+import java.net.URLEncoder
 
 class ReserveActivity : BaseActivity() {
 
@@ -101,8 +103,8 @@ class ReserveActivity : BaseActivity() {
     }
 
     private fun postReservation() {
-        val emailParam = email.text.toString()
-        val messageParam = message.text.toString()
+        val emailParam: String = email.text.toString()
+        val messageParam: String = URLEncoder.encode(message.text.toString(), StringConstants.UTF_8)
         val titleParam = price.getStringRepresentation()
         vcelniceAPI.reserve(numberOfGlasses, emailParam, messageParam, titleParam)
                 .subscribeOn(Schedulers.io())

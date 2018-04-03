@@ -5,6 +5,7 @@
     android:id="@+id/main_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appBackground"
     android:orientation="vertical"
     tools:context=".ReserveActivity">
 
@@ -19,16 +20,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="50dp">
+            android:paddingEnd="@dimen/padding_sides"
+            android:paddingLeft="@dimen/padding_sides"
+            android:paddingRight="@dimen/padding_sides"
+            android:paddingStart="@dimen/padding_sides"
+            android:paddingTop="@dimen/padding_top">
 
             <ImageView
                 android:id="@+id/price_image"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="@dimen/placeholder_size"
+                android:layout_height="@dimen/placeholder_size"
                 android:layout_gravity="center"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="@dimen/margin_bottom"
                 android:contentDescription="@string/price_icon_description"
                 android:src="@mipmap/ic_bee" />
 
@@ -68,7 +71,7 @@
                 android:id="@+id/message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:height="80dp"
+                android:height="@dimen/text_area_large"
                 android:gravity="top"
                 android:hint="@string/your_message"
                 android:inputType="text|textMultiLine"
@@ -80,17 +83,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/margin_bottom"
+                android:layout_marginTop="@dimen/button_margin_top"
                 android:background="@drawable/send_button_background"
-                android:paddingBottom="10dp"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp"
-                android:paddingTop="10dp"
+                android:paddingBottom="@dimen/button_padding_bottom"
+                android:paddingEnd="@dimen/button_padding_sides"
+                android:paddingLeft="@dimen/button_padding_sides"
+                android:paddingRight="@dimen/button_padding_sides"
+                android:paddingStart="@dimen/button_padding_sides"
+                android:paddingTop="@dimen/button_padding_top"
                 android:text="@string/reserve"
                 android:textAllCaps="false"
                 android:textColor="@color/send_button"
-                android:textSize="18sp" />
+                android:textSize="@dimen/title_text_size" />
         </LinearLayout>
     </ScrollView>
 

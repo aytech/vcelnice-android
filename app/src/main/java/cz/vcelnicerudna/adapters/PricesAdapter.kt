@@ -10,6 +10,7 @@ import cz.vcelnicerudna.GlideApp
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.ReserveActivity
 import cz.vcelnicerudna.configuration.APIConstants
+import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.models.Price
 
 class PricesAdapter(var context: Context, private var dataSet: Array<Price>) :
@@ -25,7 +26,7 @@ class PricesAdapter(var context: Context, private var dataSet: Array<Price>) :
     override fun onBindViewHolder(holder: PriceViewHolder, position: Int) {
         val item: Price = dataSet[position]
         holder.titleView.text = item.title
-        holder.descriptionView.text = "%s Kč (%s)".format(item.price, item.weight)
+        holder.descriptionView.text = item.getShortStringRepresentation()
         if (item.image != null) {
             GlideApp
                     .with(context)
@@ -34,9 +35,9 @@ class PricesAdapter(var context: Context, private var dataSet: Array<Price>) :
                     .fitCenter()
                     .into(holder.imageView)
         }
-        holder.button.setOnClickListener { view ->
+        holder.button.setOnClickListener {
             val intent = Intent(context, ReserveActivity::class.java)
-            intent.putExtra("price", item)
+            intent.putExtra(StringConstants.PRICE_KEY, item)
             context.startActivity(intent)
         }
     }

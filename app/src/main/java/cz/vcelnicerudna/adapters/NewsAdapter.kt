@@ -1,14 +1,16 @@
 package cz.vcelnicerudna.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cz.vcelnicerudna.GlideApp
+import cz.vcelnicerudna.NewsDetailActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.APIConstants
+import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.models.News
 
 class NewsAdapter(var context: Context, private var newsDataSet: Array<News>) :
@@ -24,7 +26,7 @@ class NewsAdapter(var context: Context, private var newsDataSet: Array<News>) :
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val newsItem: News = newsDataSet[position]
         holder.titleView.text = newsItem.title
-        holder.descriptionView.text = Html.fromHtml(newsItem.text)
+        holder.descriptionView.text = newsItem.getParsedText()
         if (newsItem.icon != null) {
             GlideApp
                     .with(context)
@@ -33,6 +35,11 @@ class NewsAdapter(var context: Context, private var newsDataSet: Array<News>) :
                     .fitCenter()
                     .into(holder.imageView)
 
+        }
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, NewsDetailActivity::class.java)
+            intent.putExtra(StringConstants.NEWS_KEY, newsItem)
+            context.startActivity(intent)
         }
     }
 

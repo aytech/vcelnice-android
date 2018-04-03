@@ -33,9 +33,9 @@ class ReserveActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reserve)
         setSupportActionBar(app_toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setNumberOfGlassesData()
-        price = intent.getParcelableExtra("price")
+        price = intent.getParcelableExtra(StringConstants.PRICE_KEY)
 
         reserve_button.setOnClickListener { _ ->
             if (numberOfGlassesValid() && emailValid()) {
@@ -95,8 +95,7 @@ class ReserveActivity : BaseActivity() {
 
             }
         }
-
-
+        
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item)
         spinner.adapter = spinnerArrayAdapter
         spinner.onItemSelectedListener = onItemSelectedListener

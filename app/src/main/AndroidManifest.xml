@@ -19,11 +19,14 @@
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="www.vseuslugi.cz"
                     android:scheme="http" />
@@ -50,6 +53,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".PricesActivity" />
+        </activity>
+        <activity
+            android:name=".NewsDetailActivity"
+            android:label="@string/app_name_news_article"
+            android:parentActivityName=".NewsActivity"
+            android:theme="@style/AppTheme"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".NewsActivity" />
         </activity>
     </application>
 

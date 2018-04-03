@@ -2,6 +2,7 @@ package cz.vcelnicerudna.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import cz.vcelnicerudna.configuration.StringConstants
 
 class Price() : Parcelable {
     var title: String? = null
@@ -38,6 +39,10 @@ class Price() : Parcelable {
     }
 
     fun getStringRepresentation(): String {
-        return "$title ($weight) - $price Kč"
+        return "$title ($weight) - $price ${StringConstants.CZ_CURRENCY}"
+    }
+
+    fun getShortStringRepresentation(): String {
+        return "$price ${StringConstants.CZ_CURRENCY} ($weight)"
     }
 }

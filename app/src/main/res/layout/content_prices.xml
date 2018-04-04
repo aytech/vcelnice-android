@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/appBackground"
     android:fitsSystemWindows="true"
-    tools:context=".PricesActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".PricesActivity">
 
     <include layout="@layout/app_toolbar" />
 
@@ -15,7 +15,8 @@
         android:id="@+id/loading_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/empty_message"

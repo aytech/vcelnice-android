@@ -37,6 +37,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun loadHomeText() {
+        loading_content.visibility = View.VISIBLE
         vcelniceAPI.getHomeText()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -54,10 +55,13 @@ class MainActivity : BaseActivity() {
                                     .fitCenter()
                                     .into(main_image)
                         },
-                        { _ ->
+                        {
                             loading_content.visibility = View.GONE
                             val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
-                            snackbar.setAction(getString(R.string.close), { snackbar.dismiss() })
+                            snackbar.setAction(getString(R.string.reload), {
+                                snackbar.dismiss()
+                                loadHomeText()
+                            })
                             snackbar.show()
                         }
                 )

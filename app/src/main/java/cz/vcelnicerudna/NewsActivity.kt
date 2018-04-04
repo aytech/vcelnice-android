@@ -45,6 +45,7 @@ class NewsActivity : BaseActivity() {
     }
 
     private fun loadNews() {
+        loading_content.visibility = View.VISIBLE
         vcelniceAPI.getNews()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -53,10 +54,13 @@ class NewsActivity : BaseActivity() {
                             loading_content.visibility = View.GONE
                             viewAdapter.loadNewData(result)
                         },
-                        { _ ->
+                        {
                             loading_content.visibility = View.GONE
                             val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
-                            snackbar.setAction(getString(R.string.close), { snackbar.dismiss() })
+                            snackbar.setAction(getString(R.string.reload), {
+                                snackbar.dismiss()
+                                loadNews()
+                            })
                             snackbar.show()
                         }
                 )

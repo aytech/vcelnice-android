@@ -9,6 +9,7 @@ import android.view.View
 import cz.vcelnicerudna.R.layout.activity_main
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
+import cz.vcelnicerudna.models.HomeText
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -42,12 +43,11 @@ class MainActivity : BaseActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result ->
+                        { result: HomeText ->
                             loading_content.visibility = View.GONE
                             main_image.visibility = View.VISIBLE
                             main_title.text = result.title
                             main_text.text = Html.fromHtml(result.text)
-                            Log.d("MainActivity", result.title)
                             GlideApp
                                     .with(this)
                                     .load(APIConstants.VCELNICE_BASE_URL + result.icon)

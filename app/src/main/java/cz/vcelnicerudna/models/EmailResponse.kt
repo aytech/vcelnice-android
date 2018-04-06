@@ -1,6 +1,6 @@
 package cz.vcelnicerudna.models
 
 class EmailResponse {
-    lateinit var email: String
-    lateinit var message: String
+    var email: String = ""
+    var message: String = ""
 }

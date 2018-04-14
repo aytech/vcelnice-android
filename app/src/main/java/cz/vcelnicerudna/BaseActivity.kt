@@ -50,6 +50,9 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_prices -> {
                 startActivity(Intent(this, PricesActivity::class.java))
             }
+            R.id.nav_photo -> {
+                startActivity(Intent(this, PhotoActivity::class.java))
+            }
             R.id.nav_call -> {
                 val intent = Intent(Intent.ACTION_DIAL)
                 intent.data = Uri.parse("tel: %s".format(AppConstants.CONTACT_PHONE))

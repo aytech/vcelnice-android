@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/recycle_margin"
+    android:layout_marginLeft="@dimen/recycle_margin"
+    android:layout_marginRight="@dimen/recycle_margin"
+    android:layout_marginStart="@dimen/recycle_margin"
+    android:layout_marginTop="@dimen/recycle_margin"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/foto"
+        android:src="@mipmap/ic_bee" />
+
+</RelativeLayout>

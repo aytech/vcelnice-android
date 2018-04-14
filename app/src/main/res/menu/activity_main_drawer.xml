@@ -16,6 +16,10 @@
             android:id="@+id/nav_prices"
             android:icon="@drawable/ic_menu_prices"
             android:title="@string/price_list" />
+        <item
+            android:id="@+id/nav_photo"
+            android:icon="@drawable/ic_photo_collections_24dp"
+            android:title="@string/photo_list" />
     </group>
     <item android:title="@string/contact">
         <menu>

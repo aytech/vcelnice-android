@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="8dp"
-    android:layout_marginLeft="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginEnd="@dimen/recycle_margin"
+    android:layout_marginLeft="@dimen/recycle_margin"
+    android:layout_marginRight="@dimen/recycle_margin"
+    android:layout_marginStart="@dimen/recycle_margin"
+    android:layout_marginTop="@dimen/recycle_margin"
     android:orientation="horizontal">
 
     <ImageView
@@ -49,7 +50,6 @@
             android:textIsSelectable="false" />
 
         <Button
-            android:background="@drawable/send_button_background"
             android:id="@+id/reserve_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,6 +57,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginStart="5dp"
+            android:background="@drawable/send_button_background"
             android:text="@string/reserve"
             android:textColor="@color/colorText" />
 

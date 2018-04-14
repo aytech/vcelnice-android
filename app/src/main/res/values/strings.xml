@@ -22,6 +22,7 @@
     <string name="app_name_news_article">Včelnice Rudná - Novinka</string>
     <string name="app_name_prices">Včelnice Rudná - Ceník</string>
     <string name="app_name_email">Včelnice Rudná - Email</string>
+    <string name="app_name_photo">Včelnice Rudná - Foto</string>
     <string name="news_default_icon">Novinky - výchozí ikona</string>
     <string name="reserve">Rezervovat</string>
     <string name="prices_default_icon">Ceník - výchozí ikona</string>
@@ -42,4 +43,6 @@
     <string name="enter_number_of_glasses">Zadejte počet sklenic</string>
     <string name="news_image">Obrázek článku</string>
     <string name="reload">Načíst znovu</string>
+    <string name="photo_list">Foto</string>
+    <string name="foto">Foto</string>
 </resources>

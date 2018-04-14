@@ -23,6 +23,9 @@ interface VcelniceAPI {
     @GET(APIConstants.PRICES_URL)
     fun getPrices(): Observable<Array<Price>>
 
+    @GET(APIConstants.PHOTO_URL)
+    fun getPhoto(): Observable<Array<Photo>>
+
     @POST(APIConstants.EMAIL_POST_URL)
     @FormUrlEncoded
     fun postContactMessage(

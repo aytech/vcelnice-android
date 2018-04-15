@@ -1,13 +1,16 @@
 package cz.vcelnicerudna.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cz.vcelnicerudna.GlideApp
+import cz.vcelnicerudna.PhotoViewActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.APIConstants
+import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.models.Photo
 
 class PhotoAdapter(var context: Context, private var dataSet: Array<Photo>) : RecyclerView.Adapter<PhotoViewHolder>() {
@@ -29,6 +32,11 @@ class PhotoAdapter(var context: Context, private var dataSet: Array<Photo>) : Re
                     .placeholder(R.mipmap.ic_bee)
                     .fitCenter()
                     .into(holder.imageView)
+            holder.imageView.setOnClickListener {
+                val intent = Intent(context, PhotoViewActivity::class.java)
+                intent.putExtra(StringConstants.PHOTO_KEY, item)
+                context.startActivity(intent)
+            }
         }
     }
 

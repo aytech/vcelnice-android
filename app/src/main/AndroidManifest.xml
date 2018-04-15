@@ -68,6 +68,15 @@
             android:name=".PhotoActivity"
             android:label="@string/app_name_photo"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".PhotoViewActivity"
+            android:parentActivityName=".PhotoActivity"
+            android:theme="@style/AppTheme"
+            tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PhotoActivity" />
+        </activity>
     </application>
 
 </manifest>

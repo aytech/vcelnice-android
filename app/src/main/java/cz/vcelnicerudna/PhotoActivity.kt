@@ -27,7 +27,7 @@ class PhotoActivity : BaseActivity() {
         setContentView(R.layout.activity_photo)
         super.actionBarToggleWithNavigation(this)
 
-        viewManager = GridLayoutManager(this, 2)
+        viewManager = GridLayoutManager(this, 3)
         viewAdapter = PhotoAdapter(this, arrayOf())
 
         recyclerView = findViewById<RecyclerView>(R.id.photo_recycler_view).apply {

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import cz.vcelnicerudna.adapters.PhotoAdapter
 import cz.vcelnicerudna.interfaces.VcelniceAPI
@@ -54,11 +53,9 @@ class PhotoActivity : BaseActivity() {
                         { result ->
                             loading_content.visibility = View.GONE
                             if (result.isEmpty()) {
-                                Log.d("PhotoActivity", "Empty")
-                                // Show some message here
+                                no_content.visibility = View.VISIBLE
                             } else {
-                                Log.d("PhotoActivity", result.get(0).caption)
-                                // hide all error messages here
+                                no_content.visibility = View.GONE
                                 viewAdapter.loadNewData(result)
                             }
                         },

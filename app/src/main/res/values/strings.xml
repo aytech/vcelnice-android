@@ -31,6 +31,7 @@
     <string name="send">Odeslat</string>
     <string name="background">Background</string>
     <string name="prices_not_found">Ceníky nebyly nalezeny</string>
+    <string name="photos_not_found">Obrázky nebyly nalezeny</string>
     <string name="enter_valid_email">Zadejte platnou e-mailovou adresu</string>
     <string name="close">Zavřít</string>
     <string name="network_error">Chyba sítě</string>

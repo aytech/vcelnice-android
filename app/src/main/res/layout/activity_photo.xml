@@ -12,6 +12,7 @@
         android:id="@+id/main_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/appBackground"
         android:orientation="vertical">
 
         <include layout="@layout/app_toolbar" />
@@ -21,6 +22,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/no_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:gravity="center"
+            android:padding="@dimen/margin_extra_small"
+            android:text="@string/photos_not_found"
+            android:textColor="@android:color/holo_red_dark"
+            android:textStyle="bold|italic"
             android:visibility="gone" />
 
         <android.support.v7.widget.RecyclerView

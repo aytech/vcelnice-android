@@ -21,4 +21,5 @@
     <dimen name="button_padding_top">10dp</dimen>
     <dimen name="recycle_margin">8dp</dimen>
     <dimen name="margin_extra_small">2dp</dimen>
+    <dimen name="margin_normal">10dp</dimen>
 </resources>

@@ -2,7 +2,7 @@ package cz.vcelnicerudna
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
@@ -27,7 +27,7 @@ class PhotoActivity : BaseActivity() {
         setContentView(R.layout.activity_photo)
         super.actionBarToggleWithNavigation(this)
 
-        viewManager = LinearLayoutManager(this)
+        viewManager = GridLayoutManager(this, 2)
         viewAdapter = PhotoAdapter(this, arrayOf())
 
         recyclerView = findViewById<RecyclerView>(R.id.photo_recycler_view).apply {

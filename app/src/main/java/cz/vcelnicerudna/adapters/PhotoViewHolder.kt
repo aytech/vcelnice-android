@@ -6,5 +6,5 @@ import android.widget.ImageView
 import cz.vcelnicerudna.R
 
 class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    var imageView: ImageView = itemView.findViewById(R.id.photo)
+    var imageView: ImageView = itemView.findViewById(R.id.photo_item)
 }

@@ -8,6 +8,8 @@ class Photo() : Parcelable {
     var caption: String = ""
     var image: String = ""
     var thumb: String = ""
+    var width: Int = 0
+    var height: Int = 0
     var created: String = ""
 
     constructor(parcel: Parcel) : this() {
@@ -15,6 +17,8 @@ class Photo() : Parcelable {
         caption = parcel.readString()
         image = parcel.readString()
         thumb = parcel.readString()
+        width = parcel.readInt()
+        height = parcel.readInt()
         created = parcel.readString()
     }
 
@@ -23,6 +27,8 @@ class Photo() : Parcelable {
         parcel.writeString(caption)
         parcel.writeString(image)
         parcel.writeString(thumb)
+        parcel.writeInt(width)
+        parcel.writeInt(height)
         parcel.writeString(created)
     }
 

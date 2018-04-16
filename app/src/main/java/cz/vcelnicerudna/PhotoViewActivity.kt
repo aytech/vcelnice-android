@@ -40,7 +40,7 @@ class PhotoViewActivity : AppCompatActivity() {
                         return false
                     }
                 })
-                .placeholder(R.mipmap.ic_bee)
+                .override(photoItem.width, photoItem.height)
                 .fitCenter()
                 .into(image)
     }

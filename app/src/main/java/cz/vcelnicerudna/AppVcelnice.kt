@@ -12,7 +12,7 @@ import org.acra.data.StringFormat
 import org.acra.sender.HttpSender
 
 @Suppress("unused")
-@AcraHttpSender(uri = APIConstants.RESERVE_POST_URL,
+@AcraHttpSender(uri = APIConstants.ANDROID_CRASH_POST_URL,
         httpMethod = HttpSender.Method.POST)
 class AppVcelnice : Application() {
 
@@ -34,8 +34,8 @@ class AppVcelnice : Application() {
                     .setResText(R.string.crash_text)
                     .setResTitle(R.string.crash_title)
                     .setResCommentPrompt(R.string.crash_prompt)
-                    .setResNegativeButtonText(R.string.no)
-                    .setResPositiveButtonText(R.string.yes)
+                    .setResNegativeButtonText(R.string.cancel)
+                    .setResPositiveButtonText(R.string.send)
                     .setEnabled(true)
             ACRA.init(this, builder)
         } catch (e: ACRAConfigurationException) {

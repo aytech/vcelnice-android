@@ -50,6 +50,5 @@
     <string name="crash_title">A jejda, jsem rozbitý…</string>
     <string name="crash_text">Nahlásit chybu správci?</string>
     <string name="crash_prompt">Můžete k tomu napsat komentář, pokud chcete</string>
-    <string name="no">Ne</string>
-    <string name="yes">Ano</string>
+    <string name="cancel">Zrušit</string>
 </resources>

@@ -10,6 +10,5 @@ class APIConstants {
         const val PHOTO_URL = "api/v1/photos/"
         const val EMAIL_POST_URL = "api/v1/contact/"
         const val RESERVE_POST_URL = "api/v1/reserve/"
-        const val ANDROID_CRASH_POST_URL = "api/v1/android/crash/"
     }
 }

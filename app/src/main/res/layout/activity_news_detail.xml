@@ -23,14 +23,14 @@
             android:paddingLeft="@dimen/padding_sides"
             android:paddingRight="@dimen/padding_sides"
             android:paddingStart="@dimen/padding_sides"
-            android:paddingTop="@dimen/padding_top">
+            android:paddingTop="@dimen/img_padding_top">
 
             <ImageView
                 android:id="@+id/news_image"
                 android:layout_width="@dimen/placeholder_size"
                 android:layout_height="@dimen/placeholder_size"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/margin_bottom"
+                android:layout_marginBottom="@dimen/margin_medium"
                 android:contentDescription="@string/news_image"
                 android:src="@mipmap/ic_bee" />
 

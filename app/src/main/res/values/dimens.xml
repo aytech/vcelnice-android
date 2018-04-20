@@ -9,9 +9,8 @@
     <dimen name="text_size">14sp</dimen>
     <dimen name="send_button_radius">2dp</dimen>
     <dimen name="padding_sides">24dp</dimen>
-    <dimen name="padding_top">50dp</dimen>
+    <dimen name="img_padding_top">20dp</dimen>
     <dimen name="placeholder_size">150dp</dimen>
-    <dimen name="margin_bottom">24dp</dimen>
     <dimen name="text_size_large">20sp</dimen>
     <dimen name="text_size_normal">16sp</dimen>
     <dimen name="text_area_large">80dp</dimen>
@@ -22,5 +21,6 @@
     <dimen name="recycle_margin">8dp</dimen>
     <dimen name="margin_extra_small">2dp</dimen>
     <dimen name="margin_normal">10dp</dimen>
-    <dimen name="margin_medium">30dp</dimen>
+    <dimen name="margin_medium">20dp</dimen>
+    <dimen name="margin_large">30dp</dimen>
 </resources>

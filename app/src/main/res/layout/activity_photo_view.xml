@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_extra_small"
                 android:adjustViewBounds="true"
-                android:paddingTop="@dimen/margin_medium"
+                android:paddingTop="@dimen/margin_large"
                 android:contentDescription="@string/picture"
                 android:scaleType="fitCenter" />
         </LinearLayout>

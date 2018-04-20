@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.text.TextUtils
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
+import cz.vcelnicerudna.models.Location
 import cz.vcelnicerudna.models.Price
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -26,6 +28,7 @@ class ReserveActivity : BaseActivity() {
         VcelniceAPI.create()
     }
     private lateinit var spinnerArrayAdapter: ArrayAdapter<String>
+    private lateinit var locationsArrayAdapter: ArrayAdapter<String>
     private var numberOfGlasses: Int = 0
     private lateinit var price: Price
 
@@ -35,6 +38,7 @@ class ReserveActivity : BaseActivity() {
         setSupportActionBar(app_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setNumberOfGlassesData()
+        getLocations()
         price = intent.getParcelableExtra(StringConstants.PRICE_KEY)
 
         reserve_button.setOnClickListener { _ ->
@@ -95,10 +99,56 @@ class ReserveActivity : BaseActivity() {
 
             }
         }
-        
+
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item)
         spinner.adapter = spinnerArrayAdapter
         spinner.onItemSelectedListener = onItemSelectedListener
+    }
+
+    private fun setLocationsData(data: List<String>) {
+        locationsArrayAdapter = object : ArrayAdapter<String>(this, R.layout.spinner_item, data) {
+            override fun isEnabled(position: Int): Boolean {
+                return position != 0
+            }
+
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View {
+                val view: View? = super.getDropDownView(position, convertView, parent)
+                val textView: TextView = view as TextView
+                if (position == 0) {
+                    textView.setTextColor(Color.GRAY)
+                } else {
+                    textView.setTextColor(ContextCompat.getColor(this@ReserveActivity, R.color.colorText))
+                }
+                return view
+            }
+        }
+        val onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedItemText: String = parent?.getItemAtPosition(position).toString()
+                if (position > 0) {
+                    Log.d("ReserveActivity", "Selected: $position")
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+
+        locationsArrayAdapter.setDropDownViewResource(R.layout.spinner_item)
+        location.adapter = locationsArrayAdapter
+        location.onItemSelectedListener = onItemSelectedListener
+    }
+
+    private fun getLocations() {
+        vcelniceAPI.getLocations()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { response: Array<Location> ->
+                            setLocationsData(response.map { it.address })
+                        }
+                )
     }
 
     private fun postReservation() {

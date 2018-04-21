@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.text.TextUtils
-import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +29,7 @@ class ReserveActivity : BaseActivity() {
     private lateinit var spinnerArrayAdapter: ArrayAdapter<String>
     private lateinit var locationsArrayAdapter: ArrayAdapter<String>
     private var numberOfGlasses: Int = 0
+    private var pickAddress: String = ""
     private lateinit var price: Price
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,7 +105,7 @@ class ReserveActivity : BaseActivity() {
         spinner.onItemSelectedListener = onItemSelectedListener
     }
 
-    private fun setLocationsData(data: List<String>) {
+    private fun setLocationsData(data: ArrayList<String>) {
         locationsArrayAdapter = object : ArrayAdapter<String>(this, R.layout.spinner_item, data) {
             override fun isEnabled(position: Int): Boolean {
                 return position != 0
@@ -126,7 +126,7 @@ class ReserveActivity : BaseActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedItemText: String = parent?.getItemAtPosition(position).toString()
                 if (position > 0) {
-                    Log.d("ReserveActivity", "Selected: $position")
+                    pickAddress = selectedItemText
                 }
             }
 
@@ -146,7 +146,10 @@ class ReserveActivity : BaseActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { response: Array<Location> ->
-                            setLocationsData(response.map { it.address })
+                            val locations = ArrayList<String>()
+                            locations.add(0, getString(R.string.pickup_at_address))
+                            response.forEach { locations.add(it.address) }
+                            setLocationsData(locations)
                         }
                 )
     }
@@ -155,7 +158,7 @@ class ReserveActivity : BaseActivity() {
         val emailParam: String = email.text.toString()
         val messageParam: String = URLEncoder.encode(message.text.toString(), StringConstants.UTF_8)
         val titleParam = price.getStringRepresentation()
-        vcelniceAPI.reserve(numberOfGlasses, emailParam, messageParam, titleParam)
+        vcelniceAPI.reserve(numberOfGlasses, emailParam, messageParam, titleParam, pickAddress)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

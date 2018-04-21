@@ -41,7 +41,8 @@ interface VcelniceAPI {
             @Field("amount") amount: Int,
             @Field("email") email: String,
             @Field("message") message: String,
-            @Field("title") title: String): Observable<ReservationResponse>
+            @Field("title") title: String,
+            @Field("location") location: String): Observable<ReservationResponse>
 
     companion object {
         fun create(): VcelniceAPI {

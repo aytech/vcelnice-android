@@ -1,16 +1,14 @@
 package cz.vcelnicerudna
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
+import cz.vcelnicerudna.adapters.AdapterViewListener
+import cz.vcelnicerudna.adapters.ArrayAdapterWithPlaceholder
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.Location
@@ -71,73 +69,33 @@ class ReserveActivity : BaseActivity() {
     }
 
     private fun setNumberOfGlassesData() {
-        spinnerArrayAdapter = object : ArrayAdapter<String>(this, R.layout.spinner_item, resources.getStringArray(R.array.glasses_array)) {
-            override fun isEnabled(position: Int): Boolean {
-                return position != 0
-            }
-
-            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View {
-                val view: View? = super.getDropDownView(position, convertView, parent)
-                val textView: TextView = view as TextView
-                if (position == 0) {
-                    textView.setTextColor(Color.GRAY)
-                } else {
-                    textView.setTextColor(ContextCompat.getColor(this@ReserveActivity, R.color.colorText))
-                }
-                return view
-            }
-        }
-        val onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedItemText: String = parent?.getItemAtPosition(position).toString()
-                if (position > 0) {
-                    numberOfGlasses = selectedItemText.toInt()
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-        }
-
+        spinnerArrayAdapter = ArrayAdapterWithPlaceholder(this, R.layout.spinner_item, resources.getStringArray(R.array.glasses_array))
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item)
         spinner.adapter = spinnerArrayAdapter
-        spinner.onItemSelectedListener = onItemSelectedListener
+        spinner.onItemSelectedListener = object : AdapterViewListener() {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                super.onItemSelected(parent, view, position, id)
+                if (selectedData.isNotEmpty()) {
+                    numberOfGlasses = selectedData.toInt()
+                    selectedData = ""
+                }
+            }
+        }
     }
 
-    private fun setLocationsData(data: ArrayList<String>) {
-        locationsArrayAdapter = object : ArrayAdapter<String>(this, R.layout.spinner_item, data) {
-            override fun isEnabled(position: Int): Boolean {
-                return position != 0
-            }
-
-            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup?): View {
-                val view: View? = super.getDropDownView(position, convertView, parent)
-                val textView: TextView = view as TextView
-                if (position == 0) {
-                    textView.setTextColor(Color.GRAY)
-                } else {
-                    textView.setTextColor(ContextCompat.getColor(this@ReserveActivity, R.color.colorText))
-                }
-                return view
-            }
-        }
-        val onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedItemText: String = parent?.getItemAtPosition(position).toString()
-                if (position > 0) {
-                    pickAddress = selectedItemText
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-        }
-
+    private fun setLocationsData(data: Array<String>) {
+        locationsArrayAdapter = ArrayAdapterWithPlaceholder(this, R.layout.spinner_item, data)
         locationsArrayAdapter.setDropDownViewResource(R.layout.spinner_item)
         location.adapter = locationsArrayAdapter
-        location.onItemSelectedListener = onItemSelectedListener
+        location.onItemSelectedListener = object : AdapterViewListener() {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                super.onItemSelected(parent, view, position, id)
+                if (selectedData.isNotEmpty()) {
+                    pickAddress = selectedData
+                    selectedData = ""
+                }
+            }
+        }
     }
 
     private fun getLocations() {
@@ -149,7 +107,7 @@ class ReserveActivity : BaseActivity() {
                             val locations = ArrayList<String>()
                             locations.add(0, getString(R.string.pickup_at_address))
                             response.forEach { locations.add(it.address) }
-                            setLocationsData(locations)
+                            setLocationsData(locations.toTypedArray())
                         }
                 )
     }

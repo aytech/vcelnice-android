@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import cz.vcelnicerudna.configuration.APIConstants
@@ -16,7 +18,8 @@ import kotlinx.android.synthetic.main.app_toolbar.*
 
 class PhotoViewActivity : AppCompatActivity() {
 
-    private lateinit var photoItem: Photo
+    private lateinit var images: ArrayList<Photo>
+    private var position: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,12 +27,14 @@ class PhotoViewActivity : AppCompatActivity() {
         setSupportActionBar(app_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        photoItem = intent.getParcelableExtra(StringConstants.PHOTO_KEY)
+//        photoItem = intent.getParcelableExtra(StringConstants.PHOTO_KEY)
+        images = intent.getParcelableArrayListExtra<Photo>(StringConstants.PHOTOS_KEY)
+        position = intent.getIntExtra(StringConstants.PHOTO_POSITION, 0)
 
-        title = photoItem.caption
+        title = images[position].caption
         GlideApp
                 .with(this)
-                .load(APIConstants.VCELNICE_BASE_URL + photoItem.image)
+                .load(APIConstants.VCELNICE_BASE_URL + images[position].image)
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                         return false
@@ -40,8 +45,10 @@ class PhotoViewActivity : AppCompatActivity() {
                         return false
                     }
                 })
-                .override(photoItem.width, photoItem.height)
+                .override(images[position].width, images[position].height)
                 .fitCenter()
+                .transition(withCrossFade())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(image)
     }
 }

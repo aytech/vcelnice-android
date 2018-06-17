@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cz.vcelnicerudna.GlideApp
-import cz.vcelnicerudna.PhotoViewActivity
+import cz.vcelnicerudna.PhotoGalleryActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.configuration.StringConstants
@@ -33,8 +33,10 @@ class PhotoAdapter(var context: Context, private var dataSet: Array<Photo>) : Re
                     .fitCenter()
                     .into(holder.imageView)
             holder.imageView.setOnClickListener {
-                val intent = Intent(context, PhotoViewActivity::class.java)
-                intent.putExtra(StringConstants.PHOTO_KEY, item)
+                val intent = Intent(context, PhotoGalleryActivity::class.java)
+                intent.putParcelableArrayListExtra(StringConstants.PHOTOS_KEY, dataSet.toCollection(ArrayList()))
+                intent.putExtra(StringConstants.PHOTO_POSITION, position)
+//                intent.putExtra(StringConstants.PHOTO_KEY, item)
                 context.startActivity(intent)
             }
         }

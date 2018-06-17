@@ -52,4 +52,6 @@
     <string name="crash_text">Nahlásit chybu správci?</string>
     <string name="crash_prompt">Můžete k tomu napsat komentář, pokud chcete</string>
     <string name="cancel">Zrušit</string>
+    <string name="title_activity_photo_gallery">PhotoGalleryActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

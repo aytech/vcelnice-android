@@ -1,16 +1,13 @@
 package cz.vcelnicerudna.adapters
 
 import android.content.Context
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cz.vcelnicerudna.GlideApp
-import cz.vcelnicerudna.PhotoGalleryActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.APIConstants
-import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.models.Photo
 
 class PhotoAdapter(var context: Context, private var dataSet: Array<Photo>) : RecyclerView.Adapter<PhotoViewHolder>() {
@@ -33,11 +30,13 @@ class PhotoAdapter(var context: Context, private var dataSet: Array<Photo>) : Re
                     .fitCenter()
                     .into(holder.imageView)
             holder.imageView.setOnClickListener {
-                val intent = Intent(context, PhotoGalleryActivity::class.java)
-                intent.putParcelableArrayListExtra(StringConstants.PHOTOS_KEY, dataSet.toCollection(ArrayList()))
-                intent.putExtra(StringConstants.PHOTO_POSITION, position)
-//                intent.putExtra(StringConstants.PHOTO_KEY, item)
-                context.startActivity(intent)
+
+//                val galleryViewPagerFragment = GalleryViewPagerFragment.newInstance(position, dataSet.toCollection(ArrayList()))
+//                Log.d("PhotoAdapter", galleryViewPagerFragment.toString())
+//                val intent = Intent(context, PhotoViewActivity::class.java)
+//                intent.putParcelableArrayListExtra(StringConstants.PHOTOS_KEY, dataSet.toCollection(ArrayList()))
+//                intent.putExtra(StringConstants.PHOTO_POSITION, position)
+//                context.startActivity(intent)
             }
         }
     }

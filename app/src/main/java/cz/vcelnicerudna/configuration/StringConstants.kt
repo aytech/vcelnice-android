@@ -7,6 +7,7 @@ class StringConstants {
         const val PRICE_KEY: String = "price"
         const val CZ_CURRENCY: String = "Kč"
         const val PHOTO_POSITION: String = "position"
+        const val PHOTO_KEY: String = "photo"
         const val PHOTOS_KEY: String = "photos"
     }
 }

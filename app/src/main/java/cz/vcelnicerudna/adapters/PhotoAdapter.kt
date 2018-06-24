@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import cz.vcelnicerudna.GlideApp
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.APIConstants
+import cz.vcelnicerudna.interfaces.PhotoItemClickListener
 import cz.vcelnicerudna.models.Photo
 
-class PhotoAdapter(var context: Context, private var dataSet: Array<Photo>) : RecyclerView.Adapter<PhotoViewHolder>() {
+class PhotoAdapter(var context: Context, private var dataSet: ArrayList<Photo>,
+                   private var photoItemClickListener: PhotoItemClickListener) : RecyclerView.Adapter<PhotoViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         val imageView = LayoutInflater
                 .from(parent.context)
@@ -21,28 +24,17 @@ class PhotoAdapter(var context: Context, private var dataSet: Array<Photo>) : Re
     override fun getItemCount(): Int = dataSet.size
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        val item: Photo = dataSet[position]
-        if (item.thumb != "") {
+        val photo: Photo = dataSet[position]
+        if (photo.thumb != "") {
             GlideApp
                     .with(context)
-                    .load(APIConstants.VCELNICE_BASE_URL + item.thumb)
+                    .load(APIConstants.VCELNICE_BASE_URL + photo.thumb)
                     .placeholder(R.mipmap.ic_bee)
                     .fitCenter()
                     .into(holder.imageView)
             holder.imageView.setOnClickListener {
-
-//                val galleryViewPagerFragment = GalleryViewPagerFragment.newInstance(position, dataSet.toCollection(ArrayList()))
-//                Log.d("PhotoAdapter", galleryViewPagerFragment.toString())
-//                val intent = Intent(context, PhotoViewActivity::class.java)
-//                intent.putParcelableArrayListExtra(StringConstants.PHOTOS_KEY, dataSet.toCollection(ArrayList()))
-//                intent.putExtra(StringConstants.PHOTO_POSITION, position)
-//                context.startActivity(intent)
+                photoItemClickListener.onPhotoItemClickListener(holder.adapterPosition, photo, holder.imageView)
             }
         }
-    }
-
-    fun loadNewData(photo: Array<Photo>) {
-        this.dataSet = photo
-        notifyDataSetChanged()
     }
 }

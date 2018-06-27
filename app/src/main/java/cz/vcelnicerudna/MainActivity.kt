@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.text.Html
-import android.util.Log
 import android.view.View
 import cz.vcelnicerudna.R.layout.activity_main
-import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.HomeText
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -48,12 +46,12 @@ class MainActivity : BaseActivity() {
                             main_image.visibility = View.VISIBLE
                             main_title.text = result.title
                             main_text.text = Html.fromHtml(result.text)
-                            GlideApp
-                                    .with(this)
-                                    .load(APIConstants.VCELNICE_BASE_URL + result.icon)
-                                    .placeholder(R.mipmap.ic_default_image)
-                                    .fitCenter()
-                                    .into(main_image)
+//                            GlideApp
+//                                    .with(this)
+//                                    .load(APIConstants.VCELNICE_BASE_URL + result.icon)
+//                                    .placeholder(R.mipmap.ic_default_image)
+//                                    .fitCenter()
+//                                    .into(main_image)
                         },
                         {
                             loading_content.visibility = View.GONE

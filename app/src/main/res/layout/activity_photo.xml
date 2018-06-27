@@ -36,13 +36,19 @@
             android:textStyle="bold|italic"
             android:visibility="gone" />
 
-        <FrameLayout
-            android:id="@+id/content"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/photo_collection"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/margin_extra_small"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:scrollbars="vertical" />
+
+        <!--<FrameLayout-->
+        <!--android:id="@+id/content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_margin="@dimen/margin_extra_small"-->
+        <!--android:scrollbars="vertical"-->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
 
     </LinearLayout>
 

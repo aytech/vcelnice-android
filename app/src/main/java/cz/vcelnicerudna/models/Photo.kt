@@ -44,5 +44,7 @@ class Photo() : Parcelable {
         override fun newArray(size: Int): Array<Photo?> {
             return arrayOfNulls(size)
         }
+
+        fun transitionName(id: Int) = "item_$id"
     }
 }

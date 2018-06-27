@@ -1,15 +1,14 @@
 package cz.vcelnicerudna.adapters
 
+//import cz.vcelnicerudna.GlideApp
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cz.vcelnicerudna.GlideApp
 import cz.vcelnicerudna.NewsDetailActivity
 import cz.vcelnicerudna.R
-import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.models.News
 
@@ -28,12 +27,12 @@ class NewsAdapter(var context: Context, private var newsDataSet: Array<News>) :
         holder.titleView.text = newsItem.title
         holder.descriptionView.text = newsItem.getParsedText()
         if (newsItem.icon != null) {
-            GlideApp
-                    .with(context)
-                    .load(APIConstants.VCELNICE_BASE_URL + newsItem.icon)
-                    .placeholder(R.mipmap.ic_bee)
-                    .fitCenter()
-                    .into(holder.imageView)
+//            GlideApp
+//                    .with(context)
+//                    .load(APIConstants.VCELNICE_BASE_URL + newsItem.icon)
+//                    .placeholder(R.mipmap.ic_bee)
+//                    .fitCenter()
+//                    .into(holder.imageView)
 
         }
         holder.itemView.setOnClickListener {

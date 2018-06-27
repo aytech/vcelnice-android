@@ -1,44 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_view"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/appBackground"
-    android:orientation="vertical"
-    tools:context=".PhotoViewActivity">
+    android:fitsSystemWindows="false">
 
-    <include layout="@layout/app_toolbar" />
-
-    <ScrollView
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"/>
 
-        <LinearLayout
-            android:id="@+id/image_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/photo_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="top"
+        android:background="@android:color/transparent"
+        android:theme="@style/ToolbarColoredBackArrow"
+        android:title=""
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextColor="@android:color/white"/>
 
-            <ProgressBar
-                android:id="@+id/loading_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="visible" />
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_extra_small"
-                android:adjustViewBounds="true"
-                android:paddingTop="@dimen/margin_large"
-                android:contentDescription="@string/picture"
-                android:scaleType="fitCenter" />
-        </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>
+</FrameLayout>

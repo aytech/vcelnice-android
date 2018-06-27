@@ -1,40 +1,51 @@
 package cz.vcelnicerudna.adapters
 
-import android.content.Context
+import android.support.v4.view.ViewCompat
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cz.vcelnicerudna.GlideApp
-import cz.vcelnicerudna.R
+import android.widget.ImageView
+import com.squareup.picasso.Picasso
 import cz.vcelnicerudna.configuration.APIConstants
-import cz.vcelnicerudna.interfaces.PhotoItemClickListener
 import cz.vcelnicerudna.models.Photo
+import cz.vcelnicerudna.views.AspectRatioImageView
 
-class PhotoAdapter(var context: Context, private var dataSet: ArrayList<Photo>,
-                   private var photoItemClickListener: PhotoItemClickListener) : RecyclerView.Adapter<PhotoViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
-        val imageView = LayoutInflater
-                .from(parent.context)
-                .inflate(R.layout.fragment_photo, parent, false) as View
-        return PhotoViewHolder(imageView)
-    }
+class PhotoAdapter(
+        private var dataSet: ArrayList<Photo>,
+        private val onItemClickListener: OnItemClickListener?)
+    : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = dataSet.size
 
-    override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        val photo: Photo = dataSet[position]
-        if (photo.thumb != "") {
-            GlideApp
-                    .with(context)
-                    .load(APIConstants.VCELNICE_BASE_URL + photo.thumb)
-                    .placeholder(R.mipmap.ic_bee)
-                    .fitCenter()
-                    .into(holder.imageView)
-            holder.imageView.setOnClickListener {
-                photoItemClickListener.onPhotoItemClickListener(holder.adapterPosition, photo, holder.imageView)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(dataSet[position], onItemClickListener)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(parent)
+
+    fun loadData(photos: ArrayList<Photo>) {
+        dataSet = photos
+        notifyDataSetChanged()
+    }
+
+    class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+            AspectRatioImageView(parent.context).apply {
+                scaleType = ImageView.ScaleType.CENTER_CROP
+            }) {
+        fun bind(photo: Photo, onItemClickListener: OnItemClickListener?) {
+            itemView.setOnClickListener { onItemClickListener?.onClick(photo, it) }
+            itemView.tag = Photo.transitionName(photo.id)
+            ViewCompat.setTransitionName(itemView, Photo.transitionName(photo.id))
+            if (!photo.thumb.isEmpty()) {
+                Picasso
+                        .with(itemView.context)
+                        .load(APIConstants.VCELNICE_BASE_URL + photo.thumb)
+                        .into(itemView as ImageView)
             }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onClick(item: Photo, view: View)
     }
 }

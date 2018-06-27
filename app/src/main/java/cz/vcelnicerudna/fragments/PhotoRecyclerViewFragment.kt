@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import cz.vcelnicerudna.R
-import cz.vcelnicerudna.adapters.PhotoAdapter
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.interfaces.PhotoItemClickListener
 import cz.vcelnicerudna.models.Photo
@@ -26,7 +25,7 @@ class PhotoRecyclerViewFragment : Fragment(), PhotoItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         photo_recycler_view.layoutManager = GridLayoutManager(view.context, 3)
-        photo_recycler_view.adapter = PhotoAdapter(view.context, photos, this)
+//        photo_recycler_view.adapter = PhotoAdapter(view.context, photos, this)
     }
 
     override fun onPhotoItemClickListener(position: Int, photo: Photo, imageView: ImageView) {

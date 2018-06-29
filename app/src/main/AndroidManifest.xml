@@ -71,7 +71,7 @@
         <activity
             android:name=".PhotoViewActivity"
             android:parentActivityName=".PhotoActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/ToolbarColoredBackArrow"
             tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

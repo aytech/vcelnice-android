@@ -11,6 +11,7 @@ import android.view.ViewTreeObserver
 import android.widget.ImageView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.models.Photo
 
 class PhotoPagerAdapter(
@@ -26,10 +27,9 @@ class PhotoPagerAdapter(
         val imageView = ImageView(collection.context)
         ViewCompat.setTransitionName(imageView, Photo.transitionName(photo.id))
         views.put(position, imageView)
-
         Picasso
                 .with(collection.context)
-                .load(photo.image)
+                .load(APIConstants.VCELNICE_BASE_URL + photo.image)
                 .noFade()
                 .into(imageView, object : Callback {
                     override fun onSuccess() {

@@ -1,11 +1,11 @@
 package cz.vcelnicerudna.views
 
 import android.content.Context
+import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
-import android.widget.ImageView
 
 class AspectRatioImageView(context: Context, attributes: AttributeSet? = null, defStyle: Int = 0)
-    : ImageView(context, attributes, defStyle) {
+    : AppCompatImageView(context, attributes, defStyle) {
 
     var measureOnceListener: OnMeasureListener? = null
     private var widthRatio = 1f

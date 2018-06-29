@@ -1,11 +1,5 @@
 package cz.vcelnicerudna
 
-//import com.bumptech.glide.load.DataSource
-//import com.bumptech.glide.load.engine.DiskCacheStrategy
-//import com.bumptech.glide.load.engine.GlideException
-//import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
-//import com.bumptech.glide.request.RequestListener
-//import com.bumptech.glide.request.target.Target
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -106,7 +100,6 @@ class PhotoViewActivity : AppCompatActivity() {
     }
 
     private fun setupToolBar() {
-        setSupportActionBar(photo_toolbar)
         supportActionBar?.apply {
             title = ""
             setHomeButtonEnabled(true)

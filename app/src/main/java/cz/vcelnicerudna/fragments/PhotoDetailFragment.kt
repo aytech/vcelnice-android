@@ -1,8 +1,5 @@
 package cz.vcelnicerudna.fragments
 
-//import com.bumptech.glide.request.target.SimpleTarget
-//import com.bumptech.glide.request.transition.Transition
-//import cz.vcelnicerudna.GlideApp
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater

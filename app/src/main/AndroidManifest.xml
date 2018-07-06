@@ -77,15 +77,5 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".PhotoActivity" />
         </activity>
-        <activity
-            android:name=".PhotoGalleryActivity"
-            android:parentActivityName=".PhotoActivity"
-            android:theme="@style/AppTheme"
-            tools:targetApi="jelly_bean">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PhotoActivity" />
-        </activity>
     </application>
-
 </manifest>

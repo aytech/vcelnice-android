@@ -1,18 +1,17 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Včelnice Rudná</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
     <string name="jan_saroch_email_cz">jan.saroch@email.cz</string>
     <string name="home">Domů</string>
     <string name="photo">Foto</string>
-    <string name="video">Video</string>
-    <string name="certificates">Certifikáty</string>
-    <string name="region">Region</string>
+    <string name="video" tools:keep="@string/video">Video</string>
+    <string name="certificates" tools:keep="@string/certificates">Certifikáty</string>
+    <string name="region" tools:keep="@string/region">Region</string>
     <string name="news">Novinky</string>
-    <string name="recipes">Recepty</string>
+    <string name="recipes" tools:keep="@string/recipes">Recepty</string>
     <string name="price_list">Ceník</string>
     <string name="contact">Kontakt</string>
     <string name="call">Volat</string>
@@ -33,7 +32,6 @@
     <string name="prices_not_found">Ceníky nebyly nalezeny</string>
     <string name="photos_not_found">Obrázky nebyly nalezeny</string>
     <string name="enter_valid_email">Zadejte platnou e-mailovou adresu</string>
-    <string name="close">Zavřít</string>
     <string name="network_error">Chyba sítě</string>
     <string name="enter_message">Zadejte zprávu</string>
     <string name="contact_sent_success">Zpráva byla odeslána, děkujeme</string>
@@ -45,13 +43,4 @@
     <string name="enter_number_of_glasses">Zadejte počet sklenic</string>
     <string name="news_image">Obrázek článku</string>
     <string name="reload">Načíst znovu</string>
-    <string name="photo_list">Foto</string>
-    <string name="foto">Foto</string>
-    <string name="picture">Obrázek</string>
-    <string name="crash_title">A jejda, jsem rozbitý…</string>
-    <string name="crash_text">Nahlásit chybu správci?</string>
-    <string name="crash_prompt">Můžete k tomu napsat komentář, pokud chcete</string>
-    <string name="cancel">Zrušit</string>
-    <string name="title_activity_photo_gallery">PhotoGalleryActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

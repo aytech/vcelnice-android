@@ -102,14 +102,12 @@ class ReserveActivity : BaseActivity() {
         vcelniceAPI.getLocations()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { response: Array<Location> ->
-                            val locations = ArrayList<String>()
-                            locations.add(0, getString(R.string.pickup_at_address))
-                            response.forEach { locations.add(it.address) }
-                            setLocationsData(locations.toTypedArray())
-                        }
-                )
+                .subscribe { response: Array<Location> ->
+                    val locations = ArrayList<String>()
+                    locations.add(0, getString(R.string.pickup_at_address))
+                    response.forEach { locations.add(it.address) }
+                    setLocationsData(locations.toTypedArray())
+                }
     }
 
     private fun postReservation() {

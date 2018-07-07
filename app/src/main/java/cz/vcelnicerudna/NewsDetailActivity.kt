@@ -2,6 +2,9 @@ package cz.vcelnicerudna
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.ImageView
+import com.squareup.picasso.Picasso
+import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.models.News
 import kotlinx.android.synthetic.main.activity_news_detail.*
@@ -19,12 +22,11 @@ class NewsDetailActivity : AppCompatActivity() {
 
         newsItem = intent.getParcelableExtra(StringConstants.NEWS_KEY)
 
-//        GlideApp
-//                .with(this)
-//                .load(APIConstants.VCELNICE_BASE_URL + newsItem.icon)
-//                .placeholder(R.mipmap.ic_bee)
-//                .fitCenter()
-//                .into(news_image)
+        Picasso
+                .with(this)
+                .load(APIConstants.VCELNICE_BASE_URL + newsItem.icon)
+                .placeholder(R.mipmap.ic_bee)
+                .into(news_image as ImageView)
         news_title.text = newsItem.title
         news_text.text = newsItem.getParsedText()
     }

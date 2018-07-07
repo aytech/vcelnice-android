@@ -59,16 +59,15 @@ class PricesActivity : BaseActivity() {
                                 prices_recycler_view.visibility = View.VISIBLE
                                 viewAdapter.loadNewData(result)
                             }
-                        },
-                        {
-                            loading_content.visibility = View.GONE
-                            val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
-                            snackbar.setAction(getString(R.string.reload), {
-                                snackbar.dismiss()
-                                loadPrices()
-                            })
-                            snackbar.show()
                         }
-                )
+                ) {
+                    loading_content.visibility = View.GONE
+                    val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+                    snackbar.setAction(getString(R.string.reload)) {
+                        snackbar.dismiss()
+                        loadPrices()
+                    }
+                    snackbar.show()
+                }
     }
 }

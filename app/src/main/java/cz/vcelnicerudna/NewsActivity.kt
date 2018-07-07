@@ -53,16 +53,15 @@ class NewsActivity : BaseActivity() {
                         { result ->
                             loading_content.visibility = View.GONE
                             viewAdapter.loadNewData(result)
-                        },
-                        {
-                            loading_content.visibility = View.GONE
-                            val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
-                            snackbar.setAction(getString(R.string.reload), {
-                                snackbar.dismiss()
-                                loadNews()
-                            })
-                            snackbar.show()
                         }
-                )
+                ) {
+                    loading_content.visibility = View.GONE
+                    val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+                    snackbar.setAction(getString(R.string.reload)) {
+                        snackbar.dismiss()
+                        loadNews()
+                    }
+                    snackbar.show()
+                }
     }
 }

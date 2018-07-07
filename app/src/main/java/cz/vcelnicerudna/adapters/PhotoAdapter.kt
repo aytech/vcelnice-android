@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
+import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.models.Photo
 import cz.vcelnicerudna.views.AspectRatioImageView
@@ -40,6 +41,7 @@ class PhotoAdapter(
                 Picasso
                         .with(itemView.context)
                         .load(APIConstants.VCELNICE_BASE_URL + photo.thumb)
+                        .placeholder(R.mipmap.ic_bee_foreground)
                         .into(itemView as ImageView)
             }
         }

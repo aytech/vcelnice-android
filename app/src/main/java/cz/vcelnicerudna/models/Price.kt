@@ -6,8 +6,8 @@ import cz.vcelnicerudna.configuration.StringConstants
 
 class Price() : Parcelable {
     var title: String? = null
-    var price: Int = 0
-    var weight: String? = null
+    private var price: Int = 0
+    private var weight: String? = null
     var image: String? = null
 
     constructor(parcel: Parcel) : this() {

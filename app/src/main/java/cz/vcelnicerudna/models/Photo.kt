@@ -5,12 +5,12 @@ import android.os.Parcelable
 
 class Photo() : Parcelable {
     var id: Int = 0
-    var caption: String = ""
+    private var caption: String = ""
     var image: String = ""
     var thumb: String = ""
     var width: Int = 0
     var height: Int = 0
-    var created: String = ""
+    private var created: String = ""
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()

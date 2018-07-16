@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.text.Html
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
@@ -50,7 +49,6 @@ class MainActivity : BaseActivity() {
                             main_image.visibility = View.VISIBLE
                             main_title.text = result.title
                             main_text.text = Html.fromHtml(result.text)
-                            Log.d("MainActivity", APIConstants.VCELNICE_BASE_URL + result.icon)
                             Picasso
                                     .with(this)
                                     .load(APIConstants.VCELNICE_BASE_URL + result.icon)

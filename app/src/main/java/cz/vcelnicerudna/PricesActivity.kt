@@ -8,6 +8,8 @@ import android.view.View
 import cz.vcelnicerudna.adapters.PricesAdapter
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.content_prices.*
 
@@ -46,7 +48,8 @@ class PricesActivity : BaseActivity() {
 
     private fun loadPrices() {
         loading_content.visibility = View.VISIBLE
-        vcelniceAPI.getPrices()
+        val compositeDisposable = CompositeDisposable()
+        val disposable: Disposable = vcelniceAPI.getPrices()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -59,8 +62,9 @@ class PricesActivity : BaseActivity() {
                                 prices_recycler_view.visibility = View.VISIBLE
                                 viewAdapter.loadNewData(result)
                             }
+                            compositeDisposable.dispose()
                         }
-                ) {
+                ) { _ ->
                     loading_content.visibility = View.GONE
                     val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
                     snackbar.setAction(getString(R.string.reload)) {
@@ -68,6 +72,8 @@ class PricesActivity : BaseActivity() {
                         loadPrices()
                     }
                     snackbar.show()
+                    compositeDisposable.dispose()
                 }
+        compositeDisposable.add(disposable)
     }
 }

@@ -14,6 +14,8 @@ import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.HomeText
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -52,7 +54,8 @@ class MainActivity : BaseActivity() {
 
     private fun loadHomeText() {
         loading_content.visibility = View.VISIBLE
-        vcelniceAPI.getHomeText()
+        val compositeDisposable = CompositeDisposable()
+        val disposable: Disposable = vcelniceAPI.getHomeText()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -68,8 +71,9 @@ class MainActivity : BaseActivity() {
                                     .into(main_image as ImageView)
                             // https://medium.com/mindorks/android-architecture-components-room-and-kotlin-f7b725c8d1d
                             insertHomeTextToDB(result)
+                            compositeDisposable.dispose()
                         }
-                ) {
+                ) { _ ->
                     loading_content.visibility = View.GONE
                     val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
                     snackbar.setAction(getString(R.string.reload)) {
@@ -77,7 +81,9 @@ class MainActivity : BaseActivity() {
                         loadHomeText()
                     }
                     snackbar.show()
+                    compositeDisposable.dispose()
                 }
+        compositeDisposable.add(disposable)
     }
 
     private fun insertHomeTextToDB(homeText: HomeText) {
@@ -87,7 +93,7 @@ class MainActivity : BaseActivity() {
         Log.d("MainActivity", "Inserting to DB: $homeText")
     }
 
-    fun fetchHomeTextFromDB() {
+    private fun fetchHomeTextFromDB() {
         val task = Runnable {
             val homeText = appDatabase?.homeDao()?.getHomeText()
             uiHandler?.post {

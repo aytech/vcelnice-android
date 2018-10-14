@@ -14,6 +14,8 @@ import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.Location
 import cz.vcelnicerudna.models.Price
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_reserve.*
 import kotlinx.android.synthetic.main.app_toolbar.*
@@ -99,7 +101,8 @@ class ReserveActivity : BaseActivity() {
     }
 
     private fun getLocations() {
-        vcelniceAPI.getLocations()
+        val compositeDisposable = CompositeDisposable()
+        val disposable: Disposable = vcelniceAPI.getLocations()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { response: Array<Location> ->
@@ -107,14 +110,17 @@ class ReserveActivity : BaseActivity() {
                     locations.add(0, getString(R.string.pickup_at_address))
                     response.forEach { locations.add(it.address) }
                     setLocationsData(locations.toTypedArray())
+                    compositeDisposable.dispose()
                 }
+        compositeDisposable.add(disposable)
     }
 
     private fun postReservation() {
         val emailParam: String = email.text.toString()
         val messageParam: String = URLEncoder.encode(message.text.toString(), StringConstants.UTF_8)
         val titleParam = price.getStringRepresentation()
-        vcelniceAPI.reserve(numberOfGlasses, emailParam, messageParam, titleParam, pickAddress)
+        val compositeDisposable = CompositeDisposable()
+        val disposable: Disposable = vcelniceAPI.reserve(numberOfGlasses, emailParam, messageParam, titleParam, pickAddress)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -125,11 +131,14 @@ class ReserveActivity : BaseActivity() {
                             message.text.clear()
                             getThemedSnackbar(main_view, R.string.reservation_sent_success, Snackbar.LENGTH_LONG)
                                     .show()
+                            compositeDisposable.dispose()
                         },
                         {
                             getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_LONG)
                                     .show()
+                            compositeDisposable.dispose()
                         }
                 )
+        compositeDisposable.add(disposable)
     }
 }

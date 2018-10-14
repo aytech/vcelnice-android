@@ -18,6 +18,8 @@ import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.Photo
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_photo.*
 
@@ -109,9 +111,10 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener {
         }
     }
 
-        private fun loadPhoto() {
+    private fun loadPhoto() {
         loading_content.visibility = View.VISIBLE
-        vcelniceAPI.getPhoto()
+        val compositeDisposable = CompositeDisposable()
+        val disposable: Disposable = vcelniceAPI.getPhoto()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -124,8 +127,9 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener {
                                 photos = result.toCollection(ArrayList())
                                 photoAdapter.loadData(photos)
                             }
+                            compositeDisposable.dispose()
                         }
-                ) {
+                ) { _ ->
                     loading_content.visibility = View.GONE
                     val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
                     snackbar.setAction(getString(R.string.reload)) {
@@ -133,6 +137,8 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener {
                         loadPhoto()
                     }
                     snackbar.show()
+                    compositeDisposable.dispose()
                 }
+        compositeDisposable.add(disposable)
     }
 }

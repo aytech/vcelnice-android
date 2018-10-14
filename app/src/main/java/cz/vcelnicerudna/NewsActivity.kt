@@ -8,6 +8,8 @@ import android.view.View
 import cz.vcelnicerudna.adapters.NewsAdapter
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.content_news.*
 
@@ -46,15 +48,17 @@ class NewsActivity : BaseActivity() {
 
     private fun loadNews() {
         loading_content.visibility = View.VISIBLE
-        vcelniceAPI.getNews()
+        val compositeDisposable = CompositeDisposable()
+        val disposable: Disposable = vcelniceAPI.getNews()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result ->
                             loading_content.visibility = View.GONE
                             viewAdapter.loadNewData(result)
+                            compositeDisposable.dispose()
                         }
-                ) {
+                ) { _ ->
                     loading_content.visibility = View.GONE
                     val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
                     snackbar.setAction(getString(R.string.reload)) {
@@ -62,6 +66,8 @@ class NewsActivity : BaseActivity() {
                         loadNews()
                     }
                     snackbar.show()
+                    compositeDisposable.dispose()
                 }
+        compositeDisposable.add(disposable)
     }
 }

@@ -41,7 +41,7 @@ class ReserveActivity : BaseActivity() {
         getLocations()
         price = intent.getParcelableExtra(StringConstants.PRICE_KEY)
 
-        reserve_button.setOnClickListener { _ ->
+        reserve_button.setOnClickListener {
             if (numberOfGlassesValid() && emailValid()) {
                 email_error.visibility = View.INVISIBLE
                 postReservation()
@@ -127,8 +127,8 @@ class ReserveActivity : BaseActivity() {
                         {
                             numberOfGlasses = 0
                             spinner.adapter = spinnerArrayAdapter
-                            email.text.clear()
-                            message.text.clear()
+                            email.text?.clear()
+                            message.text?.clear()
                             getThemedSnackbar(main_view, R.string.reservation_sent_success, Snackbar.LENGTH_LONG)
                                     .show()
                             compositeDisposable.dispose()

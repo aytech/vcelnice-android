@@ -25,7 +25,7 @@ class EmailActivity : BaseActivity() {
         setContentView(R.layout.activity_email)
         super.actionBarToggleWithNavigation(this)
 
-        send_message.setOnClickListener { _ ->
+        send_message.setOnClickListener {
             if (emailValid() && messageValid()) {
                 email_error.visibility = View.INVISIBLE
                 postContactMessage()
@@ -63,8 +63,8 @@ class EmailActivity : BaseActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
-                            email.text.clear()
-                            message.text.clear()
+                            email.text?.clear()
+                            message.text?.clear()
                             getThemedSnackbar(main_view, R.string.contact_sent_success, Snackbar.LENGTH_LONG)
                                     .show()
                             compositeDisposable.dispose()

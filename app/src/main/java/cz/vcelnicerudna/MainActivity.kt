@@ -53,7 +53,6 @@ class MainActivity : BaseActivity() {
 
     private fun loadHomeText() {
         loading_content.visibility = View.VISIBLE
-
         if (isConnectedToInternet()) {
             fetchTextFromAPI()
         } else {
@@ -71,7 +70,7 @@ class MainActivity : BaseActivity() {
                             onResultAction(result)
                             compositeDisposable.dispose()
                         }
-                ) { _ ->
+                ) {
                     noResultAction()
                     compositeDisposable.dispose()
                 }

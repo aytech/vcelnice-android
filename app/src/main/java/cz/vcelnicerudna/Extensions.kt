@@ -7,11 +7,10 @@ import android.text.Html
 import android.text.Spanned
 
 fun Context.isConnectedToInternet(): Boolean {
+
     val connManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    if (connManager.activeNetworkInfo != null && connManager.activeNetworkInfo.isConnectedOrConnecting) {
-        return true
-    }
-    return false
+    val activeNetwork = connManager.activeNetworkInfo ?: return false
+    return activeNetwork.isConnected
 }
 
 fun loadHTML(html: String): Spanned? {

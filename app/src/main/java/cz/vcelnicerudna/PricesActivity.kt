@@ -64,7 +64,7 @@ class PricesActivity : BaseActivity() {
                             }
                             compositeDisposable.dispose()
                         }
-                ) { _ ->
+                ) {
                     loading_content.visibility = View.GONE
                     val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
                     snackbar.setAction(getString(R.string.reload)) {

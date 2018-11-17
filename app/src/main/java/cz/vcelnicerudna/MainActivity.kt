@@ -9,6 +9,7 @@ import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import cz.vcelnicerudna.R.layout.activity_main
 import cz.vcelnicerudna.configuration.APIConstants
+import cz.vcelnicerudna.configuration.AppConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.HomeText
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -34,8 +35,7 @@ class MainActivity : BaseActivity() {
         setContentView(activity_main)
         super.actionBarToggleWithNavigation(this)
 
-        // https://medium.com/mindorks/android-architecture-components-room-and-kotlin-f7b725c8d1d
-        appDatabaseWorkerThread = AppDatabaseWorkerThread("appDatabaseWorkerThread")
+        appDatabaseWorkerThread = AppDatabaseWorkerThread(AppConstants.APP_DB_THREAD_NAME)
         appDatabaseWorkerThread.start()
         appDatabase = AppDatabase.getInstance(this)
         uiHandler = Handler()

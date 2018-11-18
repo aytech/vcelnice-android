@@ -17,6 +17,7 @@ import cz.vcelnicerudna.adapters.PhotoAdapter
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.Photo
+import cz.vcelnicerudna.models.PhotoData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -113,32 +114,66 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener {
 
     private fun loadPhoto() {
         loading_content.visibility = View.VISIBLE
+        if (isConnectedToInternet()) {
+            fetchPhotoFromAPI()
+        } else {
+            fetchPhotoFromDatabase()
+        }
+    }
+
+    private fun fetchPhotoFromAPI() {
         val compositeDisposable = CompositeDisposable()
         val disposable: Disposable = vcelniceAPI.getPhoto()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result ->
-                            loading_content.visibility = View.GONE
-                            if (result.isEmpty()) {
-                                no_content.visibility = View.VISIBLE
-                            } else {
-                                no_content.visibility = View.GONE
-                                photos = result.toCollection(ArrayList())
-                                photoAdapter.loadData(photos)
-                            }
+                        { response: Array<Photo> ->
+                            onFetchPhotoSuccess(response)
+                            insertPhotoResponseToDatabase(response)
                             compositeDisposable.dispose()
                         }
                 ) {
-                    loading_content.visibility = View.GONE
-                    val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
-                    snackbar.setAction(getString(R.string.reload)) {
-                        snackbar.dismiss()
-                        loadPhoto()
-                    }
-                    snackbar.show()
+                    onFetchPhotoError()
                     compositeDisposable.dispose()
                 }
         compositeDisposable.add(disposable)
+    }
+
+    private fun fetchPhotoFromDatabase() {
+        appDatabaseWorkerThread.postTask(Runnable {
+            val photoData = appDatabase?.photoDao()?.getPhoto()
+            if (photoData == null) {
+                onFetchPhotoError()
+            } else {
+                onFetchPhotoSuccess(photoData.data)
+            }
+        })
+    }
+
+    private fun onFetchPhotoSuccess(photoCollection: Array<Photo>) {
+        loading_content.visibility = View.GONE
+        if (photoCollection.isEmpty()) {
+            no_content.visibility = View.VISIBLE
+        } else {
+            no_content.visibility = View.GONE
+            photos = photoCollection.toCollection(ArrayList())
+            photoAdapter.loadData(photos)
+        }
+    }
+
+    private fun onFetchPhotoError() {
+        loading_content.visibility = View.GONE
+        val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+        snackbar.setAction(getString(R.string.reload)) {
+            snackbar.dismiss()
+            loadPhoto()
+        }
+        snackbar.show()
+    }
+
+    private fun insertPhotoResponseToDatabase(photos: Array<Photo>) {
+        val photoData = PhotoData()
+        photoData.data = photos
+        appDatabaseWorkerThread.postTask(Runnable { appDatabase?.photoDao()?.insert(photoData) })
     }
 }

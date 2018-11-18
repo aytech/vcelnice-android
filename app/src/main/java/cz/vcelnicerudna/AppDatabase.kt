@@ -5,14 +5,8 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import cz.vcelnicerudna.configuration.AppConstants
-import cz.vcelnicerudna.interfaces.HomeDao
-import cz.vcelnicerudna.interfaces.LocationsDao
-import cz.vcelnicerudna.interfaces.NewsDao
-import cz.vcelnicerudna.interfaces.PricesDao
-import cz.vcelnicerudna.models.HomeText
-import cz.vcelnicerudna.models.LocationData
-import cz.vcelnicerudna.models.NewsData
-import cz.vcelnicerudna.models.PricesData
+import cz.vcelnicerudna.interfaces.*
+import cz.vcelnicerudna.models.*
 
 // https://medium.com/mindorks/android-architecture-components-room-and-kotlin-f7b725c8d1d
 // https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929
@@ -20,12 +14,14 @@ import cz.vcelnicerudna.models.PricesData
     HomeText::class,
     NewsData::class,
     PricesData::class,
-    LocationData::class], version = 1)
+    LocationData::class,
+    PhotoData::class], version = 1)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun homeDao(): HomeDao
     abstract fun newsDao(): NewsDao
     abstract fun pricesDao(): PricesDao
     abstract fun locationsDao(): LocationsDao
+    abstract fun photoDao(): PhotoDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null

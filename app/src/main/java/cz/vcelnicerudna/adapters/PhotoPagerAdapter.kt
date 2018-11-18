@@ -1,6 +1,7 @@
 package cz.vcelnicerudna.adapters
 
 import android.app.Activity
+import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewCompat
@@ -11,6 +12,7 @@ import android.view.ViewTreeObserver
 import android.widget.ImageView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.models.Photo
 
@@ -45,6 +47,11 @@ class PhotoPagerAdapter(
                     }
 
                     override fun onError() {
+                        val snackbar = Snackbar.make(
+                                imageView,
+                                activity.applicationContext.getString(R.string.network_error),
+                                Snackbar.LENGTH_LONG)
+                        snackbar.show()
                         ActivityCompat.startPostponedEnterTransition(activity)
                     }
                 })

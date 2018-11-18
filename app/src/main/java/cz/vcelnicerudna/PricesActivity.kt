@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import cz.vcelnicerudna.adapters.PricesAdapter
 import cz.vcelnicerudna.interfaces.VcelniceAPI
+import cz.vcelnicerudna.models.Price
+import cz.vcelnicerudna.models.PricesData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -48,32 +50,66 @@ class PricesActivity : BaseActivity() {
 
     private fun loadPrices() {
         loading_content.visibility = View.VISIBLE
+        if (isConnectedToInternet()) {
+            fetchPricesFromAPI()
+        } else {
+            fetchPricesFromDatabase()
+        }
+    }
+
+    private fun fetchPricesFromAPI() {
         val compositeDisposable = CompositeDisposable()
         val disposable: Disposable = vcelniceAPI.getPrices()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result ->
-                            loading_content.visibility = View.GONE
-                            if (result.isEmpty()) {
-                                empty_message.visibility = View.VISIBLE
-                            } else {
-                                empty_message.visibility = View.GONE
-                                prices_recycler_view.visibility = View.VISIBLE
-                                viewAdapter.loadNewData(result)
-                            }
+                        { prices: Array<Price> ->
+                            onFetchSuccess(prices)
+                            insertPricesToDatabase(prices)
                             compositeDisposable.dispose()
                         }
                 ) {
-                    loading_content.visibility = View.GONE
-                    val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
-                    snackbar.setAction(getString(R.string.reload)) {
-                        snackbar.dismiss()
-                        loadPrices()
-                    }
-                    snackbar.show()
+                    onFetchError()
                     compositeDisposable.dispose()
                 }
         compositeDisposable.add(disposable)
+    }
+
+    private fun fetchPricesFromDatabase() {
+        appDatabaseWorkerThread.postTask(Runnable {
+            val prices = appDatabase?.pricesDao()?.getPrices()
+            if (prices == null) {
+                onFetchError()
+            } else {
+                onFetchSuccess(prices.data)
+            }
+        })
+    }
+
+    private fun onFetchSuccess(prices: Array<Price>) {
+        loading_content.visibility = View.GONE
+        if (prices.isEmpty()) {
+            empty_message.visibility = View.VISIBLE
+        } else {
+            empty_message.visibility = View.GONE
+            prices_recycler_view.visibility = View.VISIBLE
+            viewAdapter.loadNewData(prices)
+        }
+    }
+
+    private fun onFetchError() {
+        loading_content.visibility = View.GONE
+        val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+        snackbar.setAction(getString(R.string.reload)) {
+            snackbar.dismiss()
+            loadPrices()
+        }
+        snackbar.show()
+    }
+
+    private fun insertPricesToDatabase(prices: Array<Price>) {
+        val pricesData = PricesData()
+        pricesData.data = prices
+        appDatabaseWorkerThread.postTask(Runnable { appDatabase?.pricesDao()?.insert(pricesData) })
     }
 }

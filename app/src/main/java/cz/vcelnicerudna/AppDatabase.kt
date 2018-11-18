@@ -7,17 +7,21 @@ import android.content.Context
 import cz.vcelnicerudna.configuration.AppConstants
 import cz.vcelnicerudna.interfaces.HomeDao
 import cz.vcelnicerudna.interfaces.NewsDao
+import cz.vcelnicerudna.interfaces.PricesDao
 import cz.vcelnicerudna.models.HomeText
 import cz.vcelnicerudna.models.NewsData
+import cz.vcelnicerudna.models.PricesData
 
 // https://medium.com/mindorks/android-architecture-components-room-and-kotlin-f7b725c8d1d
 // https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929
 @Database(entities = [
     HomeText::class,
-    NewsData::class], version = 1)
+    NewsData::class,
+    PricesData::class], version = 1)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun homeDao(): HomeDao
     abstract fun newsDao(): NewsDao
+    abstract fun pricesDao(): PricesDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null

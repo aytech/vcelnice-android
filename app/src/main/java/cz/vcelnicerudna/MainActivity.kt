@@ -55,18 +55,19 @@ class MainActivity : BaseActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result: HomeText ->
-                            onResultAction(result)
+                        { text: HomeText ->
+                            onFetchSuccess(text)
+                            insertHomeTextToDatabase(text)
                             compositeDisposable.dispose()
                         }
                 ) {
-                    noResultAction()
+                    onFetchError()
                     compositeDisposable.dispose()
                 }
         compositeDisposable.add(disposable)
     }
 
-    private fun insertHomeTextToDB(homeText: HomeText) {
+    private fun insertHomeTextToDatabase(homeText: HomeText) {
         val task = Runnable { appDatabase?.homeDao()?.insert(homeText) }
         appDatabaseWorkerThread.postTask(task)
     }
@@ -76,16 +77,16 @@ class MainActivity : BaseActivity() {
             val homeText = appDatabase?.homeDao()?.getHomeText()
             uiHandler?.post {
                 if (homeText == null) {
-                    noResultAction()
+                    onFetchError()
                 } else {
-                    onResultAction(homeText)
+                    onFetchSuccess(homeText)
                 }
             }
         }
         appDatabaseWorkerThread.postTask(task)
     }
 
-    private fun noResultAction() {
+    private fun onFetchError() {
         loading_content.visibility = View.GONE
         val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
         snackbar.setAction(getString(R.string.reload)) {
@@ -95,7 +96,7 @@ class MainActivity : BaseActivity() {
         snackbar.show()
     }
 
-    private fun onResultAction(result: HomeText) {
+    private fun onFetchSuccess(result: HomeText) {
         loading_content.visibility = View.GONE
         main_image.visibility = View.VISIBLE
         main_title.text = result.title
@@ -105,6 +106,5 @@ class MainActivity : BaseActivity() {
                 .load(APIConstants.VCELNICE_BASE_URL + result.icon)
                 .placeholder(R.mipmap.ic_default_image)
                 .into(main_image as ImageView)
-        insertHomeTextToDB(result)
     }
 }

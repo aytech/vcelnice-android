@@ -1,4 +1,4 @@
-package cz.vcelnicerudna.configuration
+package cz.vcelnicerudna.converters
 
 import android.arch.persistence.room.TypeConverter
 import com.google.gson.Gson

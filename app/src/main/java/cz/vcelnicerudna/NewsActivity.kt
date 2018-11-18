@@ -54,7 +54,7 @@ class NewsActivity : BaseActivity() {
         if (isConnectedToInternet()) {
             fetchNewsFromAPI()
         } else {
-            fetchNewsFromDB()
+            fetchNewsFromDatabase()
         }
     }
 
@@ -64,38 +64,38 @@ class NewsActivity : BaseActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result: Array<News> ->
-                            onResultAction(result)
+                        { news: Array<News> ->
+                            onFetchSuccess(news)
+                            insertNewsToDatabase(news)
                             compositeDisposable.dispose()
                         }
                 ) {
-                    errorResultAction()
+                    onFetchError()
                     compositeDisposable.dispose()
                 }
         compositeDisposable.add(disposable)
     }
 
-    private fun fetchNewsFromDB() {
+    private fun fetchNewsFromDatabase() {
         val task = Runnable {
             val news = appDatabase?.newsDao()?.getNews()
             uiHandler?.post {
                 if (news == null) {
-                    errorResultAction()
+                    onFetchError()
                 } else {
-                    onResultAction(news.data)
+                    onFetchSuccess(news.data)
                 }
             }
         }
         appDatabaseWorkerThread.postTask(task)
     }
 
-    private fun onResultAction(result: Array<News>) {
+    private fun onFetchSuccess(result: Array<News>) {
         loading_content.visibility = View.GONE
         viewAdapter.loadNewData(result)
-        insertToDB(result)
     }
 
-    private fun errorResultAction() {
+    private fun onFetchError() {
         loading_content.visibility = View.GONE
         val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
         snackbar.setAction(getString(R.string.reload)) {
@@ -105,7 +105,7 @@ class NewsActivity : BaseActivity() {
         snackbar.show()
     }
 
-    private fun insertToDB(news: Array<News>) {
+    private fun insertNewsToDatabase(news: Array<News>) {
         val newsData = NewsData()
         newsData.data = news
         appDatabaseWorkerThread.postTask(Runnable { appDatabase?.newsDao()?.insert(newsData) })

@@ -12,6 +12,7 @@ import cz.vcelnicerudna.adapters.ArrayAdapterWithPlaceholder
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.Location
+import cz.vcelnicerudna.models.LocationData
 import cz.vcelnicerudna.models.Price
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -37,9 +38,10 @@ class ReserveActivity : BaseActivity() {
         setContentView(R.layout.activity_reserve)
         setSupportActionBar(app_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        price = intent.getParcelableExtra(StringConstants.PRICE_KEY)
+
         setNumberOfGlassesData()
         getLocations()
-        price = intent.getParcelableExtra(StringConstants.PRICE_KEY)
 
         reserve_button.setOnClickListener {
             if (numberOfGlassesValid() && emailValid()) {
@@ -101,18 +103,46 @@ class ReserveActivity : BaseActivity() {
     }
 
     private fun getLocations() {
+        if (isConnectedToInternet()) {
+            fetchLocationsFromAPI()
+        } else {
+            fetchLocationsFromDatabase()
+        }
+    }
+
+    private fun fetchLocationsFromAPI() {
         val compositeDisposable = CompositeDisposable()
         val disposable: Disposable = vcelniceAPI.getLocations()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { response: Array<Location> ->
-                    val locations = ArrayList<String>()
-                    locations.add(0, getString(R.string.pickup_at_address))
-                    response.forEach { locations.add(it.address) }
-                    setLocationsData(locations.toTypedArray())
+                .subscribe { locations: Array<Location> ->
+                    onLocationsFetchSuccess(locations)
+                    insertLocationsToDatabase(locations)
                     compositeDisposable.dispose()
                 }
         compositeDisposable.add(disposable)
+    }
+
+    private fun onLocationsFetchSuccess(locations: Array<Location>) {
+        val locationCollection = ArrayList<String>()
+        locationCollection.add(0, getString(R.string.pickup_at_address))
+        locations.forEach { locationCollection.add(it.address) }
+        setLocationsData(locationCollection.toTypedArray())
+    }
+
+    private fun fetchLocationsFromDatabase() {
+        appDatabaseWorkerThread.postTask(Runnable {
+            val locations = appDatabase?.locationsDao()?.getLocations()
+            if (locations != null) {
+                onLocationsFetchSuccess(locations.data)
+            }
+        })
+    }
+
+    private fun insertLocationsToDatabase(locations: Array<Location>) {
+        val locationsData = LocationData()
+        locationsData.data = locations
+        appDatabaseWorkerThread.postTask(Runnable { appDatabase?.locationsDao()?.insert(locationsData) })
     }
 
     private fun postReservation() {

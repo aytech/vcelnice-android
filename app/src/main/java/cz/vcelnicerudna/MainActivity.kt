@@ -1,7 +1,6 @@
 package cz.vcelnicerudna
 
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.view.View
@@ -9,7 +8,6 @@ import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import cz.vcelnicerudna.R.layout.activity_main
 import cz.vcelnicerudna.configuration.APIConstants
-import cz.vcelnicerudna.configuration.AppConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.HomeText
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,10 +20,6 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : BaseActivity() {
 
-    private var appDatabase: AppDatabase? = null
-    private var uiHandler: Handler? = null
-    private lateinit var appDatabaseWorkerThread: AppDatabaseWorkerThread
-
     private val vcelniceAPI by lazy {
         VcelniceAPI.create()
     }
@@ -34,11 +28,6 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
         super.actionBarToggleWithNavigation(this)
-
-        appDatabaseWorkerThread = AppDatabaseWorkerThread(AppConstants.APP_DB_THREAD_NAME)
-        appDatabaseWorkerThread.start()
-        appDatabase = AppDatabase.getInstance(this)
-        uiHandler = Handler()
 
         loadHomeText()
     }
@@ -117,11 +106,5 @@ class MainActivity : BaseActivity() {
                 .placeholder(R.mipmap.ic_default_image)
                 .into(main_image as ImageView)
         insertHomeTextToDB(result)
-    }
-
-    override fun onDestroy() {
-        AppDatabase.destroyInstance()
-        appDatabaseWorkerThread.quit()
-        super.onDestroy()
     }
 }

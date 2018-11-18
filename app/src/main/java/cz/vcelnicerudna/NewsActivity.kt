@@ -1,13 +1,11 @@
 package cz.vcelnicerudna
 
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import cz.vcelnicerudna.adapters.NewsAdapter
-import cz.vcelnicerudna.configuration.AppConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.News
 import cz.vcelnicerudna.models.NewsData
@@ -22,10 +20,6 @@ class NewsActivity : BaseActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: NewsAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
-
-    private var appDatabase: AppDatabase? = null
-    private lateinit var appDatabaseWorkerThread: AppDatabaseWorkerThread
-    private var uiHandler: Handler? = null
 
     private val vcelniceAPI by lazy {
         VcelniceAPI.create()
@@ -51,11 +45,6 @@ class NewsActivity : BaseActivity() {
             adapter = viewAdapter
 
         }
-
-        appDatabaseWorkerThread = AppDatabaseWorkerThread(AppConstants.APP_DB_THREAD_NAME)
-        appDatabaseWorkerThread.start()
-        appDatabase = AppDatabase.getInstance(this)
-        uiHandler = Handler()
 
         loadNews()
     }

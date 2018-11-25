@@ -7,7 +7,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import cz.vcelnicerudna.adapters.NewsAdapter
 import cz.vcelnicerudna.interfaces.VcelniceAPI
+import cz.vcelnicerudna.models.News
+import cz.vcelnicerudna.models.NewsData
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.content_news.*
 
@@ -41,27 +45,69 @@ class NewsActivity : BaseActivity() {
             adapter = viewAdapter
 
         }
+
         loadNews()
     }
 
     private fun loadNews() {
         loading_content.visibility = View.VISIBLE
-        vcelniceAPI.getNews()
+        if (isConnectedToInternet()) {
+            fetchNewsFromAPI()
+        } else {
+            fetchNewsFromDatabase()
+        }
+    }
+
+    private fun fetchNewsFromAPI() {
+        val compositeDisposable = CompositeDisposable()
+        val disposable: Disposable = vcelniceAPI.getNews()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result ->
-                            loading_content.visibility = View.GONE
-                            viewAdapter.loadNewData(result)
+                        { news: Array<News> ->
+                            onFetchSuccess(news)
+                            insertNewsToDatabase(news)
+                            compositeDisposable.dispose()
                         }
                 ) {
-                    loading_content.visibility = View.GONE
-                    val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
-                    snackbar.setAction(getString(R.string.reload)) {
-                        snackbar.dismiss()
-                        loadNews()
-                    }
-                    snackbar.show()
+                    onFetchError()
+                    compositeDisposable.dispose()
                 }
+        compositeDisposable.add(disposable)
+    }
+
+    private fun fetchNewsFromDatabase() {
+        val task = Runnable {
+            val news = appDatabase?.newsDao()?.getNews()
+            uiHandler?.post {
+                if (news == null) {
+                    onFetchError()
+                } else {
+                    onFetchSuccess(news.data)
+                }
+            }
+        }
+        appDatabaseWorkerThread.postTask(task)
+    }
+
+    private fun onFetchSuccess(result: Array<News>) {
+        loading_content.visibility = View.GONE
+        viewAdapter.loadNewData(result)
+    }
+
+    private fun onFetchError() {
+        loading_content.visibility = View.GONE
+        val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+        snackbar.setAction(getString(R.string.reload)) {
+            snackbar.dismiss()
+            loadNews()
+        }
+        snackbar.show()
+    }
+
+    private fun insertNewsToDatabase(news: Array<News>) {
+        val newsData = NewsData()
+        newsData.data = news
+        appDatabaseWorkerThread.postTask(Runnable { appDatabase?.newsDao()?.insert(newsData) })
     }
 }

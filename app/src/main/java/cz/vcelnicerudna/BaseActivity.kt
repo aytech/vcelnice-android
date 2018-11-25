@@ -3,6 +3,8 @@ package cz.vcelnicerudna
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
+import android.os.Handler
 import android.support.design.R.id.snackbar_text
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
@@ -19,6 +21,25 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_toolbar.*
 
 open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    protected var appDatabase: AppDatabase? = null
+    protected var uiHandler: Handler? = null
+    protected lateinit var appDatabaseWorkerThread: AppDatabaseWorkerThread
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        appDatabaseWorkerThread = AppDatabaseWorkerThread(AppConstants.APP_DB_THREAD_NAME)
+        appDatabaseWorkerThread.start()
+        appDatabase = AppDatabase.getInstance(this)
+        uiHandler = Handler()
+    }
+
+    override fun onDestroy() {
+        AppDatabase.destroyInstance()
+        appDatabaseWorkerThread.quit()
+        super.onDestroy()
+    }
 
     fun actionBarToggleWithNavigation(activity: Activity) {
         setSupportActionBar(app_toolbar)

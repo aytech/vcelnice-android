@@ -32,16 +32,16 @@ class PhotoViewActivity : AppCompatActivity() {
     private var photoPagerAdapter: PhotoPagerAdapter? = null
 
     private val enterElementCallback: SharedElementCallback = object : SharedElementCallback() {
-        override fun onMapSharedElements(names: MutableList<String>, sharedElements: MutableMap<String, View>) {
+        override fun onMapSharedElements(names: MutableList<String?>, sharedElements: MutableMap<String?, View>) {
             if (isReturning) {
-                val sharedElement = photoPagerAdapter?.getView(currentPosition)
+                val sharedElement = photoPagerAdapter?.getView(currentPosition) as View
 
                 if (startingPosition != currentPosition) {
                     names.clear()
                     names.add(ViewCompat.getTransitionName(sharedElement))
 
                     sharedElements.clear()
-                    sharedElements[ViewCompat.getTransitionName(sharedElement)] = sharedElement!!
+                    sharedElements[ViewCompat.getTransitionName(sharedElement)] = sharedElement
                 }
             }
         }

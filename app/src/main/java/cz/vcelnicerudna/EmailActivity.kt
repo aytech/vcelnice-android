@@ -8,6 +8,8 @@ import android.view.View
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.content_email.*
 import java.net.URLEncoder
@@ -23,7 +25,7 @@ class EmailActivity : BaseActivity() {
         setContentView(R.layout.activity_email)
         super.actionBarToggleWithNavigation(this)
 
-        send_message.setOnClickListener { _ ->
+        send_message.setOnClickListener {
             if (emailValid() && messageValid()) {
                 email_error.visibility = View.INVISIBLE
                 postContactMessage()
@@ -55,20 +57,24 @@ class EmailActivity : BaseActivity() {
     private fun postContactMessage() {
         val emailParam: String = email.text.toString()
         val messageParam: String = URLEncoder.encode(message.text.toString(), StringConstants.UTF_8)
-        vcelniceAPI.postContactMessage(emailParam, messageParam)
+        val compositeDisposable = CompositeDisposable()
+        val disposable: Disposable = vcelniceAPI.postContactMessage(emailParam, messageParam)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
-                            email.text.clear()
-                            message.text.clear()
+                            email.text?.clear()
+                            message.text?.clear()
                             getThemedSnackbar(main_view, R.string.contact_sent_success, Snackbar.LENGTH_LONG)
                                     .show()
+                            compositeDisposable.dispose()
                         },
                         {
                             getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_LONG)
                                     .show()
+                            compositeDisposable.dispose()
                         }
                 )
+        compositeDisposable.add(disposable)
     }
 }

@@ -1,8 +1,8 @@
 package cz.vcelnicerudna
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.view.GravityCompat
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.view.GravityCompat
 import android.view.View
 import android.widget.ImageView
 import com.squareup.picasso.Picasso

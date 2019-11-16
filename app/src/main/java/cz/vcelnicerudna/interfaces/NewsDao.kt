@@ -1,6 +1,6 @@
 package cz.vcelnicerudna.interfaces
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import cz.vcelnicerudna.models.NewsData
 
 @Dao

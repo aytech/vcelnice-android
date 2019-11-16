@@ -1,6 +1,6 @@
 package cz.vcelnicerudna.converters
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import cz.vcelnicerudna.models.Price

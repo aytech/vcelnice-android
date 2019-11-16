@@ -11,8 +11,8 @@
         android:icon="@mipmap/ic_bee"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity android:name=".BaseActivity" />
         <activity
@@ -21,16 +21,13 @@
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data
-                    android:host="www.vseuslugi.cz"
+                    android:host="www.vcelnicerudna.cz"
                     android:scheme="http" />
             </intent-filter>
         </activity>

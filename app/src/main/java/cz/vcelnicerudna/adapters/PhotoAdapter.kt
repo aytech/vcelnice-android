@@ -1,7 +1,7 @@
 package cz.vcelnicerudna.adapters
 
-import android.support.v4.view.ViewCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -37,7 +37,7 @@ class PhotoAdapter(
             itemView.setOnClickListener { onItemClickListener?.onClick(photo, it) }
             itemView.tag = Photo.transitionName(photo.id)
             ViewCompat.setTransitionName(itemView, Photo.transitionName(photo.id))
-            if (!photo.thumb.isEmpty()) {
+            if (photo.thumb!!.isNotEmpty()) {
                 Picasso
                         .with(itemView.context)
                         .load(APIConstants.VCELNICE_BASE_URL + photo.thumb)

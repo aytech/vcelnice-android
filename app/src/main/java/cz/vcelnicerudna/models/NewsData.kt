@@ -1,6 +1,6 @@
 package cz.vcelnicerudna.models
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import cz.vcelnicerudna.converters.NewsConverter
 
 @Entity(tableName = "news")

@@ -1,7 +1,7 @@
 package cz.vcelnicerudna
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import com.google.android.material.snackbar.Snackbar
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
@@ -35,7 +35,7 @@ class EmailActivity : BaseActivity() {
 
     private fun emailValid(): Boolean {
         if (TextUtils.isEmpty(email.text)
-                || !Patterns.EMAIL_ADDRESS.matcher(email.text).matches()) {
+                || !Patterns.EMAIL_ADDRESS.matcher(email.text as CharSequence).matches()) {
             email_error.text = getString(R.string.enter_valid_email)
             email_error.visibility = View.VISIBLE
             return false

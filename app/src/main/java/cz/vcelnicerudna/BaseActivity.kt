@@ -5,13 +5,14 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.R.id.snackbar_text
-import android.support.design.widget.NavigationView
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
+//import android.support.design.R.id.snackbar_text
+//import android.support.design.R.id.snackbar_text
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
@@ -51,7 +52,7 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 R.string.navigation_drawer_close)
         toggle.isDrawerIndicatorEnabled = false
         toggle.setHomeAsUpIndicator(R.drawable.ic_fingerprint_white_24dp)
-        toggle.setToolbarNavigationClickListener { drawer_layout.openDrawer(Gravity.START) }
+        toggle.setToolbarNavigationClickListener { drawer_layout.openDrawer(GravityCompat.START) }
 
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
@@ -93,7 +94,8 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         snackbar.setActionTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
         // Set text color
         val snackbarView: View = snackbar.view
-        val snackBarTextView: TextView = snackbarView.findViewById(snackbar_text)
+        val snackBarTextView: TextView = snackbarView.findViewById(R.id.snackbar_text)
+//        val snackBarTextView: TextView = snackbarView.findViewById(snackbar_text)
         snackBarTextView.setTextColor(ContextCompat.getColor(this, R.color.white))
 
         return snackbar

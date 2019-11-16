@@ -4,11 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.SharedElementCallback
-import android.support.v4.view.ViewCompat
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.SharedElementCallback
+import androidx.core.view.ViewCompat
+import androidx.viewpager.widget.ViewPager
+import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import cz.vcelnicerudna.R.layout.activity_photo_view
@@ -71,9 +71,9 @@ class PhotoViewActivity : AppCompatActivity() {
         })
     }
 
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
-        outState?.putInt(SAVED_CURRENT_PAGE_POSITION, currentPosition)
+        outState.putInt(SAVED_CURRENT_PAGE_POSITION, currentPosition)
     }
 
     override fun finishAfterTransition() {
@@ -85,8 +85,8 @@ class PhotoViewActivity : AppCompatActivity() {
         super.finishAfterTransition()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        item.let {
             when (it.itemId) {
                 android.R.id.home -> {
                     supportFinishAfterTransition()

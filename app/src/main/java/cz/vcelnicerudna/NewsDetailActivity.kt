@@ -1,7 +1,7 @@
 package cz.vcelnicerudna
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import cz.vcelnicerudna.configuration.APIConstants
@@ -21,7 +21,7 @@ class NewsDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         newsItem = intent.getParcelableExtra(StringConstants.NEWS_KEY)
-
+        
         Picasso
                 .with(this)
                 .load(APIConstants.VCELNICE_BASE_URL + newsItem.icon)

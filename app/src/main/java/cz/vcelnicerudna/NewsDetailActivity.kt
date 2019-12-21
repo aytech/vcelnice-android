@@ -21,7 +21,7 @@ class NewsDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         newsItem = intent.getParcelableExtra(StringConstants.NEWS_KEY)
-        
+
         Picasso
                 .with(this)
                 .load(APIConstants.VCELNICE_BASE_URL + newsItem.icon)

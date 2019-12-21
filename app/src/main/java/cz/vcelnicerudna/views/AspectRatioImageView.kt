@@ -3,6 +3,7 @@ package cz.vcelnicerudna.views
 import android.content.Context
 import androidx.appcompat.widget.AppCompatImageView
 import android.util.AttributeSet
+import kotlin.math.roundToInt
 
 class AspectRatioImageView(context: Context, attributes: AttributeSet? = null, defStyle: Int = 0)
     : AppCompatImageView(context, attributes, defStyle) {
@@ -13,7 +14,7 @@ class AspectRatioImageView(context: Context, attributes: AttributeSet? = null, d
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val width = measuredWidth
-        val height = Math.round(width * widthRatio)
+        val height = (width * widthRatio).roundToInt()
         setMeasuredDimension(width, height)
 
         measureOnceListener?.onViewMeasure(width, height)

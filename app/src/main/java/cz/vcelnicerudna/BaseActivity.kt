@@ -2,6 +2,7 @@ package cz.vcelnicerudna
 
 import android.app.Activity
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -61,16 +62,24 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> {
-                startActivity(Intent(this, MainActivity::class.java))
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = FLAG_ACTIVITY_REORDER_TO_FRONT
+                startActivity(intent)
             }
             R.id.nav_news -> {
-                startActivity(Intent(this, NewsActivity::class.java))
+                val intent = Intent(this, NewsActivity::class.java)
+                intent.flags = FLAG_ACTIVITY_REORDER_TO_FRONT
+                startActivity(intent)
             }
             R.id.nav_prices -> {
-                startActivity(Intent(this, PricesActivity::class.java))
+                val intent = Intent(this, PricesActivity::class.java)
+                intent.flags = FLAG_ACTIVITY_REORDER_TO_FRONT
+                startActivity(intent)
             }
             R.id.nav_photo -> {
-                startActivity(Intent(this, PhotoActivity::class.java))
+                val intent = Intent(this, PhotoActivity::class.java)
+                intent.flags = FLAG_ACTIVITY_REORDER_TO_FRONT
+                startActivity(intent)
             }
             R.id.nav_call -> {
                 val intent = Intent(Intent.ACTION_DIAL)
@@ -78,7 +87,9 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 startActivity(intent)
             }
             R.id.nav_email -> {
-                startActivity(Intent(this, EmailActivity::class.java))
+                val intent = Intent(this, EmailActivity::class.java)
+                intent.flags = FLAG_ACTIVITY_REORDER_TO_FRONT
+                startActivity(intent)
             }
         }
 

@@ -7,7 +7,7 @@
     android:baselineAligned="false"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".main.MainActivity">
 
     <include layout="@layout/app_toolbar" />
 

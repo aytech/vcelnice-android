@@ -1,4 +1,4 @@
-package cz.vcelnicerudna
+package cz.vcelnicerudna.main
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -6,9 +6,13 @@ import androidx.core.view.GravityCompat
 import android.view.View
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
+import cz.vcelnicerudna.BaseActivity
+import cz.vcelnicerudna.R
 import cz.vcelnicerudna.R.layout.activity_main
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
+import cz.vcelnicerudna.isConnectedToInternet
+import cz.vcelnicerudna.loadHTML
 import cz.vcelnicerudna.models.HomeText
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -18,17 +22,21 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), MainContract.ViewInterface {
 
+    private lateinit var mainPresenter: MainContract.PresenterInterface
     private val vcelniceAPI by lazy {
         VcelniceAPI.create()
+    }
+
+    private fun setupPresenter() {
+        mainPresenter = MainPresenter(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
         super.actionBarToggleWithNavigation(this)
-
         loadHomeText()
     }
 
@@ -50,6 +58,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun fetchTextFromAPI() {
+        mainPresenter.fetchHomeTextFromApi()
         val compositeDisposable = CompositeDisposable()
         val disposable: Disposable = vcelniceAPI.getHomeText()
                 .subscribeOn(Schedulers.io())

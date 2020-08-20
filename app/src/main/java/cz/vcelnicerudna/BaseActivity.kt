@@ -16,6 +16,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import cz.vcelnicerudna.configuration.AppConstants
+import cz.vcelnicerudna.main.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_toolbar.*
 

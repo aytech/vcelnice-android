@@ -29,7 +29,7 @@ class PricesAdapter(var context: Context, private var dataSet: Array<Price>) :
         holder.descriptionView.text = item.getShortStringRepresentation()
         if (item.image != null) {
             Picasso
-                    .with(context)
+                    .get()
                     .load(APIConstants.VCELNICE_BASE_URL + item.image)
                     .placeholder(R.mipmap.ic_bee)
                     .into(holder.imageView)

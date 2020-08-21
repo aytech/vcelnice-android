@@ -23,7 +23,7 @@ class NewsDetailActivity : AppCompatActivity() {
         newsItem = intent.getParcelableExtra(StringConstants.NEWS_KEY)
 
         Picasso
-                .with(this)
+                .get()
                 .load(APIConstants.VCELNICE_BASE_URL + newsItem.icon)
                 .placeholder(R.mipmap.ic_bee)
                 .into(news_image as ImageView)

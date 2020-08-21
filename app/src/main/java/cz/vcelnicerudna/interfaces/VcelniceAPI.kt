@@ -3,6 +3,8 @@ package cz.vcelnicerudna.interfaces
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.models.*
 import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -49,7 +51,7 @@ interface VcelniceAPI {
 
             val retrofit = Retrofit.Builder()
                     .addCallAdapterFactory(
-                            RxJava2CallAdapterFactory.create())
+                            RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                     .addConverterFactory(
                             GsonConverterFactory.create())
                     .baseUrl(APIConstants.VCELNICE_BASE_URL)

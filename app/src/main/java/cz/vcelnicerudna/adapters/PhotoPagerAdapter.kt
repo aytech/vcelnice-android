@@ -1,6 +1,7 @@
 package cz.vcelnicerudna.adapters
 
 import android.app.Activity
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.app.ActivityCompat
 import androidx.viewpager.widget.PagerAdapter
@@ -15,6 +16,7 @@ import com.squareup.picasso.Picasso
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.models.Photo
+import java.lang.Exception
 
 class PhotoPagerAdapter(
         val activity: Activity,
@@ -30,7 +32,7 @@ class PhotoPagerAdapter(
         ViewCompat.setTransitionName(imageView, Photo.transitionName(photo.id))
         views.put(position, imageView)
         Picasso
-                .with(collection.context)
+                .get()
                 .load(APIConstants.VCELNICE_BASE_URL + photo.image)
                 .noFade()
                 .into(imageView, object : Callback {
@@ -46,7 +48,8 @@ class PhotoPagerAdapter(
                         }
                     }
 
-                    override fun onError() {
+                    override fun onError(e: Exception?) {
+                        Log.d("PhotoPagerAdapter", "onError: $e")
                         val snackbar = Snackbar.make(
                                 imageView,
                                 activity.applicationContext.getString(R.string.network_error),

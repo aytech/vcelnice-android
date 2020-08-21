@@ -39,7 +39,7 @@ class PhotoAdapter(
             ViewCompat.setTransitionName(itemView, Photo.transitionName(photo.id))
             if (photo.thumb!!.isNotEmpty()) {
                 Picasso
-                        .with(itemView.context)
+                        .get()
                         .load(APIConstants.VCELNICE_BASE_URL + photo.thumb)
                         .placeholder(R.mipmap.ic_bee_foreground)
                         .into(itemView as ImageView)

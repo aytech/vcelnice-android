@@ -22,8 +22,8 @@ import kotlinx.android.synthetic.main.app_toolbar.*
 
 open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    protected var appDatabase: AppDatabase? = null
-    protected var uiHandler: Handler? = null
+    protected lateinit var appDatabase: AppDatabase
+    protected lateinit var uiHandler: Handler
     protected lateinit var appDatabaseWorkerThread: AppDatabaseWorkerThread
 
     override fun onCreate(savedInstanceState: Bundle?) {

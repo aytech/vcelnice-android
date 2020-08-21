@@ -29,7 +29,7 @@ class NewsAdapter(var context: Context, private var newsDataSet: Array<News>) :
         holder.descriptionView.text = newsItem.getParsedText()
         if (newsItem.icon != null) {
             Picasso
-                    .with(context)
+                    .get()
                     .load(APIConstants.VCELNICE_BASE_URL + newsItem.icon)
                     .placeholder(R.mipmap.ic_bee)
                     .into(holder.imageView)

@@ -16,7 +16,7 @@ import cz.vcelnicerudna.models.*
     PricesData::class,
     LocationData::class,
     PhotoData::class], version = 1, exportSchema = false)
-abstract class AppDatabase: RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun homeDao(): HomeDao
     abstract fun newsDao(): NewsDao
     abstract fun pricesDao(): PricesDao
@@ -24,21 +24,19 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun photoDao(): PhotoDao
 
     companion object {
-        private var INSTANCE: AppDatabase? = null
+        private lateinit var INSTANCE: AppDatabase
 
-        fun getInstance(context: Context): AppDatabase? {
-            if (INSTANCE == null) {
-                synchronized(AppDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(
-                            context.applicationContext,
-                            AppDatabase::class.java, AppConstants.APP_DB_NAME).build()
-                }
+        fun getInstance(context: Context): AppDatabase {
+            synchronized(AppDatabase::class) {
+                INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        AppDatabase::class.java, AppConstants.APP_DB_NAME).build()
             }
             return INSTANCE
         }
 
         fun destroyInstance() {
-            INSTANCE = null
+            INSTANCE.close()
         }
     }
 }

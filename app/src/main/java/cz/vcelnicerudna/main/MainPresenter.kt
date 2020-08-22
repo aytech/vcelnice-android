@@ -2,7 +2,6 @@ package cz.vcelnicerudna.main
 
 import android.util.Log
 import cz.vcelnicerudna.AppDatabase
-import cz.vcelnicerudna.AppDatabaseWorkerThread
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.HomeText
 import io.reactivex.Observable
@@ -16,8 +15,7 @@ import io.reactivex.schedulers.Schedulers
 class MainPresenter(
         private var viewInterface: MainContract.ViewInterface,
         private var vcelniceAPI: VcelniceAPI,
-        private var localDataStore: AppDatabase,
-        private var appDatabaseWorkerThread: AppDatabaseWorkerThread) : MainContract.PresenterInterface {
+        private var localDataStore: AppDatabase) : MainContract.PresenterInterface {
 
     private val classTag = MainPresenter::class.java.simpleName
     private val compositeDisposable = CompositeDisposable()
@@ -28,8 +26,7 @@ class MainPresenter(
         get() = object : DisposableObserver<HomeText>() {
             override fun onNext(text: HomeText) {
                 viewInterface.showHomeText(text)
-                val task = Runnable { localDataStore.homeDao().insert(text) }
-                appDatabaseWorkerThread.postTask(task)
+                persistHomeText(text)
             }
 
             override fun onError(e: Throwable) {
@@ -37,7 +34,7 @@ class MainPresenter(
             }
 
             override fun onComplete() {
-                Log.d(classTag, "Loading complete")
+                Log.d(classTag, "Loading text complete")
             }
         }
 
@@ -46,12 +43,10 @@ class MainPresenter(
     private val localDataStoreSingleObserver: DisposableSingleObserver<HomeText>
         get() = object : DisposableSingleObserver<HomeText>() {
             override fun onSuccess(text: HomeText) {
-                Log.d(classTag, "onSuccess: $text")
                 viewInterface.showHomeText(text)
             }
 
             override fun onError(e: Throwable) {
-                Log.d(classTag, "onError: $e")
                 viewInterface.showError()
             }
         }
@@ -72,6 +67,21 @@ class MainPresenter(
         compositeDisposable.add(localStoreDisposable)
     }
 
+    fun persistHomeText(text: HomeText) {
+        val disposable = localDataStore.homeDao().insert(text)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<Long>() {
+                    override fun onSuccess(id: Long) {
+                        Log.d(classTag, "Persisted with ID $id")
+                    }
+
+                    override fun onError(e: Throwable) {
+                        Log.d(classTag, "Error persisting data: $e")
+                    }
+                })
+        compositeDisposable.add(disposable)
+    }
 
     override fun onDestroy() {
         compositeDisposable.dispose()

@@ -22,8 +22,7 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
     private lateinit var mainPresenter: MainContract.PresenterInterface
 
     private fun setupPresenter() {
-        val api = VcelniceAPI.create()
-        mainPresenter = MainPresenter(this, api, appDatabase, appDatabaseWorkerThread)
+        mainPresenter = MainPresenter(this, VcelniceAPI.create(), appDatabase)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,12 +64,12 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
 
     override fun showError() {
         loading_content.visibility = View.GONE
-        val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
-        snackbar.setAction(getString(R.string.reload)) {
-            snackbar.dismiss()
+        val snackBar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+        snackBar.setAction(getString(R.string.reload)) {
+            snackBar.dismiss()
             loadHomeText()
         }
-        snackbar.show()
+        snackBar.show()
     }
 
     override fun onDestroy() {

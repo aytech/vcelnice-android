@@ -28,6 +28,6 @@ class NewsDetailActivity : AppCompatActivity() {
                 .placeholder(R.mipmap.ic_bee)
                 .into(news_image as ImageView)
         news_title.text = newsItem.title
-//        news_text.text = newsItem.getParsedText()
+        news_text.text = newsItem.getParsedText()
     }
 }

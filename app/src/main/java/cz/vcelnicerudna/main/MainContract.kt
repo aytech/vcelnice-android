@@ -6,6 +6,7 @@ class MainContract {
     interface PresenterInterface {
         fun fetchHomeTextFromApi()
         fun fetchHomeTextFromLocalDataStore()
+        fun persistHomeText(text: HomeText)
         fun onDestroy()
     }
 

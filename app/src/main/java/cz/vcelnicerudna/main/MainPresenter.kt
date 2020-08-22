@@ -17,7 +17,7 @@ class MainPresenter(
         private var vcelniceAPI: VcelniceAPI,
         private var localDataStore: AppDatabase) : MainContract.PresenterInterface {
 
-    private val classTag = MainPresenter::class.java.simpleName
+    private val classTag = MainPresenter::class.simpleName
     private val compositeDisposable = CompositeDisposable()
 
     private val apiObservable: Observable<HomeText>
@@ -34,7 +34,7 @@ class MainPresenter(
             }
 
             override fun onComplete() {
-                Log.d(classTag, "Loading text complete")
+                Log.d(classTag, "Finished loading text")
             }
         }
 
@@ -67,7 +67,7 @@ class MainPresenter(
         compositeDisposable.add(localStoreDisposable)
     }
 
-    fun persistHomeText(text: HomeText) {
+    override fun persistHomeText(text: HomeText) {
         val disposable = localDataStore.homeDao().insert(text)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

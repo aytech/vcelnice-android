@@ -12,7 +12,7 @@ import cz.vcelnicerudna.models.*
 // https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929
 @Database(entities = [
     HomeText::class,
-    NewsData::class,
+    News::class,
     PricesData::class,
     LocationData::class,
     PhotoData::class], version = 1, exportSchema = false)

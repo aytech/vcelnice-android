@@ -3,7 +3,6 @@ package cz.vcelnicerudna.interfaces
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.models.*
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -20,7 +19,7 @@ interface VcelniceAPI {
     fun getHomeText(): Observable<HomeText>
 
     @GET(APIConstants.NEWS_URL)
-    fun getNews(): Observable<Array<News>>
+    fun getNews(): Observable<List<News>>
 
     @GET(APIConstants.PRICES_URL)
     fun getPrices(): Observable<Array<Price>>

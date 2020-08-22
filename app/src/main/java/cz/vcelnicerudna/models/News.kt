@@ -6,12 +6,25 @@ import android.os.Parcelable
 import android.text.Html
 import android.text.Html.fromHtml
 import android.text.Spanned
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-class News() : Parcelable {
+@Entity(tableName = "news")
+class News : Parcelable {
+    @PrimaryKey
     var id: Int = 0
-    var title: String? = null
-    var text: String? = null
-    var icon: String? = null
+
+    @ColumnInfo(name = "title")
+    var title: String? = ""
+
+    @ColumnInfo(name = "text")
+    var text: String? = ""
+
+    @ColumnInfo(name = "icon")
+    var icon: String? = ""
+
+    constructor()
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()

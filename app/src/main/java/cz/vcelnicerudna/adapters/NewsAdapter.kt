@@ -13,7 +13,7 @@ import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.models.News
 
-class NewsAdapter(var context: Context, private var newsDataSet: Array<News>) :
+class NewsAdapter(var context: Context, private var newsDataSet: List<News>) :
         RecyclerView.Adapter<NewsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup,
@@ -36,14 +36,14 @@ class NewsAdapter(var context: Context, private var newsDataSet: Array<News>) :
         }
         holder.itemView.setOnClickListener {
             val intent = Intent(context, NewsDetailActivity::class.java)
-            intent.putExtra(StringConstants.NEWS_KEY, newsItem)
+             intent.putExtra(StringConstants.NEWS_KEY, newsItem)
             context.startActivity(intent)
         }
     }
 
     override fun getItemCount() = newsDataSet.size
 
-    fun loadNewData(news: Array<News>) {
+    fun loadNewData(news: List<News>) {
         this.newsDataSet = news
         notifyDataSetChanged()
     }

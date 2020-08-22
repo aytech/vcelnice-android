@@ -163,7 +163,7 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener {
 
     private fun onFetchPhotoError() {
         loading_content.visibility = View.GONE
-        val snackbar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+        val snackbar = getThemedSnackBar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
         snackbar.setAction(getString(R.string.reload)) {
             snackbar.dismiss()
             loadPhoto()

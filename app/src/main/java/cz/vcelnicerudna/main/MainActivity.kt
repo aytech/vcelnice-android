@@ -64,7 +64,7 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
 
     override fun showError() {
         loading_content.visibility = View.GONE
-        val snackBar = getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+        val snackBar = getThemedSnackBar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
         snackBar.setAction(getString(R.string.reload)) {
             snackBar.dismiss()
             loadHomeText()

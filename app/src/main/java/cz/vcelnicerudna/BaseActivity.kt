@@ -98,12 +98,12 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         return true
     }
 
-    fun getThemedSnackbar(view: View, message: Int, length: Int): Snackbar {
-        val snackbar = Snackbar.make(view, getString(message), length)
-        snackbar.setActionTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
-        val snackbarView: View = snackbar.view
-        val snackBarTextView: TextView = snackbarView.findViewById(R.id.snackbar_text)
+    fun getThemedSnackBar(view: View, message: Int, length: Int): Snackbar {
+        val snackBar = Snackbar.make(view, getString(message), length)
+        snackBar.setActionTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        val snackBarView: View = snackBar.view
+        val snackBarTextView: TextView = snackBarView.findViewById(R.id.snackbar_text)
         snackBarTextView.setTextColor(ContextCompat.getColor(this, R.color.white))
-        return snackbar
+        return snackBar
     }
 }

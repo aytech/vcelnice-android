@@ -159,12 +159,12 @@ class ReserveActivity : BaseActivity() {
                             spinner.adapter = spinnerArrayAdapter
                             email.text?.clear()
                             message.text?.clear()
-                            getThemedSnackbar(main_view, R.string.reservation_sent_success, Snackbar.LENGTH_LONG)
+                            getThemedSnackBar(main_view, R.string.reservation_sent_success, Snackbar.LENGTH_LONG)
                                     .show()
                             compositeDisposable.dispose()
                         },
                         {
-                            getThemedSnackbar(main_view, R.string.network_error, Snackbar.LENGTH_LONG)
+                            getThemedSnackBar(main_view, R.string.network_error, Snackbar.LENGTH_LONG)
                                     .show()
                             compositeDisposable.dispose()
                         }

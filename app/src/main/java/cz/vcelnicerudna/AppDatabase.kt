@@ -15,7 +15,7 @@ import cz.vcelnicerudna.models.*
     News::class,
     PricesData::class,
     LocationData::class,
-    PhotoData::class], version = 1, exportSchema = false)
+    PhotoData::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun homeDao(): HomeDao
     abstract fun newsDao(): NewsDao
@@ -30,7 +30,8 @@ abstract class AppDatabase : RoomDatabase() {
             synchronized(AppDatabase::class) {
                 INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
-                        AppDatabase::class.java, AppConstants.APP_DB_NAME).build()
+                        AppDatabase::class.java, AppConstants.APP_DB_NAME)
+                        .fallbackToDestructiveMigration().build()
             }
             return INSTANCE
         }

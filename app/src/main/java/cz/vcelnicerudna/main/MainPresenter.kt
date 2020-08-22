@@ -30,6 +30,7 @@ class MainPresenter(
             }
 
             override fun onError(e: Throwable) {
+                Log.d(classTag, "Error fetching home text: $e")
                 viewInterface.onNetworkError()
             }
 

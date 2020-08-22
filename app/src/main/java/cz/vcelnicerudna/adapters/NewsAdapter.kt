@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
-import cz.vcelnicerudna.NewsDetailActivity
+import cz.vcelnicerudna.news.NewsDetailActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.configuration.StringConstants
@@ -36,7 +36,7 @@ class NewsAdapter(var context: Context, private var newsDataSet: List<News>) :
         }
         holder.itemView.setOnClickListener {
             val intent = Intent(context, NewsDetailActivity::class.java)
-             intent.putExtra(StringConstants.NEWS_KEY, newsItem)
+            intent.putExtra(StringConstants.NEWS_KEY, newsItem)
             context.startActivity(intent)
         }
     }

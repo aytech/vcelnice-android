@@ -21,7 +21,7 @@ class PhotoPresenter(
     private val compositeDisposable = CompositeDisposable()
 
     private val apiObservable : Observable<List<Photo>>
-        get() = vcelniceAPI.getPhoto()
+        get() = vcelniceAPI.getPhotos()
     private val apiObserver : DisposableObserver<List<Photo>>
         get() = object : DisposableObserver<List<Photo>>() {
             override fun onNext(photos: List<Photo>) {
@@ -44,7 +44,7 @@ class PhotoPresenter(
         }
 
     private val localDataStoreObservable : Single<List<Photo>>
-        get() = localDataStore.photoDao().getPhoto()
+        get() = localDataStore.photoDao().getPhotos()
     private val localDataStoreObserver : DisposableSingleObserver<List<Photo>>
         get() = object : DisposableSingleObserver<List<Photo>>() {
             override fun onError(e: Throwable) {

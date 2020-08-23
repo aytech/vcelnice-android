@@ -10,7 +10,7 @@ import io.reactivex.Single
 @Dao
 interface PhotoDao {
     @Query("SELECT * FROM photos")
-    fun getPhoto(): Single<List<Photo>>
+    fun getPhotos(): Single<List<Photo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(photo: Photo) : Single<Long>

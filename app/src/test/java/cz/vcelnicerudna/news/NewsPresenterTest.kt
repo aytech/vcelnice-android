@@ -32,7 +32,7 @@ class NewsPresenterTest : BaseTest() {
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private lateinit var mockLocalDataStore : AppDatabase
 
-    lateinit var newsPresenter: NewsPresenter
+    private lateinit var newsPresenter: NewsPresenter
 
     private val dummyNews: List<News>
         get() {

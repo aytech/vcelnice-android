@@ -28,7 +28,7 @@ interface VcelniceAPI {
     fun getLocations(): Observable<Array<Location>>
 
     @GET(APIConstants.PHOTO_URL)
-    fun getPhoto(): Observable<List<Photo>>
+    fun getPhotos(): Observable<List<Photo>>
 
     @POST(APIConstants.EMAIL_POST_URL)
     @FormUrlEncoded

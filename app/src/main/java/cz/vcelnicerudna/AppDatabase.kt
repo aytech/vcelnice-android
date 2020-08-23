@@ -13,7 +13,7 @@ import cz.vcelnicerudna.models.*
 @Database(entities = [
     HomeText::class,
     News::class,
-    PricesData::class,
+    Price::class,
     LocationData::class,
     Photo::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {

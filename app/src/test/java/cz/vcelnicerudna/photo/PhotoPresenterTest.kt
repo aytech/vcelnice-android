@@ -80,8 +80,9 @@ class PhotoPresenterTest : BaseTest() {
 
     @Test
     fun testPersistPhotos() {
-        val photos = dummyPhotos
-        photoPresenter.persistPhotos(photos[0])
-        Mockito.verify(mockLocalDataStore.photoDao()).insert(photos[0])
+        val photo = dummyPhotos[0]
+        photoPresenter.persistPhotos(photo)
+
+        Mockito.verify(mockLocalDataStore.photoDao()).insert(photo)
     }
 }

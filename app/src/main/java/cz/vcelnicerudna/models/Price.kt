@@ -2,13 +2,28 @@ package cz.vcelnicerudna.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import cz.vcelnicerudna.configuration.StringConstants
 
+@Entity(tableName = "prices")
 class Price() : Parcelable {
-    var title: String? = null
-    private var price: Int = 0
-    private var weight: String? = null
-    var image: String? = null
+
+    @PrimaryKey
+    var id: Int = 0
+
+    @ColumnInfo(name = "title")
+    var title: String? = ""
+
+    @ColumnInfo(name = "price")
+    var price: Int = 0
+
+    @ColumnInfo(name = "weight")
+    var weight: String? = ""
+
+    @ColumnInfo(name = "image")
+    var image: String? = ""
 
     constructor(parcel: Parcel) : this() {
         title = parcel.readString()

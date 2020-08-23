@@ -4,13 +4,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import cz.vcelnicerudna.models.PricesData
+import cz.vcelnicerudna.models.Price
+import io.reactivex.Single
 
 @Dao
 interface PricesDao {
     @Query("SELECT * FROM prices")
-    fun getPrices(): PricesData
+    fun getPrices(): Single<List<Price>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(prices: PricesData)
+    fun insert(price: Price): Single<Long>
 }

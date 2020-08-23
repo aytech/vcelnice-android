@@ -32,7 +32,7 @@ class MainPresenterTest : BaseTest() {
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private lateinit var mockLocalDataStore: AppDatabase
 
-    lateinit var mainPresenter: MainPresenter
+    private lateinit var mainPresenter: MainPresenter
 
     private val dummyHomeText: HomeText
         get() {
@@ -68,5 +68,13 @@ class MainPresenterTest : BaseTest() {
 
         Mockito.verify(mockLocalDataStore.homeDao()).getHomeText()
         Mockito.verify(mockActivity).showHomeText(dummyText)
+    }
+
+    @Test
+    fun testPersistHomeText() {
+        val text = dummyHomeText
+        mainPresenter.persistHomeText(text)
+
+        Mockito.verify(mockLocalDataStore.homeDao()).insert(text)
     }
 }

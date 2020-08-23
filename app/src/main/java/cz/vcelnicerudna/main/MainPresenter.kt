@@ -52,6 +52,17 @@ class MainPresenter(
             }
         }
 
+    private val persistHomeTextObserver: DisposableSingleObserver<Long>
+        get() = object : DisposableSingleObserver<Long>() {
+            override fun onSuccess(id: Long) {
+                Log.d(classTag, "Persisted home text with ID $id")
+            }
+
+            override fun onError(e: Throwable) {
+                Log.d(classTag, "Error persisting home text, $e")
+            }
+        }
+
     override fun fetchHomeTextFromApi() {
         val homeTextDisposable = apiObservable
                 .subscribeOn(Schedulers.io())
@@ -72,15 +83,7 @@ class MainPresenter(
         val disposable = localDataStore.homeDao().insert(text)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<Long>() {
-                    override fun onSuccess(id: Long) {
-                        Log.d(classTag, "Persisted with ID $id")
-                    }
-
-                    override fun onError(e: Throwable) {
-                        Log.d(classTag, "Error persisting data: $e")
-                    }
-                })
+                .subscribeWith(persistHomeTextObserver)
         compositeDisposable.add(disposable)
     }
 

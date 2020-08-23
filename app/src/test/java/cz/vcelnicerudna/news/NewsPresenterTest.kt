@@ -78,4 +78,12 @@ class NewsPresenterTest : BaseTest() {
         Mockito.verify(mockLocalDataStore.newsDao()).getNews()
         Mockito.verify(mockActivity).showNews(news)
     }
+
+    @Test
+    fun testPersistNews() {
+        val news = dummyNews[0]
+        newsPresenter.persistNews(news)
+
+        Mockito.verify(mockLocalDataStore.newsDao()).insert(news)
+    }
 }

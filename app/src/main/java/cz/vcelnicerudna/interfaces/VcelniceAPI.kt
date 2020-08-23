@@ -22,7 +22,7 @@ interface VcelniceAPI {
     fun getNews(): Observable<List<News>>
 
     @GET(APIConstants.PRICES_URL)
-    fun getPrices(): Observable<Array<Price>>
+    fun getPrices(): Observable<List<Price>>
 
     @GET(APIConstants.LOCATIONS_URL)
     fun getLocations(): Observable<Array<Location>>

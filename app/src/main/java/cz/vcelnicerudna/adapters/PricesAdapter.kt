@@ -13,7 +13,7 @@ import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.models.Price
 
-class PricesAdapter(var context: Context, private var dataSet: Array<Price>) :
+class PricesAdapter(var context: Context, private var dataSet: List<Price>) :
         RecyclerView.Adapter<PriceViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PriceViewHolder {
         val textView = LayoutInflater.from(parent.context)
@@ -41,7 +41,7 @@ class PricesAdapter(var context: Context, private var dataSet: Array<Price>) :
         }
     }
 
-    fun loadNewData(prices: Array<Price>) {
+    fun loadNewData(prices: List<Price>) {
         this.dataSet = prices
         notifyDataSetChanged()
     }

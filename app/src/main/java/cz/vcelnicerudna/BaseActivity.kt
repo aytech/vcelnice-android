@@ -18,6 +18,7 @@ import cz.vcelnicerudna.configuration.AppConstants
 import cz.vcelnicerudna.main.MainActivity
 import cz.vcelnicerudna.news.NewsActivity
 import cz.vcelnicerudna.photo.PhotoActivity
+import cz.vcelnicerudna.prices.PricesActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_toolbar.*
 

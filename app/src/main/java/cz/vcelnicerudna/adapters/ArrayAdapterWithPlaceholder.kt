@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import cz.vcelnicerudna.R
 
-class ArrayAdapterWithPlaceholder(context: Context, resource: Int, data: Array<String>)
+class ArrayAdapterWithPlaceholder(context: Context, resource: Int, data: List<String>)
     : ArrayAdapter<String>(context, resource, data) {
 
     override fun isEnabled(position: Int): Boolean {

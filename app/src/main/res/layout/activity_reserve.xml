@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ReserveActivity">
+    tools:context=".reserve.ReserveActivity">
 
     <include layout="@layout/app_toolbar" />
 

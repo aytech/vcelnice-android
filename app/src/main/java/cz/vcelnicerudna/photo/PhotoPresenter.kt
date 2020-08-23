@@ -44,7 +44,7 @@ class PhotoPresenter(
         }
 
     private val localDataStoreObservable : Single<List<Photo>>
-        get() = localDataStore.photoDao().getPhotos()
+        get() = localDataStore.photosDao().getPhotos()
     private val localDataStoreObserver : DisposableSingleObserver<List<Photo>>
         get() = object : DisposableSingleObserver<List<Photo>>() {
             override fun onError(e: Throwable) {
@@ -88,7 +88,7 @@ class PhotoPresenter(
     }
 
     override fun persistPhotos(photo: Photo) {
-        val disposable = localDataStore.photoDao().insert(photo)
+        val disposable = localDataStore.photosDao().insert(photo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(persistPhotoObserver)

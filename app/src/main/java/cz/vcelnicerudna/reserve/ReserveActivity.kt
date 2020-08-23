@@ -1,4 +1,4 @@
-package cz.vcelnicerudna
+package cz.vcelnicerudna.reserve
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -7,6 +7,8 @@ import android.util.Patterns
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import cz.vcelnicerudna.BaseActivity
+import cz.vcelnicerudna.R
 import cz.vcelnicerudna.adapters.AdapterViewListener
 import cz.vcelnicerudna.adapters.ArrayAdapterWithPlaceholder
 import cz.vcelnicerudna.configuration.StringConstants
@@ -22,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_reserve.*
 import kotlinx.android.synthetic.main.app_toolbar.*
 import java.net.URLEncoder
 
-class ReserveActivity : BaseActivity() {
+class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
 
     private val vcelniceAPI by lazy {
         VcelniceAPI.create()
@@ -32,6 +34,7 @@ class ReserveActivity : BaseActivity() {
     private var numberOfGlasses: Int = 0
     private var pickAddress: String = ""
     private lateinit var price: Price
+    private lateinit var reservePresenter: ReservePresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,7 @@ class ReserveActivity : BaseActivity() {
         setSupportActionBar(app_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         price = intent.getParcelableExtra(StringConstants.PRICE_KEY)
+        reservePresenter = ReservePresenter(this, VcelniceAPI.create(), appDatabase)
 
         setNumberOfGlassesData()
         getLocations()
@@ -103,24 +107,24 @@ class ReserveActivity : BaseActivity() {
     }
 
     private fun getLocations() {
-        if (isConnectedToInternet()) {
-            fetchLocationsFromAPI()
-        } else {
-            fetchLocationsFromDatabase()
-        }
+//        if (isConnectedToInternet()) {
+        fetchLocationsFromAPI()
+//        } else {
+//            fetchLocationsFromDatabase()
+//        }
     }
 
     private fun fetchLocationsFromAPI() {
         val compositeDisposable = CompositeDisposable()
-        val disposable: Disposable = vcelniceAPI.getLocations()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { locations: Array<Location> ->
-                    onLocationsFetchSuccess(locations)
-                    insertLocationsToDatabase(locations)
-                    compositeDisposable.dispose()
-                }
-        compositeDisposable.add(disposable)
+//        val disposable: Disposable = vcelniceAPI.getLocations()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe { locations: Array<Location> ->
+//                    onLocationsFetchSuccess(locations)
+//                    insertLocationsToDatabase(locations)
+//                    compositeDisposable.dispose()
+//                }
+//        compositeDisposable.add(disposable)
     }
 
     private fun onLocationsFetchSuccess(locations: Array<Location>) {
@@ -170,5 +174,24 @@ class ReserveActivity : BaseActivity() {
                         }
                 )
         compositeDisposable.add(disposable)
+    }
+
+    override fun showLocations(locations: List<Location>) {
+        val locationCollection: MutableList<String> = ArrayList()
+        locationCollection.add(getString(R.string.pickup_at_address))
+        locations.forEach { locationCollection.add(it.address) }
+
+        locationsArrayAdapter = ArrayAdapterWithPlaceholder(this, R.layout.spinner_item, locationCollection)
+        locationsArrayAdapter.setDropDownViewResource(R.layout.spinner_item)
+        location.adapter = locationsArrayAdapter
+        location.onItemSelectedListener = object : AdapterViewListener() {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                super.onItemSelected(parent, view, position, id)
+                if (selectedData.isNotEmpty()) {
+                    pickAddress = selectedData
+                    selectedData = ""
+                }
+            }
+        }
     }
 }

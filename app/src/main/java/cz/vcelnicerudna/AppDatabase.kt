@@ -14,14 +14,14 @@ import cz.vcelnicerudna.models.*
     HomeText::class,
     News::class,
     Price::class,
-    LocationData::class,
+    Location::class,
     Photo::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun homeDao(): HomeDao
     abstract fun newsDao(): NewsDao
     abstract fun pricesDao(): PricesDao
     abstract fun locationsDao(): LocationsDao
-    abstract fun photoDao(): PhotoDao
+    abstract fun photosDao(): PhotosDao
 
     companion object {
         private lateinit var INSTANCE: AppDatabase

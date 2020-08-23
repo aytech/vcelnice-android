@@ -8,7 +8,7 @@ import cz.vcelnicerudna.models.Photo
 import io.reactivex.Single
 
 @Dao
-interface PhotoDao {
+interface PhotosDao {
     @Query("SELECT * FROM photos")
     fun getPhotos(): Single<List<Photo>>
 

@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import cz.vcelnicerudna.R
-import cz.vcelnicerudna.ReserveActivity
+import cz.vcelnicerudna.reserve.ReserveActivity
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.models.Price

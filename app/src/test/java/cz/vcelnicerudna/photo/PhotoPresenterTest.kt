@@ -63,18 +63,18 @@ class PhotoPresenterTest : BaseTest() {
 
         Mockito.verify(mockDataSource).getPhotos()
         Mockito.verify(mockActivity).showPhotos(photos)
-        Mockito.verify(mockLocalDataStore.photoDao()).insert(photos[0])
-        Mockito.verify(mockLocalDataStore.photoDao()).insert(photos[1])
+        Mockito.verify(mockLocalDataStore.photosDao()).insert(photos[0])
+        Mockito.verify(mockLocalDataStore.photosDao()).insert(photos[1])
     }
 
     @Test
     fun testFetchPhotosFromLocalDataStore() {
         val photos = dummyPhotos
-        given(mockLocalDataStore.photoDao().getPhotos()).willReturn(Single.just(photos))
+        given(mockLocalDataStore.photosDao().getPhotos()).willReturn(Single.just(photos))
 
         photoPresenter.fetchPhotosFromLocalDataStore()
 
-        Mockito.verify(mockLocalDataStore.photoDao()).getPhotos()
+        Mockito.verify(mockLocalDataStore.photosDao()).getPhotos()
         Mockito.verify(mockActivity).showPhotos(photos)
     }
 
@@ -83,6 +83,6 @@ class PhotoPresenterTest : BaseTest() {
         val photo = dummyPhotos[0]
         photoPresenter.persistPhotos(photo)
 
-        Mockito.verify(mockLocalDataStore.photoDao()).insert(photo)
+        Mockito.verify(mockLocalDataStore.photosDao()).insert(photo)
     }
 }

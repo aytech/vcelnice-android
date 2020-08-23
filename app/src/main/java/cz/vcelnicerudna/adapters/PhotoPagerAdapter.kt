@@ -20,7 +20,7 @@ import java.lang.Exception
 
 class PhotoPagerAdapter(
         val activity: Activity,
-        private val photos: ArrayList<Photo>,
+        private val photos: List<Photo>,
         var currentPosition: Int)
     : PagerAdapter() {
 
@@ -50,11 +50,11 @@ class PhotoPagerAdapter(
 
                     override fun onError(e: Exception?) {
                         Log.d("PhotoPagerAdapter", "onError: $e")
-                        val snackbar = Snackbar.make(
+                        val snackBar = Snackbar.make(
                                 imageView,
                                 activity.applicationContext.getString(R.string.network_error),
                                 Snackbar.LENGTH_LONG)
-                        snackbar.show()
+                        snackBar.show()
                         ActivityCompat.startPostponedEnterTransition(activity)
                     }
                 })

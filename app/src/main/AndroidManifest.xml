@@ -64,17 +64,17 @@
                 android:value=".news.NewsActivity" />
         </activity>
         <activity
-            android:name=".PhotoActivity"
+            android:name=".photo.PhotoActivity"
             android:label="@string/app_name_photo"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".PhotoViewActivity"
-            android:parentActivityName=".PhotoActivity"
+            android:name=".photo.PhotoViewActivity"
+            android:parentActivityName=".photo.PhotoActivity"
             android:theme="@style/ToolbarColoredBackArrow"
             tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PhotoActivity" />
+                android:value=".photo.PhotoActivity" />
         </activity>
     </application>
 </manifest>

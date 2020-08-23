@@ -12,7 +12,7 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class NewsPresenter(
+class NewsPresenter (
         private var activity: NewsContract.ViewInterface,
         private var vcelniceAPI: VcelniceAPI,
         private var localDataStore: AppDatabase) : NewsContract.PresenterInterface {

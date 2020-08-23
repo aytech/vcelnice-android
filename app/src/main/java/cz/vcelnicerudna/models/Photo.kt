@@ -2,15 +2,32 @@ package cz.vcelnicerudna.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "photos")
 class Photo() : Parcelable {
+    @PrimaryKey
     var id: Int = 0
-    private var caption: String? = ""
+
+    @ColumnInfo(name = "caption")
+    var caption: String? = ""
+
+    @ColumnInfo(name = "image")
     var image: String? = ""
+
+    @ColumnInfo(name = "thumb")
     var thumb: String? = ""
+
+    @ColumnInfo(name = "width")
     var width: Int = 0
+
+    @ColumnInfo(name = "height")
     var height: Int = 0
-    private var created: String? = ""
+
+    @ColumnInfo(name = "created")
+    var created: String? = ""
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()

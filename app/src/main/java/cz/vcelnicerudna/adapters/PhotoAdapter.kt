@@ -12,7 +12,7 @@ import cz.vcelnicerudna.models.Photo
 import cz.vcelnicerudna.views.AspectRatioImageView
 
 class PhotoAdapter(
-        private var dataSet: ArrayList<Photo>,
+        private var dataSet: List<Photo>,
         private val onItemClickListener: OnItemClickListener?)
     : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
 
@@ -24,7 +24,9 @@ class PhotoAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(parent)
 
-    fun loadData(photos: ArrayList<Photo>) {
+    fun getPhotos(): List<Photo> = dataSet
+
+    fun loadData(photos: List<Photo>) {
         dataSet = photos
         notifyDataSetChanged()
     }

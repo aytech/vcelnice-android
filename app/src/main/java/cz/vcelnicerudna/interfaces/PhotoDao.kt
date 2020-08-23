@@ -4,13 +4,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import cz.vcelnicerudna.models.PhotoData
+import cz.vcelnicerudna.models.Photo
+import io.reactivex.Single
 
 @Dao
 interface PhotoDao {
-    @Query("SELECT * FROM photo")
-    fun getPhoto(): PhotoData
+    @Query("SELECT * FROM photos")
+    fun getPhoto(): Single<List<Photo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(photoData: PhotoData)
+    fun insert(photo: Photo) : Single<Long>
 }

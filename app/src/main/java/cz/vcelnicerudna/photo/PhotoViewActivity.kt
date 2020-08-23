@@ -1,4 +1,4 @@
-package cz.vcelnicerudna
+package cz.vcelnicerudna.photo
 
 import android.app.Activity
 import android.content.Intent
@@ -50,25 +50,29 @@ class PhotoViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_photo_view)
+        val bundledPhotos: ArrayList<Photo>? = intent.getParcelableArrayListExtra(StringConstants.PHOTOS_KEY)
+        if (bundledPhotos == null) {
+            finish()
+        } else {
+            photos = ArrayList(bundledPhotos.toList())
+            ActivityCompat.postponeEnterTransition(this)
+            ActivityCompat.setEnterSharedElementCallback(this, enterElementCallback)
+            setupToolBar()
 
-        photos = intent.getParcelableArrayListExtra(StringConstants.PHOTOS_KEY)
+            val index = photos.indexOfFirst { it.id == intent.getIntExtra(ITEM_ID, 0) }
+            startingPosition = if (index > 0) index else 0
+            currentPosition = savedInstanceState?.getInt(SAVED_CURRENT_PAGE_POSITION)
+                    ?: startingPosition
 
-        ActivityCompat.postponeEnterTransition(this)
-        ActivityCompat.setEnterSharedElementCallback(this, enterElementCallback)
-        setupToolBar()
-
-        val index = photos.indexOfFirst { it.id == intent.getIntExtra(ITEM_ID, 0) }
-        startingPosition = if (index > 0) index else 0
-        currentPosition = savedInstanceState?.getInt(SAVED_CURRENT_PAGE_POSITION) ?: startingPosition
-
-        photoPagerAdapter = PhotoPagerAdapter(this, photos, currentPosition)
-        viewPager.adapter = photoPagerAdapter
-        viewPager.currentItem = currentPosition
-        viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
-            override fun onPageSelected(position: Int) {
-                currentPosition = position
-            }
-        })
+            photoPagerAdapter = PhotoPagerAdapter(this, photos, currentPosition)
+            viewPager.adapter = photoPagerAdapter
+            viewPager.currentItem = currentPosition
+            viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+                override fun onPageSelected(position: Int) {
+                    currentPosition = position
+                }
+            })
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {

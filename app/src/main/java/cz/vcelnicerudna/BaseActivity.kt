@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.content.ContextCompat
@@ -18,13 +17,13 @@ import android.widget.TextView
 import cz.vcelnicerudna.configuration.AppConstants
 import cz.vcelnicerudna.main.MainActivity
 import cz.vcelnicerudna.news.NewsActivity
+import cz.vcelnicerudna.photo.PhotoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_toolbar.*
 
 open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     protected lateinit var appDatabase: AppDatabase
-    protected lateinit var uiHandler: Handler
     protected lateinit var appDatabaseWorkerThread: AppDatabaseWorkerThread
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +32,6 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         appDatabaseWorkerThread = AppDatabaseWorkerThread(AppConstants.APP_DB_THREAD_NAME)
         appDatabaseWorkerThread.start()
         appDatabase = AppDatabase.getInstance(this)
-        uiHandler = Handler()
     }
 
     override fun onDestroy() {

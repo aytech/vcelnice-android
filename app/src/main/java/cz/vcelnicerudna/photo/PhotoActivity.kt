@@ -1,4 +1,4 @@
-package cz.vcelnicerudna
+package cz.vcelnicerudna.photo
 
 import android.content.Intent
 import android.os.Build
@@ -13,38 +13,28 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import android.view.View
 import android.view.ViewTreeObserver
+import cz.vcelnicerudna.BaseActivity
+import cz.vcelnicerudna.R
 import cz.vcelnicerudna.adapters.PhotoAdapter
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.Photo
-import cz.vcelnicerudna.models.PhotoData
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_photo.*
 
-class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener {
+class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoContract.ViewInterface {
 
     private var reenterState: Bundle? = null
-    private var photos: ArrayList<Photo> = ArrayList()
-    private var photoAdapter: PhotoAdapter
+    private var photoAdapter: PhotoAdapter = PhotoAdapter(listOf(), this)
+    private lateinit var photoPresenter: PhotoPresenter
 
     companion object {
         const val EXTRA_STARTING_ALBUM_POSITION = "extra_starting_item_position"
         const val EXTRA_CURRENT_ALBUM_POSITION = "extra_current_item_position"
     }
 
-    private val vcelniceAPI by lazy {
-        VcelniceAPI.create()
-    }
-
-    init {
-        photoAdapter = PhotoAdapter(photos, this)
-    }
-
     private val exitElementCallback = object : SharedElementCallback() {
         override fun onMapSharedElements(names: MutableList<String>?, sharedElements: MutableMap<String, View>?) {
+            val photos = photoAdapter.getPhotos()
             if (reenterState != null) {
                 val startingPosition = reenterState!!.getInt(EXTRA_STARTING_ALBUM_POSITION)
                 val currentPosition = reenterState!!.getInt(EXTRA_CURRENT_ALBUM_POSITION)
@@ -68,6 +58,7 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo)
         super.actionBarToggleWithNavigation(this)
+        photoPresenter = PhotoPresenter(this, VcelniceAPI.create(), appDatabase)
         ActivityCompat.setExitSharedElementCallback(this, exitElementCallback)
 
         photo_collection.setHasFixedSize(true)
@@ -75,12 +66,13 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener {
         photo_collection.adapter = photoAdapter
         photo_collection.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         photo_collection.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL))
-        loadPhoto()
+
+        loadPhotos()
     }
 
     override fun onClick(item: Photo, view: View) {
         val intent = Intent(this, PhotoViewActivity::class.java)
-        intent.putParcelableArrayListExtra(StringConstants.PHOTOS_KEY, photos)
+        intent.putParcelableArrayListExtra(StringConstants.PHOTOS_KEY, ArrayList(photoAdapter.getPhotos()))
         intent.putExtra(PhotoViewActivity.ITEM_ID, item.id)
 
         var bundle: Bundle? = null
@@ -112,68 +104,32 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener {
         }
     }
 
-    private fun loadPhoto() {
+    private fun loadPhotos() {
         loading_content.visibility = View.VISIBLE
-        if (isConnectedToInternet()) {
-            fetchPhotoFromAPI()
-        } else {
-            fetchPhotoFromDatabase()
-        }
+        photoPresenter.fetchPhotosFromAPI()
     }
 
-    private fun fetchPhotoFromAPI() {
-        val compositeDisposable = CompositeDisposable()
-        val disposable: Disposable = vcelniceAPI.getPhoto()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { response: Array<Photo> ->
-                            onFetchPhotoSuccess(response)
-                            insertPhotoResponseToDatabase(response)
-                            compositeDisposable.dispose()
-                        }
-                ) {
-                    onFetchPhotoError()
-                    compositeDisposable.dispose()
-                }
-        compositeDisposable.add(disposable)
-    }
-
-    private fun fetchPhotoFromDatabase() {
-        appDatabaseWorkerThread.postTask(Runnable {
-            val photoData = appDatabase?.photoDao()?.getPhoto()
-            if (photoData == null) {
-                onFetchPhotoError()
-            } else {
-                onFetchPhotoSuccess(photoData.data)
-            }
-        })
-    }
-
-    private fun onFetchPhotoSuccess(photoCollection: Array<Photo>) {
+    override fun showPhotos(photos: List<Photo>) {
         loading_content.visibility = View.GONE
-        if (photoCollection.isEmpty()) {
+        if (photos.isEmpty()) {
             no_content.visibility = View.VISIBLE
         } else {
             no_content.visibility = View.GONE
-            photos = photoCollection.toCollection(ArrayList())
             photoAdapter.loadData(photos)
         }
     }
 
-    private fun onFetchPhotoError() {
-        loading_content.visibility = View.GONE
-        val snackbar = getThemedSnackBar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
-        snackbar.setAction(getString(R.string.reload)) {
-            snackbar.dismiss()
-            loadPhoto()
-        }
-        snackbar.show()
+    override fun onNetworkError() {
+        photoPresenter.fetchPhotosFromLocalDataStore()
     }
 
-    private fun insertPhotoResponseToDatabase(photos: Array<Photo>) {
-        val photoData = PhotoData()
-        photoData.data = photos
-        appDatabaseWorkerThread.postTask(Runnable { appDatabase?.photoDao()?.insert(photoData) })
+    override fun showError() {
+        loading_content.visibility = View.GONE
+        val snackBar = getThemedSnackBar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+        snackBar.setAction(getString(R.string.reload)) {
+            snackBar.dismiss()
+            loadPhotos()
+        }
+        snackBar.show()
     }
 }

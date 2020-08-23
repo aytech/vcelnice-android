@@ -15,7 +15,7 @@ import cz.vcelnicerudna.models.*
     News::class,
     PricesData::class,
     LocationData::class,
-    PhotoData::class], version = 2, exportSchema = false)
+    Photo::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun homeDao(): HomeDao
     abstract fun newsDao(): NewsDao

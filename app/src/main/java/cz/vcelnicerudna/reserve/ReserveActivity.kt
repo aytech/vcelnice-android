@@ -14,7 +14,6 @@ import cz.vcelnicerudna.adapters.ArrayAdapterWithPlaceholder
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.Location
-import cz.vcelnicerudna.models.LocationData
 import cz.vcelnicerudna.models.Price
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -77,7 +76,8 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
     }
 
     private fun setNumberOfGlassesData() {
-        spinnerArrayAdapter = ArrayAdapterWithPlaceholder(this, R.layout.spinner_item, resources.getStringArray(R.array.glasses_array))
+        val collection: List<String> = listOf(getString(R.string.number_of_glasses), "1", "2", "3", "4", "5")
+        spinnerArrayAdapter = ArrayAdapterWithPlaceholder(this, R.layout.spinner_item, collection)
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item)
         spinner.adapter = spinnerArrayAdapter
         spinner.onItemSelectedListener = object : AdapterViewListener() {
@@ -91,62 +91,8 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         }
     }
 
-    private fun setLocationsData(data: Array<String>) {
-        locationsArrayAdapter = ArrayAdapterWithPlaceholder(this, R.layout.spinner_item, data)
-        locationsArrayAdapter.setDropDownViewResource(R.layout.spinner_item)
-        location.adapter = locationsArrayAdapter
-        location.onItemSelectedListener = object : AdapterViewListener() {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                super.onItemSelected(parent, view, position, id)
-                if (selectedData.isNotEmpty()) {
-                    pickAddress = selectedData
-                    selectedData = ""
-                }
-            }
-        }
-    }
-
     private fun getLocations() {
-//        if (isConnectedToInternet()) {
-        fetchLocationsFromAPI()
-//        } else {
-//            fetchLocationsFromDatabase()
-//        }
-    }
-
-    private fun fetchLocationsFromAPI() {
-        val compositeDisposable = CompositeDisposable()
-//        val disposable: Disposable = vcelniceAPI.getLocations()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe { locations: Array<Location> ->
-//                    onLocationsFetchSuccess(locations)
-//                    insertLocationsToDatabase(locations)
-//                    compositeDisposable.dispose()
-//                }
-//        compositeDisposable.add(disposable)
-    }
-
-    private fun onLocationsFetchSuccess(locations: Array<Location>) {
-        val locationCollection = ArrayList<String>()
-        locationCollection.add(0, getString(R.string.pickup_at_address))
-        locations.forEach { locationCollection.add(it.address) }
-        setLocationsData(locationCollection.toTypedArray())
-    }
-
-    private fun fetchLocationsFromDatabase() {
-        appDatabaseWorkerThread.postTask(Runnable {
-            val locations = appDatabase?.locationsDao()?.getLocations()
-            if (locations != null) {
-                onLocationsFetchSuccess(locations.data)
-            }
-        })
-    }
-
-    private fun insertLocationsToDatabase(locations: Array<Location>) {
-        val locationsData = LocationData()
-        locationsData.data = locations
-        appDatabaseWorkerThread.postTask(Runnable { appDatabase?.locationsDao()?.insert(locationsData) })
+        reservePresenter.fetchLocationsFromAPI()
     }
 
     private fun postReservation() {
@@ -193,5 +139,9 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
                 }
             }
         }
+    }
+
+    override fun onNetworkError() {
+        reservePresenter.fetchLocationsFromLocalDataStore()
     }
 }

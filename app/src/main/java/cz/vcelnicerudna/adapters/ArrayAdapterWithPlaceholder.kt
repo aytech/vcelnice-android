@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import cz.vcelnicerudna.R
+import cz.vcelnicerudna.models.Location
+import cz.vcelnicerudna.reserve.ReserveActivity
 
 class ArrayAdapterWithPlaceholder(context: Context, resource: Int, data: List<String>)
     : ArrayAdapter<String>(context, resource, data) {

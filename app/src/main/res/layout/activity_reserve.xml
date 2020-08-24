@@ -19,11 +19,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingEnd="@dimen/padding_sides"
-            android:paddingLeft="@dimen/padding_sides"
-            android:paddingRight="@dimen/padding_sides"
             android:paddingStart="@dimen/padding_sides"
-            android:paddingTop="@dimen/img_padding_top">
+            android:paddingLeft="@dimen/padding_sides"
+            android:paddingTop="@dimen/img_padding_top"
+            android:paddingEnd="@dimen/padding_sides"
+            android:paddingRight="@dimen/padding_sides">
 
             <ImageView
                 android:id="@+id/price_image"
@@ -33,6 +33,12 @@
                 android:layout_marginBottom="@dimen/margin_medium"
                 android:contentDescription="@string/price_icon_description"
                 android:src="@mipmap/ic_bee" />
+
+            <TextView
+                android:id="@+id/glasses_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/number_of_glasses" />
 
             <Spinner
                 android:id="@+id/spinner"
@@ -47,6 +53,12 @@
                 android:textColor="@android:color/holo_red_dark"
                 android:textStyle="italic"
                 android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/locations_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pickup_at_address" />
 
             <Spinner
                 android:id="@+id/location"
@@ -88,15 +100,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/button_margin_top"
+                android:layout_marginBottom="@dimen/margin_medium"
                 android:background="@drawable/send_button_background"
-                android:paddingBottom="@dimen/button_padding_bottom"
-                android:paddingEnd="@dimen/button_padding_sides"
-                android:paddingLeft="@dimen/button_padding_sides"
-                android:paddingRight="@dimen/button_padding_sides"
                 android:paddingStart="@dimen/button_padding_sides"
+                android:paddingLeft="@dimen/button_padding_sides"
                 android:paddingTop="@dimen/button_padding_top"
+                android:paddingEnd="@dimen/button_padding_sides"
+                android:paddingRight="@dimen/button_padding_sides"
+                android:paddingBottom="@dimen/button_padding_bottom"
                 android:text="@string/reserve"
                 android:textAllCaps="false"
                 android:textColor="@color/send_button"

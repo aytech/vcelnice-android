@@ -76,7 +76,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
     }
 
     private fun setNumberOfGlassesData() {
-        val collection: List<String> = listOf(getString(R.string.number_of_glasses), "1", "2", "3", "4", "5")
+        val collection: List<String> = listOf("1", "2", "3", "4", "5")
         spinnerArrayAdapter = ArrayAdapterWithPlaceholder(this, R.layout.spinner_item, collection)
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item)
         spinner.adapter = spinnerArrayAdapter
@@ -123,11 +123,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
     }
 
     override fun showLocations(locations: List<Location>) {
-        val locationCollection: MutableList<String> = ArrayList()
-        locationCollection.add(getString(R.string.pickup_at_address))
-        locations.forEach { locationCollection.add(it.address) }
-
-        locationsArrayAdapter = ArrayAdapterWithPlaceholder(this, R.layout.spinner_item, locationCollection)
+        locationsArrayAdapter = ArrayAdapterWithPlaceholder(this, R.layout.spinner_item, locations.map { it.address })
         locationsArrayAdapter.setDropDownViewResource(R.layout.spinner_item)
         location.adapter = locationsArrayAdapter
         location.onItemSelectedListener = object : AdapterViewListener() {

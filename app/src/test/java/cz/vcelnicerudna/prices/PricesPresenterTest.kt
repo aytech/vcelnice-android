@@ -66,6 +66,16 @@ class PricesPresenterTest : BaseTest() {
     }
 
     @Test
+    fun testFetchPricesFromApiError() {
+        Mockito.doReturn(Observable.error<Throwable>(Throwable("API fetch failed"))).`when`(mockDataSource).getPrices()
+
+        pricesPresenter.fetchPricesFromApi()
+
+        Mockito.verify(mockDataSource).getPrices()
+        Mockito.verify(mockActivity).onNetworkError()
+    }
+
+    @Test
     fun testFetchPricesFromLocalDataStore() {
         val prices = dummyPrices
         given(mockLocalDataStore.pricesDao().getPrices()).willReturn(Single.just(prices))
@@ -74,6 +84,16 @@ class PricesPresenterTest : BaseTest() {
 
         Mockito.verify(mockLocalDataStore.pricesDao()).getPrices()
         Mockito.verify(mockActivity).showPrices(prices)
+    }
+
+    @Test
+    fun testFetchPricesFromLocalDataStoreError() {
+        given(mockLocalDataStore.pricesDao().getPrices()).willReturn(Single.error(Throwable("DB fetch error")))
+
+        pricesPresenter.fetchPricesFromLocalDataStore()
+
+        Mockito.verify(mockLocalDataStore.pricesDao()).getPrices()
+        Mockito.verify(mockActivity).showError()
     }
 
     @Test

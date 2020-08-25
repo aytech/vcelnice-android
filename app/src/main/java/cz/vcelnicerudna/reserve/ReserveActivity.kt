@@ -46,12 +46,12 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         setNumberOfGlassesData()
         getLocations()
 
-        reserve_button.setOnClickListener {
-            if (numberOfGlassesValid() && emailValid()) {
-                email_error.visibility = View.INVISIBLE
-                postReservation()
-            }
-        }
+        // reserve_button.setOnClickListener {
+        //    if (numberOfGlassesValid() && emailValid()) {
+        //        email_error.visibility = View.INVISIBLE
+        //        postReservation()
+        //    }
+        // }
     }
 
     private fun emailValid(): Boolean {

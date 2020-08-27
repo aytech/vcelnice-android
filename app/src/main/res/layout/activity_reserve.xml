@@ -3,12 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="cz.vcelnicerudna.viewmodel.ReservationViewModel" />
+    </data>
+
     <LinearLayout
         android:id="@+id/main_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".reserve.ReserveActivity">
+
+        <include layout="@layout/app_toolbar" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -25,25 +34,6 @@
                 android:paddingEnd="@dimen/padding_sides"
                 android:paddingRight="@dimen/padding_sides">
 
-                <Button
-                    android:id="@+id/reserve_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/button_margin_top"
-                    android:layout_marginBottom="@dimen/margin_medium"
-                    android:background="@drawable/send_button_background"
-                    android:paddingStart="@dimen/button_padding_sides"
-                    android:paddingLeft="@dimen/button_padding_sides"
-                    android:paddingTop="@dimen/button_padding_top"
-                    android:paddingEnd="@dimen/button_padding_sides"
-                    android:paddingRight="@dimen/button_padding_sides"
-                    android:paddingBottom="@dimen/button_padding_bottom"
-                    android:text="@string/reserve"
-                    android:textAllCaps="false"
-                    android:textColor="@color/send_button"
-                    android:textSize="@dimen/title_text_size" />
-
                 <ImageView
                     android:id="@+id/price_image"
                     android:layout_width="@dimen/placeholder_size"
@@ -52,17 +42,6 @@
                     android:layout_marginBottom="@dimen/margin_medium"
                     android:contentDescription="@string/price_icon_description"
                     android:src="@mipmap/ic_bee" />
-
-                <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <Spinner
-                    android:id="@+id/location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_medium" />
 
                 <TextView
                     android:id="@+id/glasses_label"
@@ -73,17 +52,51 @@
                 <TextView
                     android:id="@+id/number_error"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:gravity="center"
                     android:textColor="@android:color/holo_red_dark"
                     android:textStyle="italic"
                     android:visibility="invisible" />
+
+                <Spinner
+                    android:id="@+id/glasses_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fadingEdge="horizontal"
+                    android:forceDarkAllowed="true"
+                    android:entries="@{viewModel.glassesCountEntries}"
+                    android:verticalScrollbarPosition="defaultPosition" />
 
                 <TextView
                     android:id="@+id/locations_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pickup_at_address" />
+
+                <TextView
+                    android:id="@+id/locations_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textStyle="italic"
+                    android:visibility="invisible" />
+
+                <Spinner
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_medium" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/your_email_address"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.email}"
+                    android:textColor="@color/colorText"
+                    app:backgroundTint="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/email_error"
@@ -95,15 +108,6 @@
                     android:visibility="invisible" />
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/your_email_address"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/colorText"
-                    app:backgroundTint="@color/colorPrimary" />
-
-                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -111,18 +115,30 @@
                     android:gravity="top"
                     android:hint="@string/your_message"
                     android:inputType="text|textMultiLine"
+                    android:text="@={viewModel.message}"
                     android:textColor="@color/colorText"
                     app:backgroundTint="@color/colorPrimary" />
+
+                <Button
+                    android:id="@+id/reserve_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/button_margin_top"
+                    android:layout_marginBottom="@dimen/margin_medium"
+                    android:background="@drawable/send_button_background"
+                    android:onClick="@{() -> viewModel.postReservation()}"
+                    android:paddingStart="@dimen/button_padding_sides"
+                    android:paddingLeft="@dimen/button_padding_sides"
+                    android:paddingTop="@dimen/button_padding_top"
+                    android:paddingEnd="@dimen/button_padding_sides"
+                    android:paddingRight="@dimen/button_padding_sides"
+                    android:paddingBottom="@dimen/button_padding_bottom"
+                    android:text="@string/reserve"
+                    android:textAllCaps="false"
+                    android:textColor="@color/send_button"
+                    android:textSize="@dimen/title_text_size" />
             </LinearLayout>
         </ScrollView>
-
-        <include layout="@layout/app_toolbar" />
     </LinearLayout>
-
-    <data>
-
-        <variable
-            name="reservation"
-            type="cz.vcelnicerudna.viewmodel.ReservationViewModel" />
-    </data>
 </layout>

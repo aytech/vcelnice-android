@@ -3,18 +3,24 @@ package cz.vcelnicerudna.reserve
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import android.text.TextUtils
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.adapters.AdapterViewListener
 import cz.vcelnicerudna.adapters.ArrayAdapterWithPlaceholder
 import cz.vcelnicerudna.configuration.StringConstants
+import cz.vcelnicerudna.databinding.ActivityReserveBinding
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.Location
 import cz.vcelnicerudna.models.Price
+import cz.vcelnicerudna.viewmodel.ReservationViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -28,12 +34,14 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
     private val vcelniceAPI by lazy {
         VcelniceAPI.create()
     }
+    private val classTag = ReserveActivity::class.simpleName
     private lateinit var spinnerArrayAdapter: ArrayAdapter<String>
     private lateinit var locationsArrayAdapter: ArrayAdapter<String>
     private var numberOfGlasses: Int = 0
     private var pickAddress: String = ""
     private lateinit var price: Price
     private lateinit var reservePresenter: ReservePresenter
+    private val viewModel: ReservationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +55,10 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         setSupportActionBar(app_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         reservePresenter = ReservePresenter(this, VcelniceAPI.create(), appDatabase)
+        val binding = DataBindingUtil.setContentView<ActivityReserveBinding>(this, R.layout.activity_reserve)
+        binding.viewModel = viewModel
 
-        setNumberOfGlassesData()
+         setNumberOfGlassesData()
         getLocations()
 
         // reserve_button.setOnClickListener {
@@ -81,17 +91,9 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
     }
 
     private fun setNumberOfGlassesData() {
-        val collection: List<String> = listOf("1", "2", "3", "4", "5")
-        spinnerArrayAdapter = ArrayAdapterWithPlaceholder(this, R.layout.spinner_item, collection)
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item)
-        spinner.adapter = spinnerArrayAdapter
-        spinner.onItemSelectedListener = object : AdapterViewListener() {
+        glasses_spinner.onItemSelectedListener = object : AdapterViewListener() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                super.onItemSelected(parent, view, position, id)
-                if (selectedData.isNotEmpty()) {
-                    numberOfGlasses = selectedData.toInt()
-                    selectedData = ""
-                }
+                viewModel.updateGlassesCount(position)
             }
         }
     }
@@ -111,7 +113,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
                 .subscribe(
                         {
                             numberOfGlasses = 0
-                            spinner.adapter = spinnerArrayAdapter
+                            glasses_spinner.adapter = spinnerArrayAdapter
                             email.text?.clear()
                             message.text?.clear()
                             getThemedSnackBar(main_view, R.string.reservation_sent_success, Snackbar.LENGTH_LONG)

@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="cz.vcelnicerudna.viewmodel.ReservationViewModel" />
@@ -49,22 +51,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/number_of_glasses" />
 
-                <TextView
-                    android:id="@+id/number_error"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:gravity="center"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:textStyle="italic"
-                    android:visibility="invisible" />
-
                 <Spinner
                     android:id="@+id/glasses_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fadingEdge="horizontal"
-                    android:forceDarkAllowed="true"
                     android:entries="@{viewModel.glassesCountEntries}"
+                    android:fadingEdge="horizontal"
                     android:verticalScrollbarPosition="defaultPosition" />
 
                 <TextView
@@ -83,10 +75,11 @@
                     android:visibility="invisible" />
 
                 <Spinner
-                    android:id="@+id/location"
+                    android:id="@+id/locations_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_medium" />
+                    android:layout_marginBottom="@dimen/margin_medium"
+                    android:entries="@{viewModel.locationEntries}" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/email"
@@ -103,9 +96,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:text="@string/enter_valid_email"
                     android:textColor="@android:color/holo_red_dark"
                     android:textStyle="italic"
-                    android:visibility="invisible" />
+                    android:visibility="@{viewModel.emailErrorVisible? View.VISIBLE : View.GONE }" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/message"

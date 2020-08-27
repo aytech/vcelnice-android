@@ -1,41 +1,49 @@
 package cz.vcelnicerudna.viewmodel
 
 import android.util.Log
-import android.widget.Spinner
-import androidx.databinding.BindingAdapter
-import androidx.databinding.BindingMethod
-import androidx.databinding.BindingMethods
+import android.util.Patterns
 import androidx.databinding.ObservableField
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.text.FieldPosition
+import cz.vcelnicerudna.models.Location
 
 class ReservationViewModel : ViewModel() {
 
-    private val classTag = ReservationViewModel::class.simpleName
-    private val glassesCount = listOf<Int>(1, 2, 3, 4, 5)
-    private val glasses = ObservableField<Int>(glassesCount[0])
-    val glassesCountEntries: ObservableField<List<Int>> = ObservableField(glassesCount)
-    val email = ObservableField<String>("")
-    val message = ObservableField<String>("")
-
-    private val postLiveData = MutableLiveData<Boolean>()
-
-    fun getPostLiveData(): LiveData<Boolean> = postLiveData
+    private val glassesData = listOf(1, 2, 3, 4, 5)
+    private val glassesCount = ObservableField(glassesData[0])
+    private val locationEntry = ObservableField<Location>()
+    val glassesCountEntries: ObservableField<List<Int>> = ObservableField(glassesData)
+    val locationEntries: ObservableField<List<Location>> = ObservableField(listOf())
+    val email = ObservableField("")
+    val message = ObservableField("")
+    val emailErrorVisible = ObservableField(false)
 
     fun updateGlassesCount(position: Int) {
-        glasses.set(glassesCount[position])
+        glassesCount.set(glassesData[position])
+    }
+
+    fun updateLocations(locations: List<Location>) {
+        locationEntries.set(locations)
+    }
+
+    fun updateLocation(position: Int) {
+        locationEntry.set(locationEntries.get()?.get(position))
     }
 
     fun postReservation() {
-        Log.d(classTag, "Called: ${this.email}")
+        emailErrorVisible.set(false)
         if (canPostReservation()) {
-            Log.d(classTag, "Posting reservation: email: ${this.email.get()}, message: ${this.message.get()}, glasses: ${this.glasses.get()}")
+            Log.d(ReservationViewModel::class.simpleName, "Posting reservation: email: ${this.email.get()}, message: ${this.message.get()}, glasses: ${this.glassesCount.get()}, location: ${locationEntry.get()}")
+        } else {
+            emailErrorVisible.set(true)
         }
     }
 
     private fun canPostReservation(): Boolean {
-        return true
+        val emailAddress = email.get()
+        return if (emailAddress.isNullOrEmpty()) {
+            false
+        } else {
+            Patterns.EMAIL_ADDRESS.matcher(emailAddress as CharSequence).matches()
+        }
     }
 }

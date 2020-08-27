@@ -2,19 +2,14 @@ package cz.vcelnicerudna.reserve
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
-import android.text.TextUtils
-import android.util.Log
-import android.util.Patterns
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
 import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.adapters.AdapterViewListener
-import cz.vcelnicerudna.adapters.ArrayAdapterWithPlaceholder
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.databinding.ActivityReserveBinding
 import cz.vcelnicerudna.interfaces.VcelniceAPI
@@ -34,9 +29,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
     private val vcelniceAPI by lazy {
         VcelniceAPI.create()
     }
-    private val classTag = ReserveActivity::class.simpleName
     private lateinit var spinnerArrayAdapter: ArrayAdapter<String>
-    private lateinit var locationsArrayAdapter: ArrayAdapter<String>
     private var numberOfGlasses: Int = 0
     private var pickAddress: String = ""
     private lateinit var price: Price
@@ -54,48 +47,24 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         setContentView(R.layout.activity_reserve)
         setSupportActionBar(app_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        // Init presenter
         reservePresenter = ReservePresenter(this, VcelniceAPI.create(), appDatabase)
+        // Set view binding
         val binding = DataBindingUtil.setContentView<ActivityReserveBinding>(this, R.layout.activity_reserve)
         binding.viewModel = viewModel
-
-         setNumberOfGlassesData()
-        getLocations()
-
-        // reserve_button.setOnClickListener {
-        //    if (numberOfGlassesValid() && emailValid()) {
-        //        email_error.visibility = View.INVISIBLE
-        //        postReservation()
-        //    }
-        // }
-    }
-
-    private fun emailValid(): Boolean {
-        if (TextUtils.isEmpty(email.text)
-                || !Patterns.EMAIL_ADDRESS.matcher(email.text as CharSequence).matches()) {
-            email_error.text = getString(R.string.enter_valid_email)
-            email_error.visibility = View.VISIBLE
-            return false
-        }
-        email_error.visibility = View.INVISIBLE
-        return true
-    }
-
-    private fun numberOfGlassesValid(): Boolean {
-        if (numberOfGlasses == 0) {
-            number_error.text = getString(R.string.enter_number_of_glasses)
-            number_error.visibility = View.VISIBLE
-            return false
-        }
-        number_error.visibility = View.INVISIBLE
-        return true
-    }
-
-    private fun setNumberOfGlassesData() {
+        // Set glasses count adapter
         glasses_spinner.onItemSelectedListener = object : AdapterViewListener() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 viewModel.updateGlassesCount(position)
             }
         }
+        // Set locations adapter
+        locations_spinner.onItemSelectedListener = object : AdapterViewListener() {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                viewModel.updateLocation(position)
+            }
+        }
+        getLocations()
     }
 
     private fun getLocations() {
@@ -130,18 +99,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
     }
 
     override fun showLocations(locations: List<Location>) {
-        locationsArrayAdapter = ArrayAdapterWithPlaceholder(this, R.layout.spinner_item, locations.map { it.address })
-        locationsArrayAdapter.setDropDownViewResource(R.layout.spinner_item)
-        location.adapter = locationsArrayAdapter
-        location.onItemSelectedListener = object : AdapterViewListener() {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                super.onItemSelected(parent, view, position, id)
-                if (selectedData.isNotEmpty()) {
-                    pickAddress = selectedData
-                    selectedData = ""
-                }
-            }
-        }
+        viewModel.updateLocations(locations)
     }
 
     override fun onNetworkError() {

@@ -37,10 +37,15 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val bundledPrice: Price? = intent.getParcelableExtra(StringConstants.PRICE_KEY)
+        if (bundledPrice == null) {
+            finish()
+        } else {
+            price = bundledPrice
+        }
         setContentView(R.layout.activity_reserve)
         setSupportActionBar(app_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        price = intent.getParcelableExtra(StringConstants.PRICE_KEY)
         reservePresenter = ReservePresenter(this, VcelniceAPI.create(), appDatabase)
 
         setNumberOfGlassesData()

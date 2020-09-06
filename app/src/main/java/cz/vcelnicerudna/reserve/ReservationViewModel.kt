@@ -1,4 +1,4 @@
-package cz.vcelnicerudna.viewmodel
+package cz.vcelnicerudna.reserve
 
 import android.util.Log
 import android.util.Patterns
@@ -33,9 +33,17 @@ class ReservationViewModel : ViewModel() {
         emailErrorVisible.set(false)
         if (canPostReservation()) {
             Log.d(ReservationViewModel::class.simpleName, "Posting reservation: email: ${this.email.get()}, message: ${this.message.get()}, glasses: ${this.glassesCount.get()}, location: ${locationEntry.get()}")
+            resetForm()
         } else {
             emailErrorVisible.set(true)
         }
+    }
+
+    fun resetForm() {
+        updateGlassesCount(0)
+        updateLocation(0)
+        email.set("")
+        message.set("")
     }
 
     private fun canPostReservation(): Boolean {

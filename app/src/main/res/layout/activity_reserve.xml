@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="cz.vcelnicerudna.viewmodel.ReservationViewModel" />
+            type="cz.vcelnicerudna.reserve.ReservationViewModel" />
     </data>
 
     <LinearLayout

@@ -5,8 +5,8 @@ import com.google.android.material.snackbar.Snackbar
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.adapters.AdapterViewListener
@@ -15,13 +15,11 @@ import cz.vcelnicerudna.databinding.ActivityReserveBinding
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.Location
 import cz.vcelnicerudna.models.Price
-import cz.vcelnicerudna.viewmodel.ReservationViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_reserve.*
-import kotlinx.android.synthetic.main.app_toolbar.*
 import java.net.URLEncoder
 
 class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
@@ -34,24 +32,29 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
     private var pickAddress: String = ""
     private lateinit var price: Price
     private lateinit var reservePresenter: ReservePresenter
-    private val viewModel: ReservationViewModel by viewModels()
+    private lateinit var viewModel: ReservationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Set view binding
+        val binding = DataBindingUtil.setContentView<ActivityReserveBinding>(this, R.layout.activity_reserve)
+        viewModel = ViewModelProvider(this).get(ReservationViewModel::class.java)
+        binding.viewModel = viewModel
+
+//        val navController = Navigation.findNavController(this, R.id.main_view)
+//        NavigationUI.setupActionBarWithNavController(this, navController)
+//        setContentView(R.layout.activity_reserve)
+//        setSupportActionBar(app_toolbar)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val bundledPrice: Price? = intent.getParcelableExtra(StringConstants.PRICE_KEY)
         if (bundledPrice == null) {
             finish()
         } else {
             price = bundledPrice
         }
-        setContentView(R.layout.activity_reserve)
-        setSupportActionBar(app_toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         // Init presenter
         reservePresenter = ReservePresenter(this, VcelniceAPI.create(), appDatabase)
-        // Set view binding
-        val binding = DataBindingUtil.setContentView<ActivityReserveBinding>(this, R.layout.activity_reserve)
-        binding.viewModel = viewModel
         // Set glasses count adapter
         glasses_spinner.onItemSelectedListener = object : AdapterViewListener() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

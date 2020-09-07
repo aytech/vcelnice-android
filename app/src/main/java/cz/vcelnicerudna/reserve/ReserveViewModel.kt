@@ -1,13 +1,14 @@
 package cz.vcelnicerudna.reserve
 
-import android.util.Log
 import android.util.Patterns
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
+import cz.vcelnicerudna.data.PricesRepository
+import cz.vcelnicerudna.data.PricesRepositoryImpl
+import cz.vcelnicerudna.data.model.Reservation
 import cz.vcelnicerudna.models.Location
 
-class ReservationViewModel : ViewModel() {
-
+class ReserveViewModel(private val repository: PricesRepository = PricesRepositoryImpl()) : ViewModel() {
     private val glassesData = listOf(1, 2, 3, 4, 5)
     private val glassesCount = ObservableField(glassesData[0])
     private val locationEntry = ObservableField<Location>()
@@ -32,7 +33,14 @@ class ReservationViewModel : ViewModel() {
     fun postReservation() {
         emailErrorVisible.set(false)
         if (canPostReservation()) {
-            Log.d(ReservationViewModel::class.simpleName, "Posting reservation: email: ${this.email.get()}, message: ${this.message.get()}, glasses: ${this.glassesCount.get()}, location: ${locationEntry.get()}")
+            val reservation = Reservation(
+                    title = "foo",
+                    amount = glassesCount.get(),
+                    location = locationEntry.get().toString(),
+                    email = email.get(),
+                    message = message.get()
+            )
+            repository.postReservation(reservation)
             resetForm()
         } else {
             emailErrorVisible.set(true)

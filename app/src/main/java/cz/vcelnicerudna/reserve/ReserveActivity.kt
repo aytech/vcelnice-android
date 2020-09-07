@@ -33,13 +33,13 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
     private var pickAddress: String = ""
     private lateinit var price: Price
     private lateinit var reservePresenter: ReservePresenter
-    private lateinit var viewModel: ReservationViewModel
+    private lateinit var viewModel: ReserveViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Set view binding
         val binding = DataBindingUtil.setContentView<ActivityReserveBinding>(this, R.layout.activity_reserve)
-        viewModel = ViewModelProvider(this).get(ReservationViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ReserveViewModel::class.java)
         binding.viewModel = viewModel
 
         setSupportActionBar(binding.reserveToolbar as Toolbar?)

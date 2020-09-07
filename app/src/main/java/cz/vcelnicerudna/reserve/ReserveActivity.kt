@@ -5,6 +5,7 @@ import com.google.android.material.snackbar.Snackbar
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import cz.vcelnicerudna.BaseActivity
@@ -41,11 +42,8 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         viewModel = ViewModelProvider(this).get(ReservationViewModel::class.java)
         binding.viewModel = viewModel
 
-//        val navController = Navigation.findNavController(this, R.id.main_view)
-//        NavigationUI.setupActionBarWithNavController(this, navController)
-//        setContentView(R.layout.activity_reserve)
-//        setSupportActionBar(app_toolbar)
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setSupportActionBar(binding.reserveToolbar as Toolbar?)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val bundledPrice: Price? = intent.getParcelableExtra(StringConstants.PRICE_KEY)
         if (bundledPrice == null) {

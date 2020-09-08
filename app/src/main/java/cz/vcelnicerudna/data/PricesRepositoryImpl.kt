@@ -1,26 +1,20 @@
 package cz.vcelnicerudna.data
 
-import android.util.Log
 import cz.vcelnicerudna.data.model.Reservation
 import cz.vcelnicerudna.data.net.RetrofitClient
+import cz.vcelnicerudna.models.Location
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 
 class PricesRepositoryImpl : PricesRepository {
 
     private val retrofitClient = RetrofitClient()
 
-    override fun postReservation(reservation: Reservation) {
-        retrofitClient.postReservation(reservation)
-                .enqueue(object : Callback<Response<Void>> {
-                    override fun onResponse(call: Call<Response<Void>>, response: Response<Response<Void>>) {
-                        Log.d(PricesRepositoryImpl::class.simpleName, "Post Success: Call: $call, Response: $response")
-                    }
+    override fun getReservationLocations(): Call<List<Location>> {
+        return retrofitClient.getReservationLocations()
+    }
 
-                    override fun onFailure(call: Call<Response<Void>>, t: Throwable) {
-                        Log.d(PricesRepositoryImpl::class.simpleName, "Post failure: Call: $call, error: $t")
-                    }
-                })
+    override fun postReservation(reservation: Reservation): Call<Response<Void>> {
+        return retrofitClient.postReservation(reservation)
     }
 }

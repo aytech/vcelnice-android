@@ -2,6 +2,7 @@ package cz.vcelnicerudna.data.net
 
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.data.model.Reservation
+import cz.vcelnicerudna.models.Location
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Response
@@ -32,5 +33,9 @@ class RetrofitClient {
                 message = reservation.message,
                 title = reservation.title,
                 location = reservation.location)
+    }
+
+    fun getReservationLocations(): Call<List<Location>> {
+        return vcelniceApi.getLocations()
     }
 }

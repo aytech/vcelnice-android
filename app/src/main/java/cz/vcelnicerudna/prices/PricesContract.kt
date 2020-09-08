@@ -14,5 +14,6 @@ class PricesContract {
         fun onNetworkError()
         fun showError()
         fun showPrices(prices: List<Price>)
+        fun onReserveClicked(price: Price)
     }
 }

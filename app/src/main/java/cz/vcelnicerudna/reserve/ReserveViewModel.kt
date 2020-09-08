@@ -10,8 +10,8 @@ import cz.vcelnicerudna.models.Location
 
 class ReserveViewModel(private val repository: PricesRepository = PricesRepositoryImpl()) : ViewModel() {
     private val glassesData = listOf(1, 2, 3, 4, 5)
-    private val glassesCount = ObservableField(glassesData[0])
-    private val locationEntry = ObservableField<Location>()
+    val glassesCount = ObservableField(glassesData[0])
+    val locationEntry = ObservableField<Location>()
     val glassesCountEntries: ObservableField<List<Int>> = ObservableField(glassesData)
     val locationEntries: ObservableField<List<Location>> = ObservableField(listOf())
     val email = ObservableField("")
@@ -22,7 +22,7 @@ class ReserveViewModel(private val repository: PricesRepository = PricesReposito
         glassesCount.set(glassesData[position])
     }
 
-    fun updateLocations(locations: List<Location>) {
+    fun updateLocations(locations: List<Location>?) {
         locationEntries.set(locations)
     }
 
@@ -30,31 +30,7 @@ class ReserveViewModel(private val repository: PricesRepository = PricesReposito
         locationEntry.set(locationEntries.get()?.get(position))
     }
 
-    fun postReservation() {
-        emailErrorVisible.set(false)
-        if (canPostReservation()) {
-            val reservation = Reservation(
-                    title = "foo",
-                    amount = glassesCount.get(),
-                    location = locationEntry.get().toString(),
-                    email = email.get(),
-                    message = message.get()
-            )
-            repository.postReservation(reservation)
-            resetForm()
-        } else {
-            emailErrorVisible.set(true)
-        }
-    }
-
-    fun resetForm() {
-        updateGlassesCount(0)
-        updateLocation(0)
-        email.set("")
-        message.set("")
-    }
-
-    private fun canPostReservation(): Boolean {
+    fun canPostReservation(): Boolean {
         val emailAddress = email.get()
         return if (emailAddress.isNullOrEmpty()) {
             false

@@ -1,19 +1,16 @@
 package cz.vcelnicerudna.adapters
 
-import android.content.Context
-import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import cz.vcelnicerudna.R
-import cz.vcelnicerudna.reserve.ReserveActivity
 import cz.vcelnicerudna.configuration.APIConstants
-import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.models.Price
+import cz.vcelnicerudna.prices.PricesContract
 
-class PricesAdapter(var context: Context, private var dataSet: List<Price>) :
+class PricesAdapter(var context: PricesContract.ViewInterface, private var dataSet: List<Price>) :
         RecyclerView.Adapter<PriceViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PriceViewHolder {
         val textView = LayoutInflater.from(parent.context)
@@ -35,9 +32,7 @@ class PricesAdapter(var context: Context, private var dataSet: List<Price>) :
                     .into(holder.imageView)
         }
         holder.button.setOnClickListener {
-            val intent = Intent(context, ReserveActivity::class.java)
-            intent.putExtra(StringConstants.PRICE_KEY, item)
-            context.startActivity(intent)
+            context.onReserveClicked(item)
         }
     }
 

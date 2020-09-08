@@ -123,7 +123,6 @@
                     android:layout_marginTop="@dimen/button_margin_top"
                     android:layout_marginBottom="@dimen/margin_medium"
                     android:background="@drawable/send_button_background"
-                    android:onClick="@{() -> viewModel.postReservation()}"
                     android:paddingStart="@dimen/button_padding_sides"
                     android:paddingLeft="@dimen/button_padding_sides"
                     android:paddingTop="@dimen/button_padding_top"

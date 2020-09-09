@@ -26,7 +26,6 @@ import java.net.URLEncoder
 
 class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
 
-    private lateinit var price: Price
     private lateinit var reservePresenter: ReservePresenter
     private lateinit var viewModel: ReserveViewModel
 
@@ -39,29 +38,27 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         // Set toolbar and back button
         setSupportActionBar(binding.reserveToolbar as Toolbar?)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        // Get price from parent activity and use values
-        val bundledPrice: Price? = intent.getParcelableExtra(PRICE_KEY)
-        if (bundledPrice == null) {
-            finish()
-        } else {
-            price = bundledPrice
-            loadImageUrl(price.image)
-            viewModel.reservationTitle = price.title.toString()
-        }
-        // Init presenter
+
         reservePresenter = ReservePresenter(this, PricesRepositoryImpl(), appDatabase)
 
+        loadImage()
         updateSpinners()
         getLocations()
     }
 
-    private fun loadImageUrl(url: String?) {
-        if (url != null) {
-            Picasso
-                    .get()
-                    .load(VCELNICE_BASE_URL + url)
-                    .placeholder(R.mipmap.ic_bee)
-                    .into(price_image)
+    private fun loadImage() {
+        val bundledPrice: Price? = intent.getParcelableExtra(PRICE_KEY)
+        if (bundledPrice == null) {
+            finish()
+        } else {
+            viewModel.reservationTitle = bundledPrice.title.toString()
+            if (bundledPrice.image != null) {
+                Picasso
+                        .get()
+                        .load(VCELNICE_BASE_URL + bundledPrice.image)
+                        .placeholder(R.mipmap.ic_bee)
+                        .into(price_image)
+            }
         }
     }
 
@@ -86,7 +83,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
     override fun postReservation() {
         if (viewModel.canPostReservation()) {
             val reservation = Reservation(
-                    price.title,
+                    viewModel.reservationTitle,
                     viewModel.glassesCount.get(),
                     viewModel.locationEntry.get(),
                     viewModel.email.get(),

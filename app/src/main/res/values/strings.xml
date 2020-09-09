@@ -43,4 +43,5 @@
     <string name="enter_number_of_glasses">Zadejte počet sklenic</string>
     <string name="news_image">Obrázek článku</string>
     <string name="reload">Načíst znovu</string>
+    <string name="spinner_dropdown">Spinner dropdown</string>
 </resources>

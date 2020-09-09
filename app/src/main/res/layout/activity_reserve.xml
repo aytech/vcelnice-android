@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -63,13 +62,39 @@
                     android:layout_marginTop="10dp"
                     android:text="@string/number_of_glasses" />
 
-                <Spinner
-                    android:id="@+id/glasses_spinner"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@{viewModel.glassesCountEntries}"
-                    android:fadingEdge="horizontal"
-                    android:verticalScrollbarPosition="defaultPosition" />
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight=".28"
+                    android:background="@drawable/spinner_border">
+
+                    <Spinner
+                        android:id="@+id/glasses_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@android:color/transparent"
+                        android:entries="@{viewModel.glassesCountEntries}"
+                        android:fadingEdge="horizontal"
+                        android:gravity="center"
+                        android:spinnerMode="dialog"
+                        android:theme="@style/AppTheme.Spinner"
+                        android:verticalScrollbarPosition="defaultPosition" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/spinner_dropdown"
+                        android:src="@drawable/ic_spinner_dropdown_24" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/locations_label"
@@ -78,34 +103,65 @@
                     android:layout_marginTop="10dp"
                     android:text="@string/pickup_at_address" />
 
-                <Spinner
-                    android:id="@+id/locations_spinner"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@{viewModel.locationEntries}" />
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight=".28"
+                    android:background="@drawable/spinner_border">
+
+                    <Spinner
+                        android:id="@+id/locations_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@android:color/transparent"
+                        android:entries="@{viewModel.locationEntries}"
+                        android:fadingEdge="horizontal"
+                        android:gravity="center"
+                        android:spinnerMode="dialog"
+                        android:theme="@style/AppTheme.Spinner"
+                        android:verticalScrollbarPosition="defaultPosition" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/spinner_dropdown"
+                        android:src="@drawable/ic_spinner_dropdown_24" />
+                </RelativeLayout>
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/view_bottom_border"
                     android:hint="@string/your_email_address"
                     android:inputType="textEmailAddress"
+                    android:padding="5dp"
                     android:text="@={viewModel.email}"
-                    android:textColor="@color/colorText"
-                    app:backgroundTint="@color/colorPrimary" />
+                    android:textColor="@color/colorText" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:height="@dimen/text_area_large"
+                    android:background="@drawable/view_bottom_border"
                     android:gravity="top"
                     android:hint="@string/your_message"
                     android:inputType="text|textMultiLine"
+                    android:padding="5dp"
                     android:text="@={viewModel.message}"
-                    android:textColor="@color/colorText"
-                    app:backgroundTint="@color/colorPrimary" />
+                    android:textColor="@color/colorText" />
 
                 <Button
                     android:id="@+id/reserve_button"

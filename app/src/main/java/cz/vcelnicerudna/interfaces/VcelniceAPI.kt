@@ -24,9 +24,6 @@ interface VcelniceAPI {
     @GET(APIConstants.PRICES_URL)
     fun getPrices(): Observable<List<Price>>
 
-    @GET(APIConstants.LOCATIONS_URL)
-    fun getLocations(): Observable<List<Location>>
-
     @GET(APIConstants.PHOTO_URL)
     fun getPhotos(): Observable<List<Photo>>
 

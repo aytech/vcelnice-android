@@ -5,7 +5,7 @@ import android.widget.AdapterView
 
 open class AdapterViewListener : AdapterView.OnItemSelectedListener {
 
-    protected var selectedData: String = ""
+    private var selectedData: String = ""
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
         // Nothing to do here

@@ -25,19 +25,14 @@ import kotlinx.android.synthetic.main.app_toolbar.*
 open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     protected lateinit var appDatabase: AppDatabase
-    protected lateinit var appDatabaseWorkerThread: AppDatabaseWorkerThread
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        appDatabaseWorkerThread = AppDatabaseWorkerThread(AppConstants.APP_DB_THREAD_NAME)
-        appDatabaseWorkerThread.start()
         appDatabase = AppDatabase.getInstance(this)
     }
 
     override fun onDestroy() {
         AppDatabase.destroyInstance()
-        appDatabaseWorkerThread.quit()
         super.onDestroy()
     }
 

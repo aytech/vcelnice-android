@@ -15,6 +15,4 @@ interface HomeDao {
     @Insert(onConflict = REPLACE)
     fun insert(homeText: HomeText): Single<Long>
 
-    @Query("DELETE FROM home_text")
-    fun deleteAll(): Single<Int>
 }

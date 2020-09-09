@@ -8,9 +8,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+import com.squareup.picasso.Picasso
 import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.adapters.AdapterViewListener
+import cz.vcelnicerudna.configuration.APIConstants.Companion.VCELNICE_BASE_URL
 import cz.vcelnicerudna.configuration.StringConstants.Companion.PRICE_KEY
 import cz.vcelnicerudna.configuration.StringConstants.Companion.RESERVATION_OK
 import cz.vcelnicerudna.configuration.StringConstants.Companion.UTF_8
@@ -37,18 +39,30 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         // Set toolbar and back button
         setSupportActionBar(binding.reserveToolbar as Toolbar?)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        // Get price from parent activity
+        // Get price from parent activity and use values
         val bundledPrice: Price? = intent.getParcelableExtra(PRICE_KEY)
         if (bundledPrice == null) {
             finish()
         } else {
             price = bundledPrice
+            loadImageUrl(price.image)
+            viewModel.reservationTitle = price.title.toString()
         }
         // Init presenter
         reservePresenter = ReservePresenter(this, PricesRepositoryImpl(), appDatabase)
 
         updateSpinners()
         getLocations()
+    }
+
+    private fun loadImageUrl(url: String?) {
+        if (url != null) {
+            Picasso
+                    .get()
+                    .load(VCELNICE_BASE_URL + url)
+                    .placeholder(R.mipmap.ic_bee)
+                    .into(price_image)
+        }
     }
 
     private fun updateSpinners() {
@@ -78,6 +92,8 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
                     viewModel.email.get(),
                     URLEncoder.encode(viewModel.message.get(), UTF_8))
             reservePresenter.postReservation(reservation)
+        } else {
+            getThemedSnackBar(main_view, viewModel.validationMessage, LENGTH_LONG).show()
         }
     }
 

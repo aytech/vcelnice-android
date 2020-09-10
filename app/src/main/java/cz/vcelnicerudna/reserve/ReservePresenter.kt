@@ -5,9 +5,11 @@ import cz.vcelnicerudna.AppDatabase
 import cz.vcelnicerudna.data.PricesRepository
 import cz.vcelnicerudna.data.model.Reservation
 import cz.vcelnicerudna.models.Location
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
@@ -20,6 +22,24 @@ class ReservePresenter(
         private var localDataStore: AppDatabase) : ReserveContract.PresenterInterface {
 
     private val compositeDisposable = CompositeDisposable()
+
+    private val locationsRepositoryObservable: Observable<List<Location>>
+        get() = pricesRepository.getReservationLocations()
+    private val locationsRepositoryObserver: DisposableObserver<List<Location>>
+        get() = object : DisposableObserver<List<Location>>() {
+            override fun onNext(locations: List<Location>) {
+                activity.showLocations(locations)
+            }
+
+            override fun onError(e: Throwable) {
+                activity.onNetworkError()
+            }
+
+            override fun onComplete() {
+                Log.d(ReservePresenter::class.simpleName, "Finished loading locations")
+            }
+
+        }
 
     private val localDataStoreObservable: Single<List<Location>>
         get() = localDataStore.locationsDao().getLocations()
@@ -46,16 +66,11 @@ class ReservePresenter(
         }
 
     override fun fetchLocationsFromApi() {
-        pricesRepository.getReservationLocations()
-                .enqueue(object : Callback<List<Location>> {
-                    override fun onResponse(call: Call<List<Location>>, response: Response<List<Location>>) {
-                        activity.showLocations(response.body())
-                    }
-
-                    override fun onFailure(call: Call<List<Location>>, t: Throwable) {
-                        activity.onNetworkError()
-                    }
-                })
+        val locationsDisposable = locationsRepositoryObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(locationsRepositoryObserver)
+        compositeDisposable.add(locationsDisposable)
     }
 
     override fun fetchLocationsFromLocalDataStore() {

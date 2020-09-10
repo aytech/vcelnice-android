@@ -2,6 +2,7 @@ package cz.vcelnicerudna.data.net
 
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.models.Location
+import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Field
@@ -11,7 +12,7 @@ import retrofit2.http.POST
 
 interface VcelniceApi {
     @GET(APIConstants.LOCATIONS_URL)
-    fun getLocations(): Call<List<Location>>
+    fun getLocations(): Observable<List<Location>>
 
     @POST(APIConstants.RESERVE_POST_URL)
     @FormUrlEncoded

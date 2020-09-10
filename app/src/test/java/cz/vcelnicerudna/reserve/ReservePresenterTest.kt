@@ -1,10 +1,10 @@
 package cz.vcelnicerudna.reserve
 
-import com.nhaarman.mockitokotlin2.mock
 import cz.vcelnicerudna.AppDatabase
 import cz.vcelnicerudna.RxImmediateSchedulerRule
 import cz.vcelnicerudna.data.PricesRepository
 import cz.vcelnicerudna.models.Location
+import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -13,10 +13,6 @@ import org.mockito.Answers
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
-import org.mockito.stubbing.Answer
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 @RunWith(MockitoJUnitRunner::class)
 class ReservePresenterTest {
@@ -27,11 +23,11 @@ class ReservePresenterTest {
     @Mock
     private lateinit var mockActivity: ReserveContract.ViewInterface
 
-    @Mock
-    private lateinit var mockDataSource: PricesRepository
-
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private lateinit var mockLocalDataSource: AppDatabase
+
+    @Mock
+    private lateinit var mockDataSource: PricesRepository
 
     private lateinit var reservePresenter: ReservePresenter
 
@@ -51,17 +47,12 @@ class ReservePresenterTest {
 
     @Test
     fun testFetchLocationsFromApi() {
-//        val locations = dummyLocations
-//        val mockedCall = Mockito.mock(Call::class.java)
-//        Mockito.doReturn(mock(Call::class.java)).`when`(mockDataSource).getReservationLocations()
-//        Mockito.doAnswer(Answer { invocation -> {
-//            val callback = invocation.getArgument(0, Callback::class.java)
-//            callback.onResponse(mockedCall, Response.success())
-//        } }).`when`(mockedCall).enqueue(any(Callback::class.java))
-//
-//        reservePresenter.fetchLocationsFromApi()
-//
-//        Mockito.verify(mockDataSource).getReservationLocations()
-//        Mockito.verify(mockActivity).showLocations(locations)
+        val locations = dummyLocations
+        Mockito.doReturn(Observable.just(locations)).`when`(mockDataSource).getReservationLocations()
+
+        reservePresenter.fetchLocationsFromApi()
+
+        Mockito.verify(mockDataSource).getReservationLocations()
+        Mockito.verify(mockActivity).showLocations(locations)
     }
 }

@@ -170,7 +170,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="@dimen/margin_medium"
-                    android:background="@drawable/send_button_background"
+                    android:background="@drawable/button_gradient_selector"
                     android:paddingStart="@dimen/button_padding_sides"
                     android:paddingLeft="@dimen/button_padding_sides"
                     android:paddingTop="@dimen/button_padding_top"
@@ -179,7 +179,7 @@
                     android:paddingBottom="@dimen/button_padding_bottom"
                     android:text="@string/reserve"
                     android:textAllCaps="false"
-                    android:textColor="@color/send_button"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/title_text_size" />
             </LinearLayout>
         </ScrollView>

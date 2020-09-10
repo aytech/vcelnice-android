@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import com.squareup.picasso.Picasso
 import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
+import cz.vcelnicerudna.RoundedCornersTransformation
 import cz.vcelnicerudna.adapters.AdapterViewListener
 import cz.vcelnicerudna.configuration.APIConstants.Companion.VCELNICE_BASE_URL
 import cz.vcelnicerudna.configuration.StringConstants.Companion.PRICE_KEY
@@ -56,6 +57,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
                 Picasso
                         .get()
                         .load(VCELNICE_BASE_URL + bundledPrice.image)
+                        .transform(RoundedCornersTransformation())
                         .placeholder(R.mipmap.ic_bee)
                         .into(price_image)
             }

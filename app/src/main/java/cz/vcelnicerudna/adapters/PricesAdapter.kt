@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import cz.vcelnicerudna.R
+import cz.vcelnicerudna.RoundedCornersTransformation
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.models.Price
 import cz.vcelnicerudna.prices.PricesContract
@@ -28,6 +29,7 @@ class PricesAdapter(var context: PricesContract.ViewInterface, private var dataS
             Picasso
                     .get()
                     .load(APIConstants.VCELNICE_BASE_URL + item.image)
+                    .transform(RoundedCornersTransformation())
                     .placeholder(R.mipmap.ic_bee)
                     .into(holder.imageView)
         }

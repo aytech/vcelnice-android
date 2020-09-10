@@ -12,6 +12,11 @@
         <item name="android:listDivider">@color/colorPrimaryLight</item>
         <item name="android:textColorHint">@color/colorHint</item>
         <item name="android:actionBarStyle">@style/AppActionBar</item>
+        <item name="buttonStyle">@style/AppButton</item>
+    </style>
+
+    <style name="AppButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_gradient_selector</item>
     </style>
 
     <style name="AppActionBar" parent="ThemeOverlay.AppCompat.ActionBar">

@@ -3,6 +3,7 @@ package cz.vcelnicerudna.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import cz.vcelnicerudna.configuration.AppConstants.Companion.DEFAULT_LOCATION
 
 @Entity(tableName = "locations")
 class Location {
@@ -14,5 +15,13 @@ class Location {
 
     override fun toString(): String {
         return address
+    }
+
+    companion object {
+        fun default(): Location {
+            val location = Location()
+            location.address = DEFAULT_LOCATION
+            return location
+        }
     }
 }

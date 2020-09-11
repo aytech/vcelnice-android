@@ -1,10 +1,12 @@
 package cz.vcelnicerudna.reserve
 
+import com.nhaarman.mockitokotlin2.given
 import cz.vcelnicerudna.AppDatabase
 import cz.vcelnicerudna.RxImmediateSchedulerRule
 import cz.vcelnicerudna.data.PricesRepository
 import cz.vcelnicerudna.models.Location
 import io.reactivex.Observable
+import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -33,11 +35,7 @@ class ReservePresenterTest {
 
     private val dummyLocations: List<Location>
         get() {
-            val locations = ArrayList<Location>()
-            val location = Location()
-            location.address = "Test address"
-            locations.addAll(arrayOf(location))
-            return locations
+            return listOf(Location.default())
         }
 
     @Before
@@ -54,5 +52,45 @@ class ReservePresenterTest {
 
         Mockito.verify(mockDataSource).getReservationLocations()
         Mockito.verify(mockActivity).showLocations(locations)
+        Mockito.verify(mockActivity).loadingComplete()
+    }
+
+    @Test
+    fun testFetchLocationsFromApiError() {
+        Mockito.doReturn(Observable.error<Throwable>(Throwable("API call failed!"))).`when`(mockDataSource).getReservationLocations()
+
+        reservePresenter.fetchLocationsFromApi()
+
+        Mockito.verify(mockDataSource).getReservationLocations()
+        Mockito.verify(mockActivity).onNetworkError()
+    }
+
+    @Test
+    fun testFetchLocationsFromLocalDataStore() {
+        val locations = dummyLocations
+        given(mockLocalDataSource.locationsDao().getLocations()).willReturn(Single.just(locations))
+
+        reservePresenter.fetchLocationsFromLocalDataStore()
+
+        Mockito.verify(mockLocalDataSource.locationsDao()).getLocations()
+        Mockito.verify(mockActivity).showLocations(locations)
+    }
+
+    @Test
+    fun testFetchLocationsFromLocalDataStoreError() {
+        val error = Throwable("Fetch from local DB failed")
+        given(mockLocalDataSource.locationsDao().getLocations()).willReturn(Single.error(error))
+
+        reservePresenter.fetchLocationsFromLocalDataStore()
+
+        Mockito.verify(mockLocalDataSource.locationsDao()).getLocations()
+        Mockito.verify(mockActivity).showDefaultLocation()
+    }
+
+    @Test
+    fun testPersistLocation() {
+        val location = Location.default()
+        reservePresenter.persistLocation(location)
+        Mockito.verify(mockLocalDataSource.locationsDao()).insert(location)
     }
 }

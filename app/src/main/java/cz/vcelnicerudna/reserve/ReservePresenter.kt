@@ -36,7 +36,7 @@ class ReservePresenter(
             }
 
             override fun onComplete() {
-                Log.d(ReservePresenter::class.simpleName, "Finished loading locations")
+                activity.loadingComplete()
             }
 
         }
@@ -49,8 +49,8 @@ class ReservePresenter(
                 activity.showLocations(locations)
             }
 
-            override fun onError(e: Throwable) {
-                Log.d(ReservePresenter::class.simpleName, "Error fetching locations from local store: $e")
+            override fun onError(error: Throwable) {
+                activity.showDefaultLocation()
             }
         }
 

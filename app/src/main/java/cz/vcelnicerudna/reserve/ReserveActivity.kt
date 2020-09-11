@@ -2,6 +2,7 @@ package cz.vcelnicerudna.reserve
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import androidx.appcompat.widget.Toolbar
@@ -14,6 +15,7 @@ import cz.vcelnicerudna.R
 import cz.vcelnicerudna.RoundedCornersTransformation
 import cz.vcelnicerudna.adapters.AdapterViewListener
 import cz.vcelnicerudna.configuration.APIConstants.Companion.VCELNICE_BASE_URL
+import cz.vcelnicerudna.configuration.AppConstants.Companion.DEFAULT_LOCATION
 import cz.vcelnicerudna.configuration.StringConstants.Companion.PRICE_KEY
 import cz.vcelnicerudna.configuration.StringConstants.Companion.RESERVATION_OK
 import cz.vcelnicerudna.configuration.StringConstants.Companion.UTF_8
@@ -94,6 +96,14 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         } else {
             getThemedSnackBar(main_view, viewModel.validationMessage, LENGTH_LONG).show()
         }
+    }
+
+    override fun showDefaultLocation() {
+        viewModel.updateLocations(listOf(Location.default()))
+    }
+
+    override fun loadingComplete() {
+        // Not yet implemented
     }
 
     override fun onFailPostReservation() {

@@ -2,7 +2,6 @@ package cz.vcelnicerudna.reserve
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import androidx.appcompat.widget.Toolbar
@@ -15,11 +14,10 @@ import cz.vcelnicerudna.R
 import cz.vcelnicerudna.RoundedCornersTransformation
 import cz.vcelnicerudna.adapters.AdapterViewListener
 import cz.vcelnicerudna.configuration.APIConstants.Companion.VCELNICE_BASE_URL
-import cz.vcelnicerudna.configuration.AppConstants.Companion.DEFAULT_LOCATION
 import cz.vcelnicerudna.configuration.StringConstants.Companion.PRICE_KEY
 import cz.vcelnicerudna.configuration.StringConstants.Companion.RESERVATION_OK
 import cz.vcelnicerudna.configuration.StringConstants.Companion.UTF_8
-import cz.vcelnicerudna.data.PricesRepositoryImpl
+import cz.vcelnicerudna.data.RepositoryImpl
 import cz.vcelnicerudna.data.model.Reservation
 import cz.vcelnicerudna.databinding.ActivityReserveBinding
 import cz.vcelnicerudna.models.Location
@@ -42,7 +40,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         setSupportActionBar(binding.reserveToolbar as Toolbar?)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        reservePresenter = ReservePresenter(this, PricesRepositoryImpl(), appDatabase)
+        reservePresenter = ReservePresenter(this, RepositoryImpl(), appDatabase)
 
         loadImage()
         updateSpinners()

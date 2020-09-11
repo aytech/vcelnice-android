@@ -3,7 +3,7 @@ package cz.vcelnicerudna.reserve
 import com.nhaarman.mockitokotlin2.given
 import cz.vcelnicerudna.AppDatabase
 import cz.vcelnicerudna.RxImmediateSchedulerRule
-import cz.vcelnicerudna.data.PricesRepository
+import cz.vcelnicerudna.data.Repository
 import cz.vcelnicerudna.models.Location
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -29,7 +29,7 @@ class ReservePresenterTest {
     private lateinit var mockLocalDataSource: AppDatabase
 
     @Mock
-    private lateinit var mockDataSource: PricesRepository
+    private lateinit var mockDataSource: Repository
 
     private lateinit var reservePresenter: ReservePresenter
 

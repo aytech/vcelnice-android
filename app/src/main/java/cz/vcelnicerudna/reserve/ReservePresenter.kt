@@ -2,7 +2,7 @@ package cz.vcelnicerudna.reserve
 
 import android.util.Log
 import cz.vcelnicerudna.AppDatabase
-import cz.vcelnicerudna.data.PricesRepository
+import cz.vcelnicerudna.data.Repository
 import cz.vcelnicerudna.data.model.Reservation
 import cz.vcelnicerudna.models.Location
 import io.reactivex.Observable
@@ -18,7 +18,7 @@ import retrofit2.Response
 
 class ReservePresenter(
         private var activity: ReserveContract.ViewInterface,
-        private var pricesRepository: PricesRepository,
+        private var pricesRepository: Repository,
         private var localDataStore: AppDatabase) : ReserveContract.PresenterInterface {
 
     private val compositeDisposable = CompositeDisposable()

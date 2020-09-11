@@ -2,8 +2,9 @@ package cz.vcelnicerudna.main
 
 import android.util.Log
 import cz.vcelnicerudna.AppDatabase
-import cz.vcelnicerudna.interfaces.VcelniceAPI
+import cz.vcelnicerudna.data.Repository
 import cz.vcelnicerudna.models.HomeText
+import cz.vcelnicerudna.models.News
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -13,70 +14,126 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
 class MainPresenter(
-        private var viewInterface: MainContract.ViewInterface,
-        private var vcelniceAPI: VcelniceAPI,
+        private var activity: MainContract.ViewInterface,
+        private var repository: Repository,
         private var localDataStore: AppDatabase) : MainContract.PresenterInterface {
 
-    private val classTag = MainPresenter::class.simpleName
     private val compositeDisposable = CompositeDisposable()
 
-    private val apiObservable: Observable<HomeText>
-        get() = vcelniceAPI.getHomeText()
-    private val apiObserver: DisposableObserver<HomeText>
+    private val homeTextObservable: Observable<HomeText>
+        get() = repository.getHomeText()
+    private val homeTextObserver: DisposableObserver<HomeText>
         get() = object : DisposableObserver<HomeText>() {
             override fun onNext(text: HomeText) {
-                viewInterface.showHomeText(text)
+                activity.showHomeText(text)
                 persistHomeText(text)
             }
 
             override fun onError(e: Throwable) {
-                Log.d(classTag, "Error fetching home text: $e")
-                viewInterface.onNetworkError()
+                activity.onHomeTextNetworkError()
             }
 
             override fun onComplete() {
-                Log.d(classTag, "Finished loading text")
+                activity.onLoadingComplete()
             }
         }
 
-    private val localDataStoreSingleObservable: Single<HomeText>
-        get() = localDataStore.homeDao().getHomeText()
-    private val localDataStoreSingleObserver: DisposableSingleObserver<HomeText>
-        get() = object : DisposableSingleObserver<HomeText>() {
-            override fun onSuccess(text: HomeText) {
-                viewInterface.showHomeText(text)
+    private val newsObservable: Observable<List<News>>
+        get() = repository.getNews()
+    private val newsObserver: DisposableObserver<List<News>>
+        get() = object : DisposableObserver<List<News>>() {
+            override fun onNext(news: List<News>) {
+                activity.showNews(news)
+                news.forEach { persistNews(it) }
             }
 
-            override fun onError(e: Throwable) {
-                viewInterface.showError()
+            override fun onError(error: Throwable) {
+                activity.onNewsNetworkError()
+            }
+
+            override fun onComplete() {
+                activity.onLoadingComplete()
+            }
+        }
+
+    private val localHomeTextDataStoreObservable: Single<HomeText>
+        get() = localDataStore.homeDao().getHomeText()
+    private val localHomeTextDataStoreObserver: DisposableSingleObserver<HomeText>
+        get() = object : DisposableSingleObserver<HomeText>() {
+            override fun onSuccess(text: HomeText) {
+                activity.showHomeText(text)
+            }
+
+            override fun onError(error: Throwable) {
+                activity.showError()
+            }
+        }
+
+    private val localNewsDataStoreObservable: Single<List<News>>
+        get() = localDataStore.newsDao().getNews()
+    private val localNewsDataStoreObserver: DisposableSingleObserver<List<News>>
+        get() = object : DisposableSingleObserver<List<News>>() {
+            override fun onSuccess(news: List<News>) {
+                activity.showNews(news)
+            }
+
+            override fun onError(error: Throwable) {
+                activity.showError()
             }
         }
 
     private val persistHomeTextObserver: DisposableSingleObserver<Long>
         get() = object : DisposableSingleObserver<Long>() {
             override fun onSuccess(id: Long) {
-                Log.d(classTag, "Persisted home text with ID $id")
+                Log.d(MainPresenter::class.simpleName, "Persisted home text with ID $id")
             }
 
             override fun onError(e: Throwable) {
-                Log.d(classTag, "Error persisting home text, $e")
+                Log.d(MainPresenter::class.simpleName, "Error persisting home text, $e")
+            }
+        }
+
+    private val persistNewsObserver: DisposableSingleObserver<Long>
+        get() = object : DisposableSingleObserver<Long>() {
+            override fun onSuccess(id: Long) {
+                Log.d(MainPresenter::class.simpleName, "Persisted home text with ID $id")
+            }
+
+            override fun onError(error: Throwable) {
+                Log.d(MainPresenter::class.simpleName, "Error persisting home text, $error")
             }
         }
 
     override fun fetchHomeTextFromApi() {
-        val homeTextDisposable = apiObservable
+        val homeTextDisposable = homeTextObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(apiObserver)
+                .subscribeWith(homeTextObserver)
         compositeDisposable.add(homeTextDisposable)
     }
 
-    override fun fetchHomeTextFromLocalDataStore() {
-        val localStoreDisposable = localDataStoreSingleObservable
+    override fun fetchNewsFromApi() {
+        val newsDisposable = newsObservable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(localDataStoreSingleObserver)
+                .subscribeWith(newsObserver)
+        compositeDisposable.add(newsDisposable)
+    }
+
+    override fun fetchHomeTextFromLocalDataStore() {
+        val localStoreDisposable = localHomeTextDataStoreObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(localHomeTextDataStoreObserver)
         compositeDisposable.add(localStoreDisposable)
+    }
+
+    override fun fetchNewsFromLocalDataStore() {
+        val localNewsDisposable = localNewsDataStoreObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(localNewsDataStoreObserver)
+        compositeDisposable.add(localNewsDisposable)
     }
 
     override fun persistHomeText(text: HomeText) {
@@ -84,6 +141,14 @@ class MainPresenter(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(persistHomeTextObserver)
+        compositeDisposable.add(disposable)
+    }
+
+    override fun persistNews(news: News) {
+        val disposable = localDataStore.newsDao().insert(news)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(persistNewsObserver)
         compositeDisposable.add(disposable)
     }
 

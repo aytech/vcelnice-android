@@ -43,7 +43,7 @@ class MainPresenter(
     private val newsObserver: DisposableObserver<List<News>>
         get() = object : DisposableObserver<List<News>>() {
             override fun onNext(news: List<News>) {
-                activity.showNews(news)
+                activity.showNews(getSlicedNews(news))
                 news.forEach { persistNews(it) }
             }
 
@@ -74,7 +74,7 @@ class MainPresenter(
     private val localNewsDataStoreObserver: DisposableSingleObserver<List<News>>
         get() = object : DisposableSingleObserver<List<News>>() {
             override fun onSuccess(news: List<News>) {
-                activity.showNews(news)
+                activity.showNews(getSlicedNews(news))
             }
 
             override fun onError(error: Throwable) {
@@ -103,6 +103,12 @@ class MainPresenter(
                 Log.d(MainPresenter::class.simpleName, "Error persisting home text, $error")
             }
         }
+
+    fun getSlicedNews(news: List<News>): List<News> {
+        val sortedList = news.sortedByDescending { it.updated }
+        val lastIndex = if (news.size >= 3) 2 else news.size - 1
+        return sortedList.slice(0..lastIndex)
+    }
 
     override fun fetchHomeTextFromApi() {
         val homeTextDisposable = homeTextObservable

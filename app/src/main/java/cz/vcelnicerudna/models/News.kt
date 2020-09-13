@@ -24,6 +24,9 @@ class News : Parcelable {
     @ColumnInfo(name = "icon")
     var icon: String? = ""
 
+    @ColumnInfo(name = "updated")
+    var updated: String? = ""
+
     constructor()
 
     constructor(parcel: Parcel) : this() {
@@ -31,6 +34,7 @@ class News : Parcelable {
         title = parcel.readString()
         text = parcel.readString()
         icon = parcel.readString()
+        updated = parcel.readString()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -38,6 +42,7 @@ class News : Parcelable {
         parcel.writeString(title)
         parcel.writeString(text)
         parcel.writeString(icon)
+        parcel.writeString(updated)
     }
 
     override fun describeContents(): Int {

@@ -2,7 +2,7 @@ package cz.vcelnicerudna.news
 
 import android.util.Log
 import cz.vcelnicerudna.AppDatabase
-import cz.vcelnicerudna.interfaces.VcelniceAPI
+import cz.vcelnicerudna.data.Repository
 import cz.vcelnicerudna.models.News
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -14,14 +14,14 @@ import io.reactivex.schedulers.Schedulers
 
 class NewsPresenter (
         private var activity: NewsContract.ViewInterface,
-        private var vcelniceAPI: VcelniceAPI,
+        private var repository: Repository,
         private var localDataStore: AppDatabase) : NewsContract.PresenterInterface {
 
     private val classTag = NewsPresenter::class.simpleName
     private val compositeDisposable = CompositeDisposable()
 
     private val apiObservable: Observable<List<News>>
-        get() = vcelniceAPI.getNews()
+        get() = repository.getNews()
     private val apiObserver: DisposableObserver<List<News>>
         get() = object : DisposableObserver<List<News>>() {
             override fun onNext(news: List<News>) {

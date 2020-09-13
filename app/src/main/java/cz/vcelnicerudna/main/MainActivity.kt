@@ -1,6 +1,8 @@
 package cz.vcelnicerudna.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.view.GravityCompat
 import android.view.View
@@ -20,6 +22,7 @@ import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.loadHTML
 import cz.vcelnicerudna.models.HomeText
 import cz.vcelnicerudna.models.News
+import cz.vcelnicerudna.news.NewsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -46,8 +49,14 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
         }
 
         mainPresenter = MainPresenter(this, RepositoryImpl(), appDatabase)
+
         loadNews()
         loadHomeText()
+
+        more_news.setOnClickListener {
+            val intent = Intent(this, NewsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onBackPressed() {
@@ -82,8 +91,9 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
     override fun showNews(news: List<News>) {
         loading_content.visibility = GONE
         if (news.isNotEmpty()) {
-            home_news_recycler_view.visibility = VISIBLE
             viewAdapter.loadNewData(news)
+            home_news_recycler_view.visibility = VISIBLE
+            more_news.visibility = VISIBLE
         }
     }
 

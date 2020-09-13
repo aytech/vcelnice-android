@@ -4,6 +4,7 @@ import com.nhaarman.mockitokotlin2.given
 import cz.vcelnicerudna.AppDatabase
 import cz.vcelnicerudna.BaseTest
 import cz.vcelnicerudna.RxImmediateSchedulerRule
+import cz.vcelnicerudna.data.Repository
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.News
 import io.reactivex.Observable
@@ -27,7 +28,7 @@ class NewsPresenterTest : BaseTest() {
     private lateinit var mockActivity: NewsContract.ViewInterface
 
     @Mock
-    private lateinit var mockDataSource: VcelniceAPI
+    private lateinit var mockDataSource: Repository
 
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private lateinit var mockLocalDataStore : AppDatabase

@@ -2,28 +2,28 @@ package cz.vcelnicerudna.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.view.GravityCompat
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.ImageView
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
-import cz.vcelnicerudna.R.layout.activity_main
 import cz.vcelnicerudna.adapters.NewsAdapter
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.data.RepositoryImpl
-import cz.vcelnicerudna.interfaces.VcelniceAPI
+import cz.vcelnicerudna.databinding.ContentMainBinding
 import cz.vcelnicerudna.loadHTML
 import cz.vcelnicerudna.models.HomeText
 import cz.vcelnicerudna.models.News
 import cz.vcelnicerudna.news.NewsActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.bottom_bar.*
 import kotlinx.android.synthetic.main.content_main.*
 
 
@@ -33,12 +33,18 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: NewsAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(activity_main)
-        super.actionBarToggleWithNavigation(this)
+        // Set view binding
+        val binding = DataBindingUtil.setContentView<ContentMainBinding>(this, R.layout.content_main)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        binding.viewModel = viewModel
+        //setContentView(activity_main)
+//        super.actionBarToggleWithNavigation(this, binding.mainToolbar as Toolbar?)
+        //setSupportActionBar(binding.mainToolbar as Toolbar?)
+        setBottomNavigationMenu(bottom_navigation_menu)
 
         viewManager = LinearLayoutManager(this)
         viewAdapter = NewsAdapter(this, listOf())

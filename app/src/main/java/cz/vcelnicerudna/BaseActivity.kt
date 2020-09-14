@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import cz.vcelnicerudna.configuration.AppConstants
 import cz.vcelnicerudna.main.MainActivity
 import cz.vcelnicerudna.news.NewsActivity
@@ -21,6 +23,7 @@ import cz.vcelnicerudna.photo.PhotoActivity
 import cz.vcelnicerudna.prices.PricesActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_toolbar.*
+import kotlinx.android.synthetic.main.content_main.*
 
 open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -34,6 +37,21 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun onDestroy() {
         AppDatabase.destroyInstance()
         super.onDestroy()
+    }
+
+    fun setBottomNavigationMenu(toolbar: BottomNavigationView) {
+        toolbar.setOnNavigationItemSelectedListener {
+            val intent: Intent = when(it.itemId) {
+                R.id.photo_page -> {
+                    Intent(this, NewsActivity::class.java)
+                }
+                else -> {
+                    Intent(this, MainActivity::class.java)
+                }
+            }
+            startActivity(intent)
+            true
+        }
     }
 
     fun actionBarToggleWithNavigation(activity: Activity) {

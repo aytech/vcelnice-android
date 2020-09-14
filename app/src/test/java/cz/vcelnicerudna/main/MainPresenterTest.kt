@@ -9,6 +9,7 @@ import cz.vcelnicerudna.models.HomeText
 import cz.vcelnicerudna.models.News
 import io.reactivex.Observable
 import io.reactivex.Single
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -99,6 +100,7 @@ class MainPresenterTest : BaseTest() {
         Mockito.verify(mockLocalDataStore.newsDao()).insert(news = news[1])
         Mockito.verify(mockLocalDataStore.newsDao()).insert(news = news[2])
         Mockito.verify(mockLocalDataStore.newsDao()).insert(news = news[3])
+        Assert.assertEquals(news, mainPresenter.getNews())
     }
 
     @Test
@@ -140,6 +142,7 @@ class MainPresenterTest : BaseTest() {
 
         Mockito.verify(mockLocalDataStore.newsDao()).getNews()
         Mockito.verify(mockActivity).showNews(news.slice(0..2))
+        Assert.assertEquals(news, mainPresenter.getNews())
     }
 
     @Test

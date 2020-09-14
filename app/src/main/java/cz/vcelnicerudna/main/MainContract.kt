@@ -9,6 +9,7 @@ class MainContract {
         fun fetchNewsFromApi()
         fun fetchHomeTextFromLocalDataStore()
         fun fetchNewsFromLocalDataStore()
+        fun getNews(): List<News>
         fun persistHomeText(text: HomeText)
         fun persistNews(news: News)
         fun onDestroy()

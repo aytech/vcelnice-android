@@ -43,7 +43,7 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         toolbar.setOnNavigationItemSelectedListener {
             val intent: Intent = when(it.itemId) {
                 R.id.photo_page -> {
-                    Intent(this, NewsActivity::class.java)
+                    Intent(this, PhotoActivity::class.java)
                 }
                 else -> {
                     Intent(this, MainActivity::class.java)
@@ -55,22 +55,22 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     fun actionBarToggleWithNavigation(activity: Activity) {
-        setSupportActionBar(app_toolbar)
-        val toggle = ActionBarDrawerToggle(
-                activity,
-                drawer_layout,
-                app_toolbar,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close)
-        toggle.isDrawerIndicatorEnabled = false
-        toggle.setHomeAsUpIndicator(R.drawable.ic_fingerprint_white_24dp)
-        toggle.setToolbarNavigationClickListener { drawer_layout.openDrawer(GravityCompat.START) }
+//        setSupportActionBar(app_toolbar)
+//        val toggle = ActionBarDrawerToggle(
+//                activity,
+//                drawer_layout,
+//                app_toolbar,
+//                R.string.navigation_drawer_open,
+//                R.string.navigation_drawer_close)
+//        toggle.isDrawerIndicatorEnabled = false
+//        toggle.setHomeAsUpIndicator(R.drawable.ic_fingerprint_white_24dp)
+//        toggle.setToolbarNavigationClickListener { drawer_layout.openDrawer(GravityCompat.START) }
+//
+//        drawer_layout.addDrawerListener(toggle)
+//        toggle.syncState()
 
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        nav_view.setNavigationItemSelectedListener(this)
-        nav_view.itemIconTintList = null
+//        nav_view.setNavigationItemSelectedListener(this)
+//        nav_view.itemIconTintList = null
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -107,7 +107,7 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
         }
 
-        drawer_layout.closeDrawer(GravityCompat.START)
+//        drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
 

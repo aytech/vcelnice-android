@@ -1,7 +1,6 @@
 package cz.vcelnicerudna.news
 
 import android.os.Bundle
-import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -49,10 +48,9 @@ class NewsActivity : BaseActivity(), NewsContract.ViewInterface {
         val bundledNews: ArrayList<News>? = intent.getParcelableArrayListExtra(NEWS_KEY)
 
         if (bundledNews == null) {
-            Log.d(NewsActivity::class.simpleName, "Fetching from API")
             fetchNewsFromApi()
         } else {
-            Log.d(NewsActivity::class.simpleName, "Got list in bundle " + listOf(bundledNews))
+            showNews(bundledNews)
         }
     }
 

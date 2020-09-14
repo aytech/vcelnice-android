@@ -18,6 +18,7 @@ class MainPresenter(
         private var repository: Repository,
         private var localDataStore: AppDatabase) : MainContract.PresenterInterface {
 
+    private var allNews: List<News> = listOf()
     private val compositeDisposable = CompositeDisposable()
 
     private val homeTextObservable: Observable<HomeText>
@@ -44,6 +45,7 @@ class MainPresenter(
         get() = object : DisposableObserver<List<News>>() {
             override fun onNext(news: List<News>) {
                 activity.showNews(getSlicedNews(news))
+                allNews = news
                 news.forEach { persistNews(it) }
             }
 
@@ -75,6 +77,7 @@ class MainPresenter(
         get() = object : DisposableSingleObserver<List<News>>() {
             override fun onSuccess(news: List<News>) {
                 activity.showNews(getSlicedNews(news))
+                allNews = news
             }
 
             override fun onError(error: Throwable) {
@@ -141,6 +144,8 @@ class MainPresenter(
                 .subscribeWith(localNewsDataStoreObserver)
         compositeDisposable.add(localNewsDisposable)
     }
+
+    override fun getNews(): List<News> = allNews
 
     override fun persistHomeText(text: HomeText) {
         val disposable = localDataStore.homeDao().insert(text)

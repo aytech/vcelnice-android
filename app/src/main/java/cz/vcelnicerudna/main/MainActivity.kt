@@ -16,6 +16,7 @@ import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.adapters.NewsAdapter
 import cz.vcelnicerudna.configuration.APIConstants
+import cz.vcelnicerudna.configuration.StringConstants.Companion.NEWS_KEY
 import cz.vcelnicerudna.data.RepositoryImpl
 import cz.vcelnicerudna.databinding.ContentMainBinding
 import cz.vcelnicerudna.loadHTML
@@ -41,9 +42,6 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
         val binding = DataBindingUtil.setContentView<ContentMainBinding>(this, R.layout.content_main)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.viewModel = viewModel
-        //setContentView(activity_main)
-//        super.actionBarToggleWithNavigation(this, binding.mainToolbar as Toolbar?)
-        //setSupportActionBar(binding.mainToolbar as Toolbar?)
         setBottomNavigationMenu(bottom_navigation_menu)
 
         viewManager = LinearLayoutManager(this)
@@ -61,16 +59,17 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
 
         more_news.setOnClickListener {
             val intent = Intent(this, NewsActivity::class.java)
+            intent.putParcelableArrayListExtra(NEWS_KEY, ArrayList(mainPresenter.getNews()))
             startActivity(intent)
         }
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
+//        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+//            drawer_layout.closeDrawer(GravityCompat.START)
+//        } else {
+//            super.onBackPressed()
+//        }
     }
 
     private fun loadNews() {

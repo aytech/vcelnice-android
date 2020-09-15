@@ -9,8 +9,10 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import cz.vcelnicerudna.contact.ContactActivity
 import cz.vcelnicerudna.main.MainActivity
 import cz.vcelnicerudna.photo.PhotoActivity
+import cz.vcelnicerudna.prices.PricesActivity
 import kotlinx.android.synthetic.main.bottom_bar.*
 
 open class BaseActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -36,6 +38,12 @@ open class BaseActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
         val intent: Intent = when (item.itemId) {
             R.id.photo_page -> {
                 Intent(this, PhotoActivity::class.java)
+            }
+            R.id.contact_page -> {
+                Intent(this, ContactActivity::class.java)
+            }
+            R.id.prices_page -> {
+                Intent(this, PricesActivity::class.java)
             }
             else -> {
                 Intent(this, MainActivity::class.java)

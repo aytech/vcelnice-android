@@ -15,9 +15,6 @@ import retrofit2.http.POST
 
 interface VcelniceAPI {
 
-    @GET(APIConstants.HOME_TEXT_URL)
-    fun getHomeText(): Observable<HomeText>
-
     @GET(APIConstants.NEWS_URL)
     fun getNews(): Observable<List<News>>
 

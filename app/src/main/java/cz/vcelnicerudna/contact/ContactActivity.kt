@@ -1,10 +1,12 @@
-package cz.vcelnicerudna
+package cz.vcelnicerudna.contact
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
+import cz.vcelnicerudna.BaseActivity
+import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.content_email.*
 import java.net.URLEncoder
 
-class EmailActivity : BaseActivity() {
+class ContactActivity : BaseActivity(), ContactContract.ViewInterface {
 
     private val vcelniceAPI by lazy {
         VcelniceAPI.create()
@@ -22,7 +24,7 @@ class EmailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_email)
+        setContentView(R.layout.activity_contact)
 
         send_message.setOnClickListener {
             if (emailValid() && messageValid()) {

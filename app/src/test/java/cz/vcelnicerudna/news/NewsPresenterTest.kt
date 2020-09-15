@@ -5,7 +5,6 @@ import cz.vcelnicerudna.AppDatabase
 import cz.vcelnicerudna.BaseTest
 import cz.vcelnicerudna.RxImmediateSchedulerRule
 import cz.vcelnicerudna.data.Repository
-import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.News
 import io.reactivex.Observable
 import io.reactivex.Single

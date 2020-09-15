@@ -10,8 +10,6 @@
     android:orientation="vertical"
     tools:context=".contact.ContactActivity">
 
-    <include layout="@layout/app_toolbar" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -22,8 +20,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="56dp">
+            android:paddingTop="56dp"
+            android:paddingRight="24dp">
 
             <ImageView
                 android:layout_width="100dp"
@@ -77,17 +75,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="24dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/send_button_background"
-                android:paddingBottom="10dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/button_gradient_selector"
                 android:paddingLeft="40dp"
-                android:paddingRight="40dp"
                 android:paddingTop="10dp"
+                android:paddingRight="40dp"
+                android:paddingBottom="10dp"
                 android:text="@string/send"
                 android:textAllCaps="false"
-                android:textColor="@color/send_button"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
+
+    <include layout="@layout/bottom_bar" />
 </LinearLayout>

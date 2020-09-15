@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
@@ -36,9 +35,6 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         val binding = DataBindingUtil.setContentView<ActivityReserveBinding>(this, R.layout.activity_reserve)
         viewModel = ViewModelProvider(this).get(ReserveViewModel::class.java)
         binding.viewModel = viewModel
-        // Set toolbar and back button
-        setSupportActionBar(binding.reserveToolbar as Toolbar?)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         reservePresenter = ReservePresenter(this, RepositoryImpl(), appDatabase)
 

@@ -28,7 +28,6 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_prices)
-        super.actionBarToggleWithNavigation(this)
 
         viewManager = LinearLayoutManager(this)
         viewAdapter = PricesAdapter(this, listOf())

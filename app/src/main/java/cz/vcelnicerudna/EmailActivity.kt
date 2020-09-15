@@ -23,7 +23,6 @@ class EmailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_email)
-        super.actionBarToggleWithNavigation(this)
 
         send_message.setOnClickListener {
             if (emailValid() && messageValid()) {

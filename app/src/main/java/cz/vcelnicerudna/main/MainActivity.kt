@@ -3,7 +3,6 @@ package cz.vcelnicerudna.main
 import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
-import androidx.core.view.GravityCompat
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.ImageView
@@ -18,15 +17,12 @@ import cz.vcelnicerudna.adapters.NewsAdapter
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.configuration.StringConstants.Companion.NEWS_KEY
 import cz.vcelnicerudna.data.RepositoryImpl
-import cz.vcelnicerudna.databinding.ContentMainBinding
+import cz.vcelnicerudna.databinding.ActivityMainBinding
 import cz.vcelnicerudna.loadHTML
 import cz.vcelnicerudna.models.HomeText
 import cz.vcelnicerudna.models.News
 import cz.vcelnicerudna.news.NewsActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.bottom_bar.*
-import kotlinx.android.synthetic.main.content_main.*
-
 
 class MainActivity : BaseActivity(), MainContract.ViewInterface {
 
@@ -39,15 +35,13 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Set view binding
-        val binding = DataBindingUtil.setContentView<ContentMainBinding>(this, R.layout.content_main)
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.viewModel = viewModel
-        setBottomNavigationMenu(bottom_navigation_menu)
 
         viewManager = LinearLayoutManager(this)
         viewAdapter = NewsAdapter(this, listOf())
         recyclerView = home_news_recycler_view.apply {
-            //setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
         }
@@ -62,14 +56,6 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
             intent.putParcelableArrayListExtra(NEWS_KEY, ArrayList(mainPresenter.getNews()))
             startActivity(intent)
         }
-    }
-
-    override fun onBackPressed() {
-//        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-//            drawer_layout.closeDrawer(GravityCompat.START)
-//        } else {
-//            super.onBackPressed()
-//        }
     }
 
     private fun loadNews() {

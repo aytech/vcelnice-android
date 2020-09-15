@@ -20,7 +20,6 @@ import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.Photo
 import kotlinx.android.synthetic.main.activity_photo.*
-import kotlinx.android.synthetic.main.bottom_bar.*
 
 class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoContract.ViewInterface {
 
@@ -58,8 +57,6 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoCon
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo)
-        setBottomNavigationMenu(bottom_navigation_menu)
-//        super.actionBarToggleWithNavigation(this)
         photoPresenter = PhotoPresenter(this, VcelniceAPI.create(), appDatabase)
         ActivityCompat.setExitSharedElementCallback(this, exitElementCallback)
 
@@ -101,7 +98,6 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoCon
                     ActivityCompat.startPostponedEnterTransition(this@PhotoActivity)
                     return true
                 }
-
             })
         }
     }

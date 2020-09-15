@@ -25,7 +25,6 @@ class NewsActivity : BaseActivity(), NewsContract.ViewInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
-        super.actionBarToggleWithNavigation(this)
 
         viewManager = LinearLayoutManager(this)
         viewAdapter = NewsAdapter(this, listOf())

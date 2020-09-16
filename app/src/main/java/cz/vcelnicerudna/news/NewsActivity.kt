@@ -11,7 +11,7 @@ import cz.vcelnicerudna.adapters.NewsAdapter
 import cz.vcelnicerudna.configuration.StringConstants.Companion.NEWS_KEY
 import cz.vcelnicerudna.data.RepositoryImpl
 import cz.vcelnicerudna.models.News
-import kotlinx.android.synthetic.main.content_news.*
+import kotlinx.android.synthetic.main.activity_news.*
 import java.util.ArrayList
 
 class NewsActivity : BaseActivity(), NewsContract.ViewInterface {

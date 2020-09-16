@@ -24,6 +24,7 @@
             android:paddingRight="24dp">
 
             <ImageView
+                android:id="@+id/contact_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
@@ -86,6 +87,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
+
         </LinearLayout>
     </ScrollView>
 

@@ -15,7 +15,7 @@ import cz.vcelnicerudna.configuration.StringConstants.Companion.RESERVATION_OK
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.Price
 import cz.vcelnicerudna.reserve.ReserveActivity
-import kotlinx.android.synthetic.main.content_prices.*
+import kotlinx.android.synthetic.main.activity_prices.*
 
 class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
 

@@ -13,7 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.content_email.*
+import kotlinx.android.synthetic.main.activity_contact.*
 import java.net.URLEncoder
 
 class ContactActivity : BaseActivity(), ContactContract.ViewInterface {
@@ -32,6 +32,7 @@ class ContactActivity : BaseActivity(), ContactContract.ViewInterface {
                 postContactMessage()
             }
         }
+        contact_image
     }
 
     private fun emailValid(): Boolean {

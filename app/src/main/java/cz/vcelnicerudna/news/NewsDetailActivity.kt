@@ -9,15 +9,12 @@ import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.models.News
 import kotlinx.android.synthetic.main.activity_news_detail.*
-import kotlinx.android.synthetic.main.app_toolbar.*
 
 class NewsDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_detail)
-        setSupportActionBar(app_toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val news = intent.getParcelableExtra<News>(StringConstants.NEWS_KEY)
         if (news == null) {

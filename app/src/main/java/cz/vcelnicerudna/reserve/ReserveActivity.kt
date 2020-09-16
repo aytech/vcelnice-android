@@ -39,7 +39,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         reservePresenter = ReservePresenter(this, RepositoryImpl(), appDatabase)
 
         loadImage()
-        updateSpinners()
+        addListeners()
         getLocations()
     }
 
@@ -60,7 +60,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         }
     }
 
-    private fun updateSpinners() {
+    private fun addListeners() {
         glasses_spinner.onItemSelectedListener = object : AdapterViewListener() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 viewModel.updateGlassesCount(position)

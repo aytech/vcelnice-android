@@ -4,6 +4,7 @@ import android.util.Patterns
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import cz.vcelnicerudna.R
+import cz.vcelnicerudna.configuration.Validator
 import cz.vcelnicerudna.models.Location
 
 class ReserveViewModel : ViewModel() {
@@ -30,12 +31,11 @@ class ReserveViewModel : ViewModel() {
     }
 
     fun canPostReservation(): Boolean {
-        val emailAddress = email.get()
-        return if (emailAddress.isNullOrEmpty()) {
+        return if (!Validator.isEmail(email.get())) {
             validationMessage = R.string.enter_valid_email
             false
         } else {
-            Patterns.EMAIL_ADDRESS.matcher(emailAddress as CharSequence).matches()
+            true
         }
     }
 }

@@ -1,6 +1,7 @@
 package cz.vcelnicerudna.data.net
 
 import cz.vcelnicerudna.configuration.APIConstants
+import cz.vcelnicerudna.data.model.EmailMessage
 import cz.vcelnicerudna.data.model.Reservation
 import cz.vcelnicerudna.models.HomeText
 import cz.vcelnicerudna.models.Location
@@ -36,6 +37,10 @@ class RetrofitClient {
                 message = reservation.message,
                 title = reservation.title,
                 location = reservation.location)
+    }
+
+    fun postContactMessage(message: EmailMessage): Call<Response<Void>> {
+        return vcelniceApi.postContactMessage(email = message.email, message = message.message)
     }
 
     fun getReservationLocations(): Observable<List<Location>> {

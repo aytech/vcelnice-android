@@ -37,19 +37,11 @@
 
                 <ImageView
                     android:id="@+id/contact_image"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="24dp"
                     android:contentDescription="@string/background"
-                    android:src="@mipmap/ic_honza" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/call"
-                    android:src="@mipmap/ic_phone_round" />
+                    android:src="@mipmap/ic_honza_round" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -105,7 +97,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="24dp"
+                        android:layout_marginBottom="10dp"
                         android:background="@drawable/button_gradient_selector"
                         android:paddingLeft="40dp"
                         android:paddingTop="10dp"
@@ -115,6 +107,16 @@
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|bottom"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginRight="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:contentDescription="@string/call"
+                        android:src="@drawable/ic_baseline_phone_in_talk_30" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

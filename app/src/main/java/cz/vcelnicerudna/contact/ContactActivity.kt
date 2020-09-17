@@ -1,24 +1,14 @@
 package cz.vcelnicerudna.contact
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import android.text.TextUtils
-import android.util.Patterns
-import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
 import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
-import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.databinding.ActivityContactBinding
 import cz.vcelnicerudna.interfaces.VcelniceAPI
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_contact.*
-import java.net.URLEncoder
 
 class ContactActivity : BaseActivity(), ContactContract.ViewInterface {
 

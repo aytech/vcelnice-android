@@ -1,5 +1,6 @@
 package cz.vcelnicerudna.data
 
+import cz.vcelnicerudna.data.model.EmailMessage
 import cz.vcelnicerudna.data.model.Reservation
 import cz.vcelnicerudna.data.net.RetrofitClient
 import cz.vcelnicerudna.models.HomeText
@@ -26,5 +27,9 @@ class RepositoryImpl : Repository {
 
     override fun postReservation(reservation: Reservation): Call<Response<Void>> {
         return retrofitClient.postReservation(reservation)
+    }
+
+    override fun postContactMessage(message: EmailMessage): Call<Response<Void>> {
+        return retrofitClient.postContactMessage(message)
     }
 }

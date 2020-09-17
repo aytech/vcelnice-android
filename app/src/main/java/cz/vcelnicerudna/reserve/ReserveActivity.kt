@@ -38,6 +38,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
 
         reservePresenter = ReservePresenter(this, RepositoryImpl(), appDatabase)
 
+        action_call.setOnClickListener { handleCallAction() }
         bottom_app_bar_reserve.setNavigationOnClickListener { navigateHome() }
         bottom_app_bar_reserve.setOnMenuItemClickListener { onNavigationItemSelected(it, null) }
 

@@ -11,7 +11,7 @@ import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.models.Price
 import cz.vcelnicerudna.prices.PricesContract
 
-class PricesAdapter(var context: PricesContract.ViewInterface, private var dataSet: List<Price>) :
+class PricesAdapter(private var context: PricesContract.ViewInterface, private var dataSet: List<Price>) :
         RecyclerView.Adapter<PriceViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PriceViewHolder {
         val textView = LayoutInflater.from(parent.context)

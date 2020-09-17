@@ -53,6 +53,7 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
             intent.putParcelableArrayListExtra(NEWS_KEY, ArrayList(mainPresenter.getNews()))
             startActivity(intent)
         }
+        action_call.setOnClickListener { handleCallAction() }
         bottom_app_bar.setOnMenuItemClickListener { onNavigationItemSelected(it, null) }
 
         loadNews()

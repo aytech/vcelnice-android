@@ -66,6 +66,7 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoCon
         photo_collection.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         photo_collection.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL))
 
+        action_call.setOnClickListener { handleCallAction() }
         bottom_app_bar_photo.setNavigationOnClickListener { navigateHome() }
         bottom_app_bar_photo.setOnMenuItemClickListener { onNavigationItemSelected(it, R.id.photo_page) }
 

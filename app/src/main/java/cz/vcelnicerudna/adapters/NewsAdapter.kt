@@ -13,7 +13,7 @@ import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.models.News
 
-class NewsAdapter(var context: Context, private var newsDataSet: List<News>) :
+class NewsAdapter(private var context: Context, private var newsDataSet: List<News>) :
         RecyclerView.Adapter<NewsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup,

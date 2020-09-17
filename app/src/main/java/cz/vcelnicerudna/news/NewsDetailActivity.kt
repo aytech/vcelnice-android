@@ -1,20 +1,22 @@
 package cz.vcelnicerudna.news
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
+import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.models.News
 import kotlinx.android.synthetic.main.activity_news_detail.*
 
-class NewsDetailActivity : AppCompatActivity() {
+class NewsDetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_detail)
+
+        action_call.setOnClickListener { handleCallAction() }
 
         val news = intent.getParcelableExtra<News>(StringConstants.NEWS_KEY)
         if (news == null) {

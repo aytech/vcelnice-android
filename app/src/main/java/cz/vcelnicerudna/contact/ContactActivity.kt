@@ -25,6 +25,7 @@ class ContactActivity : BaseActivity(), ContactContract.ViewInterface {
         binding.viewModel = viewModel
 
         send_message.setOnClickListener { postContactMessage() }
+        action_call.setOnClickListener { handleCallAction() }
         bottom_app_bar_contact.setNavigationOnClickListener { navigateHome() }
         bottom_app_bar_contact.setOnMenuItemClickListener { onNavigationItemSelected(it, R.id.contact_page) }
     }

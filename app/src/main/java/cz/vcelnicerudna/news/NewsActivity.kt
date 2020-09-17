@@ -44,6 +44,7 @@ class NewsActivity : BaseActivity(), NewsContract.ViewInterface {
 
         newsPresenter = NewsPresenter(this, RepositoryImpl(), appDatabase)
 
+        action_call.setOnClickListener { handleCallAction() }
         bottom_app_bar_news.setNavigationOnClickListener { navigateHome() }
         bottom_app_bar_news.setOnMenuItemClickListener { onNavigationItemSelected(it, null) }
 

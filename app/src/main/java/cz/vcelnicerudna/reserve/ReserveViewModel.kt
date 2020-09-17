@@ -1,6 +1,5 @@
 package cz.vcelnicerudna.reserve
 
-import android.util.Patterns
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import cz.vcelnicerudna.R

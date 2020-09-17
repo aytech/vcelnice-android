@@ -1,6 +1,5 @@
 package cz.vcelnicerudna.configuration
 
-import android.text.TextUtils
 import android.util.Patterns
 
 class Validator {

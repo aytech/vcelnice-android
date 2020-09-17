@@ -7,6 +7,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorText">#000033</color>
     <color name="colorHint">#808080</color>
-    <color name="appBackground">#FDF1DF</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

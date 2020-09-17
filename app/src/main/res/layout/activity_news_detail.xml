@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".news.NewsDetailActivity">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
         android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingEnd="@dimen/padding_sides"
-            android:paddingLeft="@dimen/padding_sides"
-            android:paddingRight="@dimen/padding_sides"
             android:paddingStart="@dimen/padding_sides"
-            android:paddingTop="@dimen/img_padding_top">
+            android:paddingLeft="@dimen/padding_sides"
+            android:paddingTop="@dimen/img_padding_top"
+            android:paddingEnd="@dimen/padding_sides"
+            android:paddingRight="@dimen/padding_sides">
 
             <ImageView
                 android:id="@+id/news_image"
@@ -48,4 +47,21 @@
                 android:textSize="@dimen/text_size_normal" />
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar_news"
+        style="@style/Widget.App.BottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:menu="@menu/bottom_app_menu"
+        app:navigationIcon="@drawable/ic_menu_home" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/action_call"
+        style="@style/Widget.App.FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_phone_in_talk_30"
+        app:layout_anchor="@id/bottom_app_bar_news" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

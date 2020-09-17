@@ -1,7 +1,6 @@
 package cz.vcelnicerudna.data.net
 
 import cz.vcelnicerudna.configuration.APIConstants
-import cz.vcelnicerudna.models.EmailResponse
 import cz.vcelnicerudna.models.HomeText
 import cz.vcelnicerudna.models.Location
 import cz.vcelnicerudna.models.News

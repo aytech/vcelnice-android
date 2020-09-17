@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -11,27 +11,22 @@
         <item name="android:textColorSecondary">@color/colorText</item>
         <item name="android:listDivider">@color/colorPrimaryLight</item>
         <item name="android:textColorHint">@color/colorHint</item>
-        <item name="android:actionBarStyle">@style/AppActionBar</item>
+        <!--        <item name="android:actionBarStyle">@style/AppActionBar</item>-->
     </style>
 
-    <style name="ActionButton" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/button_gradient_selector</item>
-    </style>
+    <!--    <style name="ActionButton" parent="Widget.AppCompat.Button">-->
+    <!--        <item name="android:background">@drawable/button_gradient_selector</item>-->
+    <!--    </style>-->
 
-    <style name="TransparentButton" parent="Widget.AppCompat.Button">
-        <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:gravity">center|center_vertical</item>
-    </style>
+    <!--    <style name="AppActionBar" parent="ThemeOverlay.AppCompat.ActionBar">-->
+    <!--        <item name="android:textColorPrimary">@android:color/white</item>-->
+    <!--        <item name="android:textColorSecondary">@android:color/white</item>-->
+    <!--        <item name="android:background">@color/colorPrimary</item>-->
+    <!--    </style>-->
 
-    <style name="AppActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="android:textColorSecondary">@android:color/white</item>
-        <item name="android:background">@color/colorPrimary</item>
-    </style>
+    <!--    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!--    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
 
     <style name="ToolbarColoredBackArrow" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@android:color/black</item>
@@ -51,6 +46,29 @@
     <style name="SpinnerDropdownItem">
         <item name="android:gravity">center|center_vertical</item>
         <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="Widget.App.BottomAppBar" parent="Widget.MaterialComponents.BottomAppBar.Colored">
+        <item name="fabAlignmentMode">end</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomAppBar</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomAppBar" parent="">
+        <item name="colorPrimary">@color/colorPrimaryTint</item>
+        <item name="colorOnPrimary">@color/colorPrimaryDark</item>
+        <item name="android:drawablePadding">16dp</item>
+        <item name="textAppearanceSmallPopupMenu">@color/white</item>
+    </style>
+
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/colorPrimaryTint</item>
+        <item name="colorSecondary">@color/colorPrimaryDark</item>
+        <item name="colorOnSecondary">@color/colorPrimaryTint</item>
+    </style>
+
+    <style name="Widget.App.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
     </style>
 
 </resources>

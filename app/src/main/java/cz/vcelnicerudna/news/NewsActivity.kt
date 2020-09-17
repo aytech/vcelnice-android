@@ -44,8 +44,10 @@ class NewsActivity : BaseActivity(), NewsContract.ViewInterface {
 
         newsPresenter = NewsPresenter(this, RepositoryImpl(), appDatabase)
 
-        val bundledNews: ArrayList<News>? = intent.getParcelableArrayListExtra(NEWS_KEY)
+        bottom_app_bar_news.setNavigationOnClickListener { navigateHome() }
+        bottom_app_bar_news.setOnMenuItemClickListener { onNavigationItemSelected(it, null) }
 
+        val bundledNews: ArrayList<News>? = intent.getParcelableArrayListExtra(NEWS_KEY)
         if (bundledNews == null) {
             fetchNewsFromApi()
         } else {
@@ -69,7 +71,7 @@ class NewsActivity : BaseActivity(), NewsContract.ViewInterface {
 
     override fun showError() {
         loading_content.visibility = View.GONE
-        val snackBar = getThemedSnackBar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+        val snackBar = getThemedSnackBar(main_view_news, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
         snackBar.setAction(getString(R.string.reload)) {
             snackBar.dismiss()
             fetchNewsFromApi()

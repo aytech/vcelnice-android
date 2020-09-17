@@ -16,9 +16,7 @@
         android:layout_height="?android:attr/actionBarSize"
         android:layout_gravity="top"
         android:background="@android:color/transparent"
-        android:theme="@style/ToolbarColoredBackArrow"
         android:title=""
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:titleTextColor="@android:color/white" />
-
 </merge>

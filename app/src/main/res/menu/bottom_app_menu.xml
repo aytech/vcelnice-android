@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/photo_page"
+        android:contentDescription="@string/photo"
+        android:enabled="true"
+        android:icon="@drawable/ic_photo_collections_24dp"
+        android:title="@string/photo"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/prices_page"
+        android:contentDescription="@string/price_list"
+        android:enabled="true"
+        android:icon="@drawable/ic_menu_prices"
+        android:title="@string/price_list"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/contact_page"
+        android:contentDescription="@string/contact"
+        android:enabled="true"
+        android:icon="@drawable/ic_menu_email"
+        android:title="@string/contact"
+        app:showAsAction="ifRoom|withText" />
+</menu>

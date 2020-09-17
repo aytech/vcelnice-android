@@ -8,14 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import cz.vcelnicerudna.contact.ContactActivity
 import cz.vcelnicerudna.main.MainActivity
 import cz.vcelnicerudna.photo.PhotoActivity
 import cz.vcelnicerudna.prices.PricesActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_bar.*
 
-open class BaseActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+open class BaseActivity : AppCompatActivity() {
 
     protected lateinit var appDatabase: AppDatabase
 
@@ -24,17 +26,20 @@ open class BaseActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
         appDatabase = AppDatabase.getInstance(this)
     }
 
-    override fun onStart() {
-        super.onStart()
-        bottom_navigation_menu.setOnNavigationItemSelectedListener(this)
-    }
-
     override fun onDestroy() {
         AppDatabase.destroyInstance()
         super.onDestroy()
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+    fun navigateHome() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun onNavigationItemSelected(item: MenuItem, currentItem: Int?): Boolean {
+        if (item.itemId == currentItem) {
+            return true
+        }
         val intent: Intent = when (item.itemId) {
             R.id.photo_page -> {
                 Intent(this, PhotoActivity::class.java)

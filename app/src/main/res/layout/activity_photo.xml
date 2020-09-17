@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_view"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_photo_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/appBackground"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:openDrawer="start">
+    android:layout_height="match_parent">
 
     <ProgressBar
         android:id="@+id/loading_content"
@@ -19,8 +15,9 @@
     <ScrollView
         android:id="@+id/photo_content"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:paddingBottom="60dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -46,5 +43,19 @@
         </RelativeLayout>
     </ScrollView>
 
-    <include layout="@layout/bottom_bar" />
-</LinearLayout>
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar_photo"
+        style="@style/Widget.App.BottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:menu="@menu/bottom_app_menu"
+        app:navigationIcon="@drawable/ic_menu_home" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/Widget.App.FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_phone_in_talk_30"
+        app:layout_anchor="@id/bottom_app_bar_photo" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

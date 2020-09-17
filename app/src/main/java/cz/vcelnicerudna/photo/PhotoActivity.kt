@@ -66,6 +66,9 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoCon
         photo_collection.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         photo_collection.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL))
 
+        bottom_app_bar_photo.setNavigationOnClickListener { navigateHome() }
+        bottom_app_bar_photo.setOnMenuItemClickListener { onNavigationItemSelected(it, R.id.photo_page) }
+
         loadPhotos()
     }
 
@@ -123,7 +126,7 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoCon
 
     override fun showError() {
         loading_content.visibility = View.GONE
-        val snackBar = getThemedSnackBar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+        val snackBar = getThemedSnackBar(main_photo_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
         snackBar.setAction(getString(R.string.reload)) {
             snackBar.dismiss()
             loadPhotos()

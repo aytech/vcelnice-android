@@ -42,6 +42,10 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
             // specify an viewAdapter (see also next example)
             adapter = viewAdapter
         }
+
+        bottom_app_bar_prices.setNavigationOnClickListener { navigateHome() }
+        bottom_app_bar_prices.setOnMenuItemClickListener { onNavigationItemSelected(it, R.id.prices_page) }
+
         loadPrices()
     }
 

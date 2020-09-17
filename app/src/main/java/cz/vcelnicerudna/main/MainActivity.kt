@@ -48,23 +48,22 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
 
         mainPresenter = MainPresenter(this, RepositoryImpl(), appDatabase)
 
-        loadNews()
-        loadHomeText()
-
         more_news.setOnClickListener {
             val intent = Intent(this, NewsActivity::class.java)
             intent.putParcelableArrayListExtra(NEWS_KEY, ArrayList(mainPresenter.getNews()))
             startActivity(intent)
         }
+        bottom_app_bar.setOnMenuItemClickListener { onNavigationItemSelected(it, null) }
+
+        loadNews()
+        loadHomeText()
     }
 
     private fun loadNews() {
-        loading_content.visibility = VISIBLE
         mainPresenter.fetchNewsFromApi()
     }
 
     private fun loadHomeText() {
-        loading_content.visibility = VISIBLE
         mainPresenter.fetchHomeTextFromApi()
     }
 
@@ -80,7 +79,6 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
     }
 
     override fun showNews(news: List<News>) {
-        loading_content.visibility = GONE
         if (news.isNotEmpty()) {
             viewAdapter.loadNewData(news)
             home_news_recycler_view.visibility = VISIBLE

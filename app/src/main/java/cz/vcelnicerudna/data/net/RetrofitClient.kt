@@ -39,7 +39,7 @@ class RetrofitClient {
                 location = reservation.location)
     }
 
-    fun postContactMessage(message: EmailMessage): Call<Response<Void>> {
+    fun postContactMessage(message: EmailMessage): Observable<Response<Void>> {
         return vcelniceApi.postContactMessage(email = message.email, message = message.message)
     }
 

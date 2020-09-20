@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
 import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
+import cz.vcelnicerudna.data.RepositoryImpl
 import cz.vcelnicerudna.databinding.ActivityContactBinding
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import kotlinx.android.synthetic.main.activity_contact.*
@@ -13,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_contact.*
 class ContactActivity : BaseActivity(), ContactContract.ViewInterface {
 
     private lateinit var viewModel: ContactViewModel
+    private lateinit var presenter: ContactContract.PresenterInterface
 
     private val vcelniceAPI by lazy {
         VcelniceAPI.create()
@@ -23,6 +25,8 @@ class ContactActivity : BaseActivity(), ContactContract.ViewInterface {
         val binding = DataBindingUtil.setContentView<ActivityContactBinding>(this, R.layout.activity_contact)
         viewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
         binding.viewModel = viewModel
+
+        presenter = ContactPresenter(this, RepositoryImpl())
 
         send_message.setOnClickListener { postContactMessage() }
         action_call.setOnClickListener { handleCallAction() }

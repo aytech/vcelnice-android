@@ -29,7 +29,7 @@ interface VcelniceApi {
     @FormUrlEncoded
     fun postContactMessage(
             @Field("email") email: String?,
-            @Field("message") message: String?): Call<Response<Void>>
+            @Field("message") message: String?): Observable<Response<Void>>
 
     @GET(APIConstants.NEWS_URL)
     fun getNews(): Observable<List<News>>

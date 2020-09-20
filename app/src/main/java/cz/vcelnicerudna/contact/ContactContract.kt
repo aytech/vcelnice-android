@@ -5,6 +5,6 @@ import cz.vcelnicerudna.data.model.EmailMessage
 class ContactContract {
     interface ViewInterface {}
     interface PresenterInterface {
-        fun postContactMessage(message: EmailMessage)
+        fun postContactMessage(email: String, message: String)
     }
 }

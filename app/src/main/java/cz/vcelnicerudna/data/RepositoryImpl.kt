@@ -29,7 +29,7 @@ class RepositoryImpl : Repository {
         return retrofitClient.postReservation(reservation)
     }
 
-    override fun postContactMessage(message: EmailMessage): Call<Response<Void>> {
+    override fun postContactMessage(message: EmailMessage): Observable<Response<Void>> {
         return retrofitClient.postContactMessage(message)
     }
 }

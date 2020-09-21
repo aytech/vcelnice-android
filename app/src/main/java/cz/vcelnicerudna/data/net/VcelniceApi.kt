@@ -1,6 +1,7 @@
 package cz.vcelnicerudna.data.net
 
 import cz.vcelnicerudna.configuration.APIConstants
+import cz.vcelnicerudna.data.model.EmailMessage
 import cz.vcelnicerudna.models.HomeText
 import cz.vcelnicerudna.models.Location
 import cz.vcelnicerudna.models.News
@@ -29,7 +30,7 @@ interface VcelniceApi {
     @FormUrlEncoded
     fun postContactMessage(
             @Field("email") email: String?,
-            @Field("message") message: String?): Observable<Response<Void>>
+            @Field("message") message: String?): Observable<EmailMessage>
 
     @GET(APIConstants.NEWS_URL)
     fun getNews(): Observable<List<News>>

@@ -3,8 +3,14 @@ package cz.vcelnicerudna.contact
 import cz.vcelnicerudna.data.model.EmailMessage
 
 class ContactContract {
-    interface ViewInterface {}
+    interface ViewInterface {
+        fun onMessageSent()
+        fun onMessageSentError()
+        fun onMessageSendComplete()
+    }
+
     interface PresenterInterface {
-        fun postContactMessage(email: String, message: String)
+        fun postContactMessage(emailMessage: EmailMessage)
+        fun onDestroy()
     }
 }

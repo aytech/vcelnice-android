@@ -4,6 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.Validator
+import cz.vcelnicerudna.data.model.EmailMessage
 
 class ContactViewModel : ViewModel() {
     val email: ObservableField<String> = ObservableField("")
@@ -20,5 +21,14 @@ class ContactViewModel : ViewModel() {
             return false
         }
         return true
+    }
+
+    fun getEmailMessage(): EmailMessage {
+        return EmailMessage(email.get(), message.get())
+    }
+
+    fun clearForm() {
+        email.set(null)
+        message.set(null)
     }
 }

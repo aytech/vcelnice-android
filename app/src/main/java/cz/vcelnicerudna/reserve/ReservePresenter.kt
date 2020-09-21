@@ -89,6 +89,7 @@ class ReservePresenter(
         compositeDisposable.add(disposable)
     }
 
+    // TODO: Refactor to use Observable
     override fun postReservation(reservation: Reservation) {
         pricesRepository
                 .postReservation(reservation)

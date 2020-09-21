@@ -24,12 +24,6 @@ interface VcelniceAPI {
     @GET(APIConstants.PHOTO_URL)
     fun getPhotos(): Observable<List<Photo>>
 
-    @POST(APIConstants.EMAIL_POST_URL)
-    @FormUrlEncoded
-    fun postContactMessage(
-            @Field("email") email: String,
-            @Field("message") message: String): Observable<EmailResponse>
-
     @POST(APIConstants.RESERVE_POST_URL)
     @FormUrlEncoded
     fun reserve(

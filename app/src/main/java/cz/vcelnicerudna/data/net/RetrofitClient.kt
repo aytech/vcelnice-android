@@ -13,6 +13,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.URLEncoder
 
 class RetrofitClient {
 
@@ -39,8 +40,9 @@ class RetrofitClient {
                 location = reservation.location)
     }
 
-    fun postContactMessage(message: EmailMessage): Observable<Response<Void>> {
-        return vcelniceApi.postContactMessage(email = message.email, message = message.message)
+    fun postContactMessage(message: EmailMessage): Observable<EmailMessage> {
+        val encodedMessage = URLEncoder.encode(message.message, "UTF-8")
+        return vcelniceApi.postContactMessage(email = message.email, message = encodedMessage)
     }
 
     fun getReservationLocations(): Observable<List<Location>> {

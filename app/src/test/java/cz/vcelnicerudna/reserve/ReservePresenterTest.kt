@@ -4,6 +4,7 @@ import com.nhaarman.mockitokotlin2.given
 import cz.vcelnicerudna.AppDatabase
 import cz.vcelnicerudna.RxImmediateSchedulerRule
 import cz.vcelnicerudna.data.Repository
+import cz.vcelnicerudna.data.model.Reservation
 import cz.vcelnicerudna.models.Location
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -37,6 +38,10 @@ class ReservePresenterTest {
         get() {
             return listOf(Location.default())
         }
+    private val reservationMock: Reservation
+        get() {
+            return Reservation("Test reservation", 1, "Test location", "test@test.com", "Test message")
+        }
 
     @Before
     fun setUp() {
@@ -52,7 +57,7 @@ class ReservePresenterTest {
 
         Mockito.verify(mockDataSource).getReservationLocations()
         Mockito.verify(mockActivity).showLocations(locations)
-        Mockito.verify(mockActivity).loadingComplete()
+        Mockito.verify(mockActivity).onLocationsFetchComplete()
     }
 
     @Test
@@ -92,5 +97,30 @@ class ReservePresenterTest {
         val location = Location.default()
         reservePresenter.persistLocation(location)
         Mockito.verify(mockLocalDataSource.locationsDao()).insert(location)
+    }
+
+    @Test
+    fun testPostReservation() {
+        val reservation = reservationMock
+        Mockito.doReturn(Observable.just(reservation))
+                .`when`(mockDataSource).postReservation(reservation)
+
+        reservePresenter.postReservation(reservation)
+
+        Mockito.verify(mockDataSource).postReservation(reservation)
+        Mockito.verify(mockActivity).onSuccessPostReservation()
+        Mockito.verify(mockActivity).onCompletePostReservation()
+    }
+
+    @Test
+    fun testPostReservationError() {
+        val reservation = reservationMock
+        Mockito.doReturn(Observable.error<Throwable>(Throwable("Error posting reservation")))
+                .`when`(mockDataSource).postReservation(reservation)
+
+        reservePresenter.postReservation(reservation)
+
+        Mockito.verify(mockDataSource).postReservation(reservation)
+        Mockito.verify(mockActivity).onFailPostReservation()
     }
 }

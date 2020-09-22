@@ -2,12 +2,11 @@ package cz.vcelnicerudna.data.net
 
 import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.data.model.EmailMessage
+import cz.vcelnicerudna.data.model.Reservation
 import cz.vcelnicerudna.models.HomeText
 import cz.vcelnicerudna.models.Location
 import cz.vcelnicerudna.models.News
 import io.reactivex.Observable
-import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -24,7 +23,7 @@ interface VcelniceApi {
             @Field("email") email: String?,
             @Field("message") message: String?,
             @Field("title") title: String?,
-            @Field("location") location: Location?): Call<Response<Void>>
+            @Field("location") location: String?): Observable<Reservation>
 
     @POST(APIConstants.EMAIL_POST_URL)
     @FormUrlEncoded

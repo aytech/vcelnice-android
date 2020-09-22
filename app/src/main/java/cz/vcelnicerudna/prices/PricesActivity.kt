@@ -2,8 +2,6 @@ package cz.vcelnicerudna.prices
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar.LENGTH_INDEFINITE
-import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
@@ -43,7 +41,7 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
             adapter = viewAdapter
         }
 
-        action_call.setOnClickListener { handleCallAction() }
+        action_call_prices.setOnClickListener { handleCallAction() }
         bottom_app_bar_prices.setNavigationOnClickListener { navigateHome() }
         bottom_app_bar_prices.setOnMenuItemClickListener { onNavigationItemSelected(it, R.id.prices_page) }
 
@@ -54,7 +52,7 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
         if (requestCode == reservationActivityCode && resultCode == RESULT_OK) {
             val postOk = data?.getBooleanExtra(RESERVATION_OK, false)
             if (postOk != null && postOk == true) {
-                getThemedSnackBar(main_view, R.string.reservation_sent_success, LENGTH_LONG).show()
+                getLongSnack(main_view_prices, bottom_app_bar_prices, R.string.reservation_sent_success).show()
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
@@ -71,7 +69,7 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
 
     override fun showError() {
         loading_content.visibility = View.GONE
-        val snackBar = getThemedSnackBar(main_view, R.string.network_error, LENGTH_INDEFINITE)
+        val snackBar = getIndefiniteSnack(main_view_prices, bottom_app_bar_prices, R.string.network_error)
         snackBar.setAction(getString(R.string.reload)) {
             snackBar.dismiss()
             loadPrices()

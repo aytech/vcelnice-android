@@ -7,12 +7,11 @@ import cz.vcelnicerudna.models.HomeText
 import cz.vcelnicerudna.models.Location
 import cz.vcelnicerudna.models.News
 import io.reactivex.Observable
-import retrofit2.Call
-import retrofit2.Response
 
 class RepositoryImpl : Repository {
 
     private val retrofitClient = RetrofitClient()
+
     override fun getHomeText(): Observable<HomeText> {
         return retrofitClient.getHomeText()
     }
@@ -25,7 +24,7 @@ class RepositoryImpl : Repository {
         return retrofitClient.getReservationLocations()
     }
 
-    override fun postReservation(reservation: Reservation): Call<Response<Void>> {
+    override fun postReservation(reservation: Reservation): Observable<Reservation> {
         return retrofitClient.postReservation(reservation)
     }
 

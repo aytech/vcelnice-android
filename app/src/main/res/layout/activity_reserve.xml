@@ -12,7 +12,7 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/main_view"
+        android:id="@+id/main_view_reserve"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -189,7 +189,7 @@
             app:navigationIcon="@drawable/ic_menu_home" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_call"
+            android:id="@+id/action_call_reserve"
             style="@style/Widget.App.FloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

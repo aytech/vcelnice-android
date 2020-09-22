@@ -2,11 +2,11 @@ package cz.vcelnicerudna.reserve
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.Snackbar.LENGTH_LONG
 import com.squareup.picasso.Picasso
 import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
@@ -38,7 +38,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
 
         reservePresenter = ReservePresenter(this, RepositoryImpl(), appDatabase)
 
-        action_call.setOnClickListener { handleCallAction() }
+        action_call_reserve.setOnClickListener { handleCallAction() }
         bottom_app_bar_reserve.setNavigationOnClickListener { navigateHome() }
         bottom_app_bar_reserve.setOnMenuItemClickListener { onNavigationItemSelected(it, null) }
 
@@ -87,12 +87,12 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
             val reservation = Reservation(
                     viewModel.reservationTitle,
                     viewModel.glassesCount.get(),
-                    viewModel.locationEntry.get(),
+                    viewModel.locationEntry.get().toString(),
                     viewModel.email.get(),
                     URLEncoder.encode(viewModel.message.get(), UTF_8))
             reservePresenter.postReservation(reservation)
         } else {
-            getThemedSnackBar(main_view, viewModel.validationMessage, LENGTH_LONG).show()
+            getLongSnack(main_view_reserve, bottom_app_bar_reserve, viewModel.validationMessage).show()
         }
     }
 
@@ -100,12 +100,12 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         viewModel.updateLocations(listOf(Location.default()))
     }
 
-    override fun loadingComplete() {
+    override fun onLocationsFetchComplete() {
         // Not yet implemented
     }
 
     override fun onFailPostReservation() {
-        getThemedSnackBar(main_view, R.string.network_error, LENGTH_LONG).show()
+        getLongSnack(main_view_reserve, bottom_app_bar_reserve, R.string.network_error).show()
     }
 
     override fun onSuccessPostReservation() {
@@ -113,6 +113,10 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         intent.putExtra(RESERVATION_OK, true)
         setResult(RESULT_OK, intent)
         finish()
+    }
+
+    override fun onCompletePostReservation() {
+        Log.d(ReserveActivity::class.simpleName, "onCompletePostReservation: ")
     }
 
     override fun showLocations(locations: List<Location>?) {

@@ -12,9 +12,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class ReservePresenter(
         private var activity: ReserveContract.ViewInterface,
@@ -36,7 +33,7 @@ class ReservePresenter(
             }
 
             override fun onComplete() {
-                activity.loadingComplete()
+                activity.onLocationsFetchComplete()
             }
 
         }
@@ -65,6 +62,22 @@ class ReservePresenter(
             }
         }
 
+    private val postReservationObserver: DisposableObserver<Reservation>
+        get() = object : DisposableObserver<Reservation>() {
+            override fun onNext(reservation: Reservation) {
+                activity.onSuccessPostReservation()
+            }
+
+            override fun onError(e: Throwable) {
+                Log.d(ReservePresenter::class.simpleName, "onError: $e")
+                activity.onFailPostReservation()
+            }
+
+            override fun onComplete() {
+                activity.onCompletePostReservation()
+            }
+        }
+
     override fun fetchLocationsFromApi() {
         val locationsDisposable = locationsRepositoryObservable
                 .subscribeOn(Schedulers.io())
@@ -89,18 +102,12 @@ class ReservePresenter(
         compositeDisposable.add(disposable)
     }
 
-    // TODO: Refactor to use Observable
     override fun postReservation(reservation: Reservation) {
-        pricesRepository
+        val disposable = pricesRepository
                 .postReservation(reservation)
-                .enqueue(object : Callback<Response<Void>> {
-                    override fun onResponse(call: Call<Response<Void>>, response: Response<Response<Void>>) {
-                        activity.onSuccessPostReservation()
-                    }
-
-                    override fun onFailure(call: Call<Response<Void>>, t: Throwable) {
-                        activity.onFailPostReservation()
-                    }
-                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(postReservationObserver)
+        compositeDisposable.add(disposable)
     }
 }

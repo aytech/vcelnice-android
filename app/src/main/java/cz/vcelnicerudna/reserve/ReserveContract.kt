@@ -12,10 +12,11 @@ class ReserveContract {
     }
 
     interface ViewInterface {
-        fun loadingComplete()
+        fun onLocationsFetchComplete()
         fun onFailPostReservation()
         fun onNetworkError()
         fun onSuccessPostReservation()
+        fun onCompletePostReservation()
         fun postReservation()
         fun showDefaultLocation()
         fun showLocations(locations: List<Location>?)

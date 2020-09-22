@@ -8,8 +8,6 @@ import cz.vcelnicerudna.models.Location
 import cz.vcelnicerudna.models.News
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -31,7 +29,7 @@ class RetrofitClient {
         vcelniceApi = retrofit.create(VcelniceApi::class.java)
     }
 
-    fun postReservation(reservation: Reservation): Call<Response<Void>> {
+    fun postReservation(reservation: Reservation): Observable<Reservation> {
         return vcelniceApi.postReservation(
                 amount = reservation.amount,
                 email = reservation.email,

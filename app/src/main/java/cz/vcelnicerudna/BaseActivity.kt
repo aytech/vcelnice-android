@@ -11,7 +11,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
 import cz.vcelnicerudna.configuration.AppConstants.Companion.CONTACT_PHONE
 import cz.vcelnicerudna.contact.ContactActivity
@@ -66,6 +66,7 @@ open class BaseActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    @Deprecated(message = "Deprecated, use getLongSnack / getIndefiniteSnack instead")
     fun getThemedSnackBar(view: View, message: Int, length: Int): Snackbar {
         val snackBar = Snackbar.make(view, getString(message), length)
         snackBar.setActionTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
@@ -75,13 +76,21 @@ open class BaseActivity : AppCompatActivity() {
         return snackBar
     }
 
-    fun getLongSnack(view: CoordinatorLayout, bar: BottomAppBar, message: Int): Snackbar {
-        val snackBar = Snackbar.make(view, getString(message), LENGTH_LONG)
+    private fun getSnack(view: CoordinatorLayout, bar: BottomAppBar, message: Int, duration: Int): Snackbar {
+        val snackBar = Snackbar.make(view, getString(message), duration)
         snackBar.anchorView = bar
         snackBar.setActionTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
         val snackBarView: View = snackBar.view
         val snackBarTextView: TextView = snackBarView.findViewById(R.id.snackbar_text)
         snackBarTextView.setTextColor(ContextCompat.getColor(this, R.color.white))
         return snackBar
+    }
+
+    fun getLongSnack(view: CoordinatorLayout, bar: BottomAppBar, message: Int): Snackbar {
+        return getSnack(view, bar, message, LENGTH_LONG)
+    }
+
+    fun getIndefiniteSnack(view: CoordinatorLayout, bar: BottomAppBar, message: Int): Snackbar {
+        return getSnack(view, bar, message, LENGTH_INDEFINITE)
     }
 }

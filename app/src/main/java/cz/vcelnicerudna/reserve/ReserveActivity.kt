@@ -2,8 +2,11 @@ package cz.vcelnicerudna.reserve
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.AdapterView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
@@ -28,6 +31,34 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
 
     private lateinit var reservePresenter: ReservePresenter
     private lateinit var viewModel: ReserveViewModel
+    private val fabSendAction: CountDownTimer
+        get() = object : CountDownTimer(100, 100) {
+            override fun onTick(p0: Long) {}
+            override fun onFinish() {
+                action_call_reserve.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_baseline_send_30))
+                action_call_reserve.setOnClickListener { Timber.d("No action here yet") }
+            }
+        }
+    private val fabCallAction: CountDownTimer
+        get() = object : CountDownTimer(100, 100) {
+            override fun onTick(p0: Long) {}
+            override fun onFinish() {
+                action_call_reserve.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_baseline_phone_in_talk_30))
+                action_call_reserve.setOnClickListener { handleCallAction() }
+            }
+        }
+    private val fabActionChangeListener: ViewTreeObserver.OnGlobalLayoutListener
+        get() = ViewTreeObserver.OnGlobalLayoutListener {
+            val heightRoot = main_view_reserve.rootView.height
+            val heightView = main_view_reserve.height
+            if (isViewHeightDiffHigherThan25Percent(heightRoot, heightView)) {
+                Timber.d("Keyboard is probably open")
+                fabSendAction.start()
+            } else {
+                Timber.d("Keyboard is probably closed")
+                fabCallAction.start()
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +68,11 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         binding.viewModel = viewModel
 
         reservePresenter = ReservePresenter(this, RepositoryImpl(), appDatabase)
-
+        // Attach listeners
         action_call_reserve.setOnClickListener { handleCallAction() }
         bottom_app_bar_reserve.setNavigationOnClickListener { navigateHome() }
         bottom_app_bar_reserve.setOnMenuItemClickListener { onNavigationItemSelected(it, null) }
+        main_view_reserve.viewTreeObserver.addOnGlobalLayoutListener(fabActionChangeListener)
 
         loadImage()
         addListeners()

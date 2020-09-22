@@ -30,7 +30,7 @@ class NewsPresenter (
                 }
             }
 
-            override fun onError(e: Throwable) {
+            override fun onError(error: Throwable) {
                 activity.onNetworkError()
             }
 

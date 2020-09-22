@@ -18,7 +18,7 @@ class MainContract {
     interface ViewInterface {
         fun onLoadingComplete()
         fun onHomeTextNetworkError()
-        fun onNewsNetworkError()
+        fun onNewsNetworkError(error: Throwable)
         fun showError()
         fun showHomeText(text: HomeText)
         fun showNews(news: List<News>)

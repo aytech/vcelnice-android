@@ -66,6 +66,7 @@ open class BaseActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    // TODO: remove references
     @Deprecated(message = "Deprecated, use getLongSnack / getIndefiniteSnack instead")
     fun getThemedSnackBar(view: View, message: Int, length: Int): Snackbar {
         val snackBar = Snackbar.make(view, getString(message), length)
@@ -92,5 +93,10 @@ open class BaseActivity : AppCompatActivity() {
 
     fun getIndefiniteSnack(view: CoordinatorLayout, bar: BottomAppBar, message: Int): Snackbar {
         return getSnack(view, bar, message, LENGTH_INDEFINITE)
+    }
+
+    fun isViewHeightDiffHigherThan25Percent(heightRoot: Int, heightView: Int): Boolean {
+        val heightDifference: Int = heightRoot - heightView
+        return heightDifference > .25 * heightRoot
     }
 }

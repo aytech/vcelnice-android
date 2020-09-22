@@ -50,7 +50,7 @@ class MainPresenter(
             }
 
             override fun onError(error: Throwable) {
-                activity.onNewsNetworkError()
+                activity.onNewsNetworkError(error)
             }
 
             override fun onComplete() {

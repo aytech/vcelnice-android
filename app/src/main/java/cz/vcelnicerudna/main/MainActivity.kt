@@ -2,7 +2,6 @@ package cz.vcelnicerudna.main
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.ImageView
@@ -23,6 +22,7 @@ import cz.vcelnicerudna.models.HomeText
 import cz.vcelnicerudna.models.News
 import cz.vcelnicerudna.news.NewsActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 
 class MainActivity : BaseActivity(), MainContract.ViewInterface {
 
@@ -53,8 +53,8 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
             intent.putParcelableArrayListExtra(NEWS_KEY, ArrayList(mainPresenter.getNews()))
             startActivity(intent)
         }
-        action_call.setOnClickListener { handleCallAction() }
-        bottom_app_bar.setOnMenuItemClickListener { onNavigationItemSelected(it, null) }
+        action_call_main.setOnClickListener { handleCallAction() }
+        bottom_app_bar_main.setOnMenuItemClickListener { onNavigationItemSelected(it, null) }
 
         loadNews()
         loadHomeText()
@@ -95,12 +95,12 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
         mainPresenter.fetchHomeTextFromLocalDataStore()
     }
 
-    override fun onNewsNetworkError() {
-        TODO("Not yet implemented")
+    override fun onNewsNetworkError(error: Throwable) {
+        Timber.d("Error loading news: $error")
     }
 
     override fun showError() {
-        val snackBar = getThemedSnackBar(main_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
+        val snackBar = getIndefiniteSnack(main_view, bottom_app_bar_main, R.string.network_error)
         snackBar.setAction(getString(R.string.reload)) {
             snackBar.dismiss()
             loadHomeText()

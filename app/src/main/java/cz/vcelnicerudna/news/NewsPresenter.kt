@@ -1,6 +1,5 @@
 package cz.vcelnicerudna.news
 
-import android.util.Log
 import cz.vcelnicerudna.AppDatabase
 import cz.vcelnicerudna.data.Repository
 import cz.vcelnicerudna.models.News
@@ -11,13 +10,13 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 class NewsPresenter (
         private var activity: NewsContract.ViewInterface,
         private var repository: Repository,
         private var localDataStore: AppDatabase) : NewsContract.PresenterInterface {
 
-    private val classTag = NewsPresenter::class.simpleName
     private val compositeDisposable = CompositeDisposable()
 
     private val apiObservable: Observable<List<News>>
@@ -36,7 +35,7 @@ class NewsPresenter (
             }
 
             override fun onComplete() {
-                Log.d(classTag, "Finished loading news")
+                Timber.d("Finished loading news")
             }
         }
 
@@ -56,11 +55,11 @@ class NewsPresenter (
     private val persistNewsObserver: DisposableSingleObserver<Long>
         get() = object : DisposableSingleObserver<Long>() {
             override fun onSuccess(id: Long) {
-                Log.d(classTag, "inserted to DB with ids: $id")
+                Timber.d("Inserted news item to DB with ids: $id")
             }
 
-            override fun onError(e: Throwable) {
-                Log.d(classTag, "Error persisting news: $e")
+            override fun onError(error: Throwable) {
+                Timber.d("Error persisting news item: $error")
             }
         }
 

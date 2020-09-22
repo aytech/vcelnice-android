@@ -1,6 +1,5 @@
 package cz.vcelnicerudna.prices
 
-import android.util.Log
 import cz.vcelnicerudna.AppDatabase
 import cz.vcelnicerudna.interfaces.VcelniceAPI
 import cz.vcelnicerudna.models.Price
@@ -11,13 +10,13 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 class PricesPresenter(
         private var activity: PricesContract.ViewInterface,
         private var vcelniceAPI: VcelniceAPI,
         private var localDataSource: AppDatabase) : PricesContract.PresenterInterface {
 
-    private val classTag = PricesPresenter::class.simpleName
     private val compositeDisposable = CompositeDisposable()
 
     private val apiObservable: Observable<List<Price>>
@@ -34,7 +33,7 @@ class PricesPresenter(
             }
 
             override fun onComplete() {
-                Log.d(classTag, "Finished loading prices from API")
+                Timber.d("Finished loading prices from API")
             }
         }
 
@@ -54,11 +53,11 @@ class PricesPresenter(
     private val persistPriceObserver: DisposableSingleObserver<Long>
         get() = object : DisposableSingleObserver<Long>() {
             override fun onSuccess(id: Long) {
-                Log.d(classTag, "Persisted price with ID $id")
+                Timber.d("Persisted price with ID $id")
             }
 
-            override fun onError(e: Throwable) {
-                Log.d(classTag, "Error while trying to persist price, $e")
+            override fun onError(error: Throwable) {
+                Timber.d("Error while trying to persist price, $error")
             }
         }
 

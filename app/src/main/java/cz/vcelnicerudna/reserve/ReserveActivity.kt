@@ -2,7 +2,6 @@ package cz.vcelnicerudna.reserve
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
@@ -22,6 +21,7 @@ import cz.vcelnicerudna.databinding.ActivityReserveBinding
 import cz.vcelnicerudna.models.Location
 import cz.vcelnicerudna.models.Price
 import kotlinx.android.synthetic.main.activity_reserve.*
+import timber.log.Timber
 import java.net.URLEncoder
 
 class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
@@ -116,7 +116,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
     }
 
     override fun onCompletePostReservation() {
-        Log.d(ReserveActivity::class.simpleName, "onCompletePostReservation: ")
+        Timber.d("Finished posting reservation to API")
     }
 
     override fun showLocations(locations: List<Location>?) {

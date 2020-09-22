@@ -1,6 +1,5 @@
 package cz.vcelnicerudna.reserve
 
-import android.util.Log
 import cz.vcelnicerudna.AppDatabase
 import cz.vcelnicerudna.data.Repository
 import cz.vcelnicerudna.data.model.Reservation
@@ -12,6 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 class ReservePresenter(
         private var activity: ReserveContract.ViewInterface,
@@ -54,11 +54,11 @@ class ReservePresenter(
     private val persistLocationObserver: DisposableSingleObserver<Long>
         get() = object : DisposableSingleObserver<Long>() {
             override fun onSuccess(id: Long) {
-                Log.d(ReservePresenter::class.simpleName, "Persisted location with ID $id")
+                Timber.d("Persisted location with ID $id")
             }
 
-            override fun onError(e: Throwable) {
-                Log.d(ReservePresenter::class.simpleName, "Error persisting location: $e")
+            override fun onError(error: Throwable) {
+                Timber.d("Error persisting location: $error")
             }
         }
 
@@ -68,8 +68,8 @@ class ReservePresenter(
                 activity.onSuccessPostReservation()
             }
 
-            override fun onError(e: Throwable) {
-                Log.d(ReservePresenter::class.simpleName, "onError: $e")
+            override fun onError(error: Throwable) {
+                Timber.d("Error posting reservation to API: $error")
                 activity.onFailPostReservation()
             }
 

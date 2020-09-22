@@ -1,6 +1,5 @@
 package cz.vcelnicerudna.main
 
-import android.util.Log
 import cz.vcelnicerudna.AppDatabase
 import cz.vcelnicerudna.data.Repository
 import cz.vcelnicerudna.models.HomeText
@@ -12,6 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 class MainPresenter(
         private var activity: MainContract.ViewInterface,
@@ -88,22 +88,22 @@ class MainPresenter(
     private val persistHomeTextObserver: DisposableSingleObserver<Long>
         get() = object : DisposableSingleObserver<Long>() {
             override fun onSuccess(id: Long) {
-                Log.d(MainPresenter::class.simpleName, "Persisted home text with ID $id")
+                Timber.d("Persisted home text with ID $id")
             }
 
-            override fun onError(e: Throwable) {
-                Log.d(MainPresenter::class.simpleName, "Error persisting home text, $e")
+            override fun onError(error: Throwable) {
+                Timber.d("Error persisting home text, $error")
             }
         }
 
     private val persistNewsObserver: DisposableSingleObserver<Long>
         get() = object : DisposableSingleObserver<Long>() {
             override fun onSuccess(id: Long) {
-                Log.d(MainPresenter::class.simpleName, "Persisted home text with ID $id")
+                Timber.d("Persisted home text with ID $id")
             }
 
             override fun onError(error: Throwable) {
-                Log.d(MainPresenter::class.simpleName, "Error persisting home text, $error")
+                Timber.d("Error persisting home text, $error")
             }
         }
 

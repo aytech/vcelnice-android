@@ -105,11 +105,12 @@ class MainPresenterTest : BaseTest() {
 
     @Test
     fun testFetchNewsFromApiError() {
-        Mockito.doReturn(Observable.error<Throwable>(Throwable("Error fetching news"))).`when`(mockDataSource).getNews()
+        val error = Throwable("Error fetching news")
+        Mockito.doReturn(Observable.error<Throwable>(error)).`when`(mockDataSource).getNews()
 
         mainPresenter.fetchNewsFromApi()
 
-        Mockito.verify(mockActivity).onNewsNetworkError()
+        Mockito.verify(mockActivity).onNewsNetworkError(error)
     }
 
     @Test

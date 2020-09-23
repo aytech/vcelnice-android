@@ -13,7 +13,7 @@ class ReserveContract {
 
     interface ViewInterface {
         fun onLocationsFetchComplete()
-        fun onFailPostReservation()
+        fun onFailPostReservation(error: Throwable)
         fun onNetworkError()
         fun onSuccessPostReservation()
         fun onCompletePostReservation()

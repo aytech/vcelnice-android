@@ -100,12 +100,7 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
     }
 
     override fun showError() {
-        val snackBar = getIndefiniteSnack(main_view, bottom_app_bar_main, R.string.network_error)
-        snackBar.setAction(getString(R.string.reload)) {
-            snackBar.dismiss()
-            loadHomeText()
-        }
-        snackBar.show()
+        getIndefiniteSnack(main_view, action_call_main, R.string.network_error, R.string.reload) { loadHomeText() }.show()
     }
 
     override fun onDestroy() {

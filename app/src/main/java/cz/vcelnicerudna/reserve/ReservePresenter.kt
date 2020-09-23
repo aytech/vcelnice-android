@@ -69,8 +69,7 @@ class ReservePresenter(
             }
 
             override fun onError(error: Throwable) {
-                Timber.d("Error posting reservation to API: $error")
-                activity.onFailPostReservation()
+                activity.onFailPostReservation(error)
             }
 
             override fun onComplete() {

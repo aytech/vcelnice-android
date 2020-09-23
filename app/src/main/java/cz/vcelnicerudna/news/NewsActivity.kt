@@ -1,7 +1,6 @@
 package cz.vcelnicerudna.news
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
@@ -44,7 +43,7 @@ class NewsActivity : BaseActivity(), NewsContract.ViewInterface {
 
         newsPresenter = NewsPresenter(this, RepositoryImpl(), appDatabase)
 
-        action_call.setOnClickListener { handleCallAction() }
+        action_call_news.setOnClickListener { handleCallAction() }
         bottom_app_bar_news.setNavigationOnClickListener { navigateHome() }
         bottom_app_bar_news.setOnMenuItemClickListener { onNavigationItemSelected(it, null) }
 
@@ -72,11 +71,6 @@ class NewsActivity : BaseActivity(), NewsContract.ViewInterface {
 
     override fun showError() {
         loading_content.visibility = View.GONE
-        val snackBar = getThemedSnackBar(main_view_news, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
-        snackBar.setAction(getString(R.string.reload)) {
-            snackBar.dismiss()
-            fetchNewsFromApi()
-        }
-        snackBar.show()
+        getIndefiniteSnack(main_view_news, action_call_news, R.string.network_error, R.string.reload) { fetchNewsFromApi() }.show()
     }
 }

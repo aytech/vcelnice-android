@@ -115,12 +115,12 @@ class ReservePresenterTest {
     @Test
     fun testPostReservationError() {
         val reservation = reservationMock
-        Mockito.doReturn(Observable.error<Throwable>(Throwable("Error posting reservation")))
-                .`when`(mockDataSource).postReservation(reservation)
+        val error = Throwable("Error posting reservation")
+        Mockito.doReturn(Observable.error<Throwable>(error)).`when`(mockDataSource).postReservation(reservation)
 
         reservePresenter.postReservation(reservation)
 
         Mockito.verify(mockDataSource).postReservation(reservation)
-        Mockito.verify(mockActivity).onFailPostReservation()
+        Mockito.verify(mockActivity).onFailPostReservation(error)
     }
 }

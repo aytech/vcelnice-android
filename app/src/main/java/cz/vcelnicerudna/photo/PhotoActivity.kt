@@ -3,7 +3,6 @@ package cz.vcelnicerudna.photo
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.app.SharedElementCallback
@@ -66,7 +65,7 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoCon
         photo_collection.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         photo_collection.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL))
 
-        action_call.setOnClickListener { handleCallAction() }
+        action_call_photo.setOnClickListener { handleCallAction() }
         bottom_app_bar_photo.setNavigationOnClickListener { navigateHome() }
         bottom_app_bar_photo.setOnMenuItemClickListener { onNavigationItemSelected(it, R.id.photo_page) }
 
@@ -127,11 +126,6 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoCon
 
     override fun showError() {
         loading_content.visibility = View.GONE
-        val snackBar = getThemedSnackBar(main_photo_view, R.string.network_error, Snackbar.LENGTH_INDEFINITE)
-        snackBar.setAction(getString(R.string.reload)) {
-            snackBar.dismiss()
-            loadPhotos()
-        }
-        snackBar.show()
+        getIndefiniteSnack(main_photo_view, action_call_photo, R.string.network_error, R.string.reload) { loadPhotos() }.show()
     }
 }

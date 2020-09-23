@@ -53,10 +53,6 @@ class Price() : Parcelable {
         }
     }
 
-    fun getStringRepresentation(): String {
-        return "$title ($weight) - $price ${StringConstants.CZ_CURRENCY}"
-    }
-
     fun getShortStringRepresentation(): String {
         return "$price ${StringConstants.CZ_CURRENCY} ($weight)"
     }

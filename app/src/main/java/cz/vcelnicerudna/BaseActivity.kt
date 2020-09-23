@@ -3,16 +3,20 @@ package cz.vcelnicerudna
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.CountDownTimer
 import com.google.android.material.snackbar.Snackbar
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
+import com.squareup.picasso.Picasso
+import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.configuration.AppConstants.Companion.CONTACT_PHONE
 import cz.vcelnicerudna.contact.ContactActivity
 import cz.vcelnicerudna.main.MainActivity
@@ -66,20 +70,9 @@ open class BaseActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    // TODO: remove references
-    @Deprecated(message = "Deprecated, use getLongSnack / getIndefiniteSnack instead")
-    fun getThemedSnackBar(view: View, message: Int, length: Int): Snackbar {
-        val snackBar = Snackbar.make(view, getString(message), length)
-        snackBar.setActionTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
-        val snackBarView: View = snackBar.view
-        val snackBarTextView: TextView = snackBarView.findViewById(R.id.snackbar_text)
-        snackBarTextView.setTextColor(ContextCompat.getColor(this, R.color.white))
-        return snackBar
-    }
-
-    private fun getSnack(view: CoordinatorLayout, bar: BottomAppBar, message: Int, duration: Int): Snackbar {
+    private fun getSnack(view: CoordinatorLayout, fab: FloatingActionButton, message: Int, duration: Int): Snackbar {
         val snackBar = Snackbar.make(view, getString(message), duration)
-        snackBar.anchorView = bar
+        snackBar.anchorView = fab
         snackBar.setActionTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
         val snackBarView: View = snackBar.view
         val snackBarTextView: TextView = snackBarView.findViewById(R.id.snackbar_text)
@@ -87,16 +80,44 @@ open class BaseActivity : AppCompatActivity() {
         return snackBar
     }
 
-    fun getLongSnack(view: CoordinatorLayout, bar: BottomAppBar, message: Int): Snackbar {
-        return getSnack(view, bar, message, LENGTH_LONG)
+    fun getLongSnack(view: CoordinatorLayout, fab: FloatingActionButton, message: Int): Snackbar {
+        val snack = getSnack(view, fab, message, LENGTH_LONG)
+        snack.setAction(getString(R.string.ok)) { snack.dismiss() }
+        return snack
     }
 
-    fun getIndefiniteSnack(view: CoordinatorLayout, bar: BottomAppBar, message: Int): Snackbar {
-        return getSnack(view, bar, message, LENGTH_INDEFINITE)
+    fun getIndefiniteSnack(view: CoordinatorLayout, fab: FloatingActionButton, message: Int, action: Int, onAction: () -> Unit): Snackbar {
+        val snack = getSnack(view, fab, message, LENGTH_INDEFINITE)
+        snack.setAction(getString(action)) {
+            snack.dismiss()
+            onAction()
+        }
+        return snack
     }
 
-    fun isViewHeightDiffHigherThan25Percent(heightRoot: Int, heightView: Int): Boolean {
-        val heightDifference: Int = heightRoot - heightView
-        return heightDifference > .25 * heightRoot
+    fun isKeyboardOpen(view: View): Boolean {
+        val heightDifference: Int = view.rootView.height - view.height
+        return heightDifference > .25 * view.rootView.height
+    }
+
+    fun setPromotedFabAction(fab: FloatingActionButton, drawable: Int, action: () -> Unit) {
+        val timer = object : CountDownTimer(100, 100) {
+            override fun onTick(p0: Long) {}
+            override fun onFinish() {
+                fab.setImageDrawable(ContextCompat.getDrawable(applicationContext, drawable))
+                fab.setOnClickListener { action() }
+            }
+
+        }
+        timer.start()
+    }
+
+    fun loadImageIntoView(element: ImageView, imageRelativeUrl: String) {
+        Picasso
+                .get()
+                .load(APIConstants.VCELNICE_BASE_URL + imageRelativeUrl)
+                .transform(RoundedCornersTransformation())
+                .placeholder(R.mipmap.ic_bee)
+                .into(element)
     }
 }

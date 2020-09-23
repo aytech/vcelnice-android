@@ -113,10 +113,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:menu="@menu/bottom_app_menu"
+            app:navigationContentDescription="@string/home"
             app:navigationIcon="@drawable/ic_menu_home" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_call"
+            android:id="@+id/action_call_contact"
             style="@style/Widget.App.FloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

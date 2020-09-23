@@ -52,7 +52,7 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
         if (requestCode == reservationActivityCode && resultCode == RESULT_OK) {
             val postOk = data?.getBooleanExtra(RESERVATION_OK, false)
             if (postOk != null && postOk == true) {
-                getLongSnack(main_view_prices, bottom_app_bar_prices, R.string.reservation_sent_success).show()
+                getIndefiniteSnack(main_view_prices, action_call_prices, R.string.reservation_sent_success, R.string.ok) {}.show()
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
@@ -69,12 +69,7 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
 
     override fun showError() {
         loading_content.visibility = View.GONE
-        val snackBar = getIndefiniteSnack(main_view_prices, bottom_app_bar_prices, R.string.network_error)
-        snackBar.setAction(getString(R.string.reload)) {
-            snackBar.dismiss()
-            loadPrices()
-        }
-        snackBar.show()
+        getIndefiniteSnack(main_view_prices, action_call_prices, R.string.network_error, R.string.reload) { loadPrices() }.show()
     }
 
     override fun showPrices(prices: List<Price>) {

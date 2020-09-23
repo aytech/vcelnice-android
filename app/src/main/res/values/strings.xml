@@ -5,12 +5,9 @@
     <string name="video" tools:keep="@string/video">Video</string>
     <string name="certificates" tools:keep="@string/certificates">Certifikáty</string>
     <string name="region" tools:keep="@string/region">Region</string>
-    <string name="news">Novinky</string>
     <string name="recipes" tools:keep="@string/recipes">Recepty</string>
     <string name="price_list">Ceník</string>
     <string name="contact">Kontakt</string>
-    <string name="call">Volat</string>
-    <string name="email">Email</string>
     <string name="jan_saroch">Jan Šaroch</string>
     <string name="app_name_news">Včelnice Rudná - Novinky</string>
     <string name="app_name_news_article">Včelnice Rudná - Novinka</string>
@@ -35,10 +32,10 @@
     <string name="price_icon_description">Med - cena</string>
     <string name="number_of_glasses">Počet sklenic</string>
     <string name="pickup_at_address">Vyzvednutí na adrese</string>
-    <string name="enter_number_of_glasses">Zadejte počet sklenic</string>
     <string name="news_image">Obrázek článku</string>
     <string name="reload">Načíst znovu</string>
     <string name="spinner_dropdown">Spinner dropdown</string>
     <string name="more_news">Více novinek</string>
     <string name="send_email">Poslat e-mail</string>
+    <string name="ok">OK</string>
 </resources>

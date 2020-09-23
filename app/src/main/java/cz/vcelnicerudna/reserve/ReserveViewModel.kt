@@ -3,15 +3,18 @@ package cz.vcelnicerudna.reserve
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import cz.vcelnicerudna.R
+import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.configuration.Validator
+import cz.vcelnicerudna.data.model.Reservation
 import cz.vcelnicerudna.models.Location
+import java.net.URLEncoder
 
 class ReserveViewModel : ViewModel() {
     private val glassesData: List<Int> = listOf(1, 2, 3, 4, 5)
     lateinit var reservationTitle: String
     var validationMessage: Int = 0
-    val glassesCount = ObservableField(glassesData[0])
-    val locationEntry = ObservableField<Location>()
+    private val glassesCount = ObservableField(glassesData[0])
+    private val locationEntry = ObservableField<Location>()
     val glassesCountEntries: ObservableField<List<Int>> = ObservableField(glassesData)
     val locationEntries: ObservableField<List<Location>> = ObservableField(listOf())
     val email = ObservableField("")
@@ -36,5 +39,14 @@ class ReserveViewModel : ViewModel() {
         } else {
             true
         }
+    }
+
+    fun getReservation(): Reservation {
+        return Reservation(
+                reservationTitle,
+                glassesCount.get(),
+                locationEntry.get().toString(),
+                email.get(),
+                URLEncoder.encode(message.get(), StringConstants.UTF_8))
     }
 }

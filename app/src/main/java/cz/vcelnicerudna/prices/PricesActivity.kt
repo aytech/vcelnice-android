@@ -20,26 +20,16 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
     private val reservationActivityCode: Int = 0
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: PricesAdapter
-    private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var pricesPresenter: PricesContract.PresenterInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_prices)
 
-        viewManager = LinearLayoutManager(this)
-        viewAdapter = PricesAdapter(this, listOf())
+        viewAdapter = PricesAdapter(listOf())
         pricesPresenter = PricesPresenter(this, VcelniceAPI.create(), appDatabase)
 
-        recyclerView = findViewById<RecyclerView>(R.id.prices_recycler_view).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
-            // use a linear layout manager
-            layoutManager = viewManager
-            // specify an viewAdapter (see also next example)
-            adapter = viewAdapter
-        }
+        recyclerView = findViewById<RecyclerView>(R.id.prices_recycler_view).apply { adapter = viewAdapter }
 
         action_call_prices.setOnClickListener { handleCallAction() }
         bottom_app_bar_prices.setNavigationOnClickListener { navigateHome() }
@@ -79,7 +69,7 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
         } else {
             empty_message.visibility = View.GONE
             prices_recycler_view.visibility = View.VISIBLE
-            viewAdapter.loadNewData(prices)
+            viewAdapter.update(prices)
         }
     }
 

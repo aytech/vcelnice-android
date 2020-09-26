@@ -1,65 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/recycle_margin"
-    android:layout_marginLeft="@dimen/recycle_margin"
-    android:layout_marginTop="@dimen/recycle_margin"
-    android:layout_marginEnd="@dimen/recycle_margin"
-    android:layout_marginRight="@dimen/recycle_margin"
-    android:orientation="horizontal">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/price_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:contentDescription="@string/prices_default_icon"
-        android:src="@mipmap/ic_bee" />
+    <data>
 
-    <LinearLayout
-        android:id="@+id/recipe_description_container"
+        <variable
+            name="price"
+            type="cz.vcelnicerudna.viewmodels.PricesViewModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_toEndOf="@+id/price_image"
-        android:layout_toRightOf="@+id/price_image"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:theme="@style/Theme.MaterialComponents.Light">
 
-        <TextView
-            android:id="@+id/price_title"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:maxLines="2"
-            android:paddingStart="8dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:textColor="@color/colorText"
-            android:textStyle="bold" />
+            android:layout_marginStart="@dimen/recycle_margin"
+            android:layout_marginLeft="@dimen/recycle_margin"
+            android:layout_marginTop="@dimen/recycle_margin"
+            android:layout_marginEnd="@dimen/recycle_margin"
+            android:layout_marginRight="@dimen/recycle_margin"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/price_description"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:paddingLeft="8dp"
-            android:paddingEnd="8dp"
-            android:paddingRight="8dp"
-            android:textColor="@color/colorText"
-            android:textIsSelectable="false" />
+            <ImageView
+                android:id="@+id/price_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/prices_default_icon"
+                android:src="@mipmap/ic_bee"
+                app:imageUrl="@{price.icon}" />
 
-        <Button
-            android:id="@+id/reserve_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/send_button_background"
-            android:text="@string/reserve"
-            android:textColor="@color/colorText" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_toEndOf="@+id/price_image"
+                android:layout_toRightOf="@+id/price_image"
+                android:orientation="vertical">
 
-    </LinearLayout>
-</RelativeLayout>
+                <TextView
+                    android:id="@+id/price_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:maxLines="2"
+                    android:paddingStart="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@{price.title}"
+                    android:textColor="@color/colorText"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/price_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:paddingLeft="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@{price.text}"
+                    android:textColor="@color/colorText"
+                    android:textIsSelectable="false" />
+
+                <Button
+                    android:id="@+id/reserve_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/send_button_background"
+                    android:text="@string/reserve"
+                    android:textColor="@color/colorText" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

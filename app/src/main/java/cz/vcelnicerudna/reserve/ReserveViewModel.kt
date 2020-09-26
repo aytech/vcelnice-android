@@ -12,6 +12,7 @@ import java.net.URLEncoder
 class ReserveViewModel : ViewModel() {
     private val glassesData: List<Int> = listOf(1, 2, 3, 4, 5)
     lateinit var reservationTitle: String
+    var icon: String? = null
     var validationMessage: Int = 0
     private val glassesCount = ObservableField(glassesData[0])
     private val locationEntry = ObservableField<Location>()

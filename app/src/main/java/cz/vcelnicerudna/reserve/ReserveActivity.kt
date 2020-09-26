@@ -52,9 +52,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
             finish()
         } else {
             viewModel.reservationTitle = bundledPrice.title.toString()
-            if (bundledPrice.image != null) {
-                loadImageIntoView(price_image, bundledPrice.image!!)
-            }
+            viewModel.icon = bundledPrice.image
         }
     }
 

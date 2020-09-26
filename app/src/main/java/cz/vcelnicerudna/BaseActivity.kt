@@ -9,14 +9,11 @@ import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
-import com.squareup.picasso.Picasso
-import cz.vcelnicerudna.configuration.APIConstants
 import cz.vcelnicerudna.configuration.AppConstants.Companion.CONTACT_PHONE
 import cz.vcelnicerudna.contact.ContactActivity
 import cz.vcelnicerudna.main.MainActivity
@@ -110,14 +107,5 @@ open class BaseActivity : AppCompatActivity() {
 
         }
         timer.start()
-    }
-
-    fun loadImageIntoView(element: ImageView, imageRelativeUrl: String) {
-        Picasso
-                .get()
-                .load(APIConstants.VCELNICE_BASE_URL + imageRelativeUrl)
-                .transform(RoundedCornersTransformation())
-                .placeholder(R.mipmap.ic_bee)
-                .into(element)
     }
 }

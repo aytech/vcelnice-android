@@ -36,7 +36,7 @@
                     android:layout_height="200dp"
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@string/background"
-                    android:src="@mipmap/ic_honza_round" />
+                    android:src="@mipmap/ic_honza" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -26,7 +26,7 @@ class NewsActivity : BaseActivity(), NewsContract.ViewInterface {
         setContentView(R.layout.activity_news)
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = NewsAdapter(this, listOf())
+        viewAdapter = NewsAdapter(listOf())
 
         recyclerView = findViewById<RecyclerView>(R.id.news_recycler_view).apply {
             // use this setting to improve performance if you know that changes
@@ -62,7 +62,7 @@ class NewsActivity : BaseActivity(), NewsContract.ViewInterface {
 
     override fun showNews(news: List<News>) {
         loading_content.visibility = View.GONE
-        viewAdapter.loadNewData(news)
+        viewAdapter.update(news)
     }
 
     override fun onNetworkError() {

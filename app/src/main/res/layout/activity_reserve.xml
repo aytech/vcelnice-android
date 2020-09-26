@@ -38,7 +38,8 @@
                     android:layout_height="@dimen/placeholder_size"
                     android:layout_gravity="center"
                     android:contentDescription="@string/price_icon_description"
-                    android:src="@mipmap/ic_bee" />
+                    android:src="@mipmap/ic_bee"
+                    app:imageUrl="@{viewModel.icon}" />
 
                 <TextView
                     android:id="@+id/reserve_title"

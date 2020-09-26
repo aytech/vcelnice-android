@@ -1,52 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:theme="@style/Theme.MaterialComponents.Light">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <data>
+
+        <variable
+            name="news"
+            type="cz.vcelnicerudna.viewmodels.NewsViewModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_margin="8dp"
+        android:theme="@style/Theme.MaterialComponents.Light">
 
-        <ImageView
-            android:id="@+id/news_icon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:contentDescription="@string/news_default_icon"
-            android:src="@mipmap/ic_bee" />
-
-        <LinearLayout
-            android:id="@+id/news_description_container"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_toEndOf="@+id/news_icon"
-            android:layout_toRightOf="@+id/news_icon"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
 
-            <TextView
-                android:id="@+id/news_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:maxLines="2"
-                android:paddingStart="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/news_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:contentDescription="@string/news_default_icon"
+                android:src="@mipmap/ic_bee"
+                app:imageUrl="@{news.iconUrl}" />
 
-            <TextView
-                android:id="@+id/news_description"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:paddingLeft="8dp"
-                android:paddingEnd="8dp"
-                android:paddingRight="8dp"
-                android:textIsSelectable="false" />
-        </LinearLayout>
-    </RelativeLayout>
-</com.google.android.material.card.MaterialCardView>
+                android:layout_height="80dp"
+                android:layout_toEndOf="@+id/news_icon"
+                android:layout_toRightOf="@+id/news_icon"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/news_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:maxLines="2"
+                    android:paddingStart="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@{news.title}"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/news_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:paddingLeft="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@{news.text}"
+                    android:textIsSelectable="false" />
+            </LinearLayout>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

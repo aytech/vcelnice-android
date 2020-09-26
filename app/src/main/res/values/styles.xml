@@ -11,22 +11,7 @@
         <item name="android:textColorSecondary">@color/colorText</item>
         <item name="android:listDivider">@color/colorPrimaryLight</item>
         <item name="android:textColorHint">@color/colorHint</item>
-        <!--        <item name="android:actionBarStyle">@style/AppActionBar</item>-->
     </style>
-
-    <!--    <style name="ActionButton" parent="Widget.AppCompat.Button">-->
-    <!--        <item name="android:background">@drawable/button_gradient_selector</item>-->
-    <!--    </style>-->
-
-    <!--    <style name="AppActionBar" parent="ThemeOverlay.AppCompat.ActionBar">-->
-    <!--        <item name="android:textColorPrimary">@android:color/white</item>-->
-    <!--        <item name="android:textColorSecondary">@android:color/white</item>-->
-    <!--        <item name="android:background">@color/colorPrimary</item>-->
-    <!--    </style>-->
-
-    <!--    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
-
-    <!--    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
 
     <style name="ToolbarColoredBackArrow" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@android:color/black</item>

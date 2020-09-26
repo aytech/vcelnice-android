@@ -1,22 +1,19 @@
 package cz.vcelnicerudna.adapters
 
-import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import cz.vcelnicerudna.databinding.FragmentPricesBinding
 import cz.vcelnicerudna.models.Price
-import cz.vcelnicerudna.viewmodels.PricesViewModel
-import timber.log.Timber
+import cz.vcelnicerudna.prices.PricesContract
+import cz.vcelnicerudna.viewmodels.PriceViewModel
+import kotlinx.android.synthetic.main.fragment_prices.view.*
 
-class PricesAdapter(private var prices: List<PricesViewModel>) :
+class PricesAdapter(private val activity: PricesContract.ViewInterface, private var prices: List<PriceViewModel>) :
         RecyclerView.Adapter<PricesAdapter.ViewHolder>() {
 
-    lateinit var context: Context
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        context = parent.context
-        val inflater = LayoutInflater.from(context)
+        val inflater = LayoutInflater.from(parent.context)
         val binding = FragmentPricesBinding.inflate(inflater)
         return ViewHolder(binding)
     }
@@ -25,39 +22,26 @@ class PricesAdapter(private var prices: List<PricesViewModel>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(price = prices[position])
 
-//    override fun onBindViewHolder(holder: PriceViewHolder, position: Int) {
-//        val item: Price = dataSet[position]
-//        holder.titleView.text = item.title
-//        holder.descriptionView.text = item.getShortStringRepresentation()
-//        if (item.image != null) {
-//            Picasso
-//                    .get()
-//                    .load(APIConstants.VCELNICE_BASE_URL + item.image)
-//                    .transform(RoundedCornersTransformation())
-//                    .placeholder(R.mipmap.ic_bee)
-//                    .into(holder.imageView)
-//        }
-//        holder.button.setOnClickListener {
-//            // context.onReserveClicked(item)
-//        }
-//    }
+    private fun showPriceDetail(price: Price) {
+        activity.onReserveClicked(price)
+    }
 
     fun update(prices: List<Price>) {
-        Timber.d("Loading prices: %s", prices)
-        //this.dataSet = prices
         this.prices = prices.map {
-            PricesViewModel(
+            PriceViewModel(
                     title = it.title,
                     text = it.getShortStringRepresentation(),
-                    icon = it.image
+                    icon = it.image,
+                    onClick = { showPriceDetail(it) }
             )
         }
         notifyDataSetChanged()
     }
 
     inner class ViewHolder(val binding: FragmentPricesBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(price: PricesViewModel) {
+        fun bind(price: PriceViewModel) {
             binding.price = price
+            binding.root.reserve_button.setOnClickListener { price.onClick() }
         }
     }
 }

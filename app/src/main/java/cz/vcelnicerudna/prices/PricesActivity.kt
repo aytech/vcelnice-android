@@ -2,7 +2,6 @@ package cz.vcelnicerudna.prices
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import cz.vcelnicerudna.BaseActivity
@@ -26,10 +25,10 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_prices)
 
-        viewAdapter = PricesAdapter(listOf())
+        viewAdapter = PricesAdapter(this, listOf())
         pricesPresenter = PricesPresenter(this, VcelniceAPI.create(), appDatabase)
 
-        recyclerView = findViewById<RecyclerView>(R.id.prices_recycler_view).apply { adapter = viewAdapter }
+        recyclerView = prices_recycler_view.apply { adapter = viewAdapter }
 
         action_call_prices.setOnClickListener { handleCallAction() }
         bottom_app_bar_prices.setNavigationOnClickListener { navigateHome() }

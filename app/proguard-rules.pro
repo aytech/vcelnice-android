@@ -19,10 +19,11 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+#noinspection ShrinkerUnresolvedReference
 -keep public class cz.vcelnicerudna.models.** { *; }
 -dontwarn com.squareup.okhttp.**
 -dontwarn okio.**
 -dontwarn javax.annotation.Nullable
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
 -dontwarn javax.annotation.**
--dontwarn retrofit2.Platform$Java8
+-dontwarn retrofit2.**

@@ -14,7 +14,7 @@ import cz.vcelnicerudna.viewmodels.NewsViewModel
 class NewsAdapter(private var news: List<NewsViewModel>) :
         RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
-    lateinit var context: Context
+    private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context

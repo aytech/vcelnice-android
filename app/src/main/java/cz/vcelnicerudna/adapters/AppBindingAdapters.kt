@@ -1,5 +1,6 @@
 package cz.vcelnicerudna.adapters
 
+import android.webkit.WebView
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
@@ -15,4 +16,9 @@ fun loadImage(view: ImageView, url: String?) {
                 .error(R.mipmap.ic_bee)
                 .into(view)
     }
+}
+
+@BindingAdapter("webContent")
+fun loadContentIntoWebView(webView: WebView, content: String) {
+    webView.loadData(content, "text/html", "utf-8")
 }

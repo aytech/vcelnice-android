@@ -11,6 +11,8 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewTreeObserver
 import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
@@ -102,14 +104,15 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoCon
     }
 
     private fun loadPhotos() {
+        progress_bar.visibility = VISIBLE
         photoPresenter.fetchPhotosFromAPI()
     }
 
     override fun showPhotos(photos: List<Photo>) {
         if (photos.isEmpty()) {
-            no_content.visibility = View.VISIBLE
+            no_content.visibility = VISIBLE
         } else {
-            no_content.visibility = View.GONE
+            no_content.visibility = GONE
             photoAdapter.loadData(photos)
         }
     }
@@ -119,11 +122,11 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoCon
     }
 
     override fun onPhotosLoaded() {
-        loading_content.visibility = View.GONE
+        progress_bar.visibility = GONE
     }
 
     override fun showError() {
-        loading_content.visibility = View.GONE
+        progress_bar.visibility = GONE
         getIndefiniteSnack(main_photo_view, R.string.network_error, R.string.reload) { loadPhotos() }.show()
     }
 }

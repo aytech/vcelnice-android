@@ -3,7 +3,8 @@ package cz.vcelnicerudna.news
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.adapters.NewsAdapter
@@ -52,11 +53,12 @@ class NewsActivity : BaseActivity(), NewsContract.ViewInterface {
     }
 
     private fun fetchNewsFromApi() {
+        progress_bar.visibility = VISIBLE
         newsPresenter.fetchNewsFromAPI()
     }
 
     override fun showNews(news: List<News>) {
-        loading_content.visibility = View.GONE
+        progress_bar.visibility = GONE
         viewAdapter.update(news)
     }
 
@@ -65,7 +67,7 @@ class NewsActivity : BaseActivity(), NewsContract.ViewInterface {
     }
 
     override fun showError() {
-        loading_content.visibility = View.GONE
+        progress_bar.visibility = GONE
         getIndefiniteSnack(main_view_news, R.string.network_error, R.string.reload) { fetchNewsFromApi() }.show()
     }
 }

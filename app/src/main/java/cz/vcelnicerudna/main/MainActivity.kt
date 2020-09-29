@@ -70,7 +70,7 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
     }
 
     override fun onLoadingComplete() {
-        loading_content.visibility = GONE
+        progress_bar.visibility = GONE
     }
 
     override fun onHomeTextNetworkError() {

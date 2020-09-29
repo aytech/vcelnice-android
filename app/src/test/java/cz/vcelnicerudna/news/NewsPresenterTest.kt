@@ -57,15 +57,26 @@ class NewsPresenterTest : BaseTest() {
     }
 
     @Test
-    fun testFetchNewsFromAPI() {
+    fun testFetchNewsFromApi() {
         val news = dummyNews
         Mockito.doReturn(Observable.just(news)).`when`(mockDataSource).getNews()
 
         newsPresenter.fetchNewsFromAPI()
+
         Mockito.verify(mockDataSource).getNews()
         Mockito.verify(mockActivity).showNews(news)
         Mockito.verify(mockLocalDataStore.newsDao()).insert(news[0])
         Mockito.verify(mockLocalDataStore.newsDao()).insert(news[1])
+    }
+
+    @Test
+    fun testFetchNewsFromApiError() {
+        Mockito.doReturn(Observable.error<Throwable>(Throwable("API fetch failed"))).`when`(mockDataSource).getNews()
+
+        newsPresenter.fetchNewsFromAPI()
+
+        Mockito.verify(mockDataSource).getNews()
+        Mockito.verify(mockActivity).onNetworkError()
     }
 
     @Test

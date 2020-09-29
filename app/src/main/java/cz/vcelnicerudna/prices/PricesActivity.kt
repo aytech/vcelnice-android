@@ -3,7 +3,8 @@ package cz.vcelnicerudna.prices
 import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
-import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.adapters.PricesAdapter
@@ -44,6 +45,7 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
     }
 
     private fun loadPrices() {
+        progress_bar.visibility = VISIBLE
         pricesPresenter.fetchPricesFromApi()
     }
 
@@ -52,16 +54,16 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
     }
 
     override fun showError() {
-        loading_content.visibility = View.GONE
+        progress_bar.visibility = GONE
         getIndefiniteSnack(main_view_prices, R.string.network_error, R.string.reload) { loadPrices() }.show()
     }
 
     override fun showPrices(prices: List<Price>) {
         if (prices.isEmpty()) {
-            empty_message.visibility = View.VISIBLE
+            empty_message.visibility = VISIBLE
         } else {
-            empty_message.visibility = View.GONE
-            prices_recycler_view.visibility = View.VISIBLE
+            empty_message.visibility = GONE
+            prices_recycler_view.visibility = VISIBLE
             viewAdapter.update(prices)
         }
     }
@@ -73,6 +75,6 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
     }
 
     override fun onPricesLoaded() {
-        loading_content.visibility = View.GONE
+        progress_bar.visibility = GONE
     }
 }

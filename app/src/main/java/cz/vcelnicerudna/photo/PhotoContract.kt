@@ -13,6 +13,7 @@ class PhotoContract {
     interface ViewInterface {
         fun showPhotos(photos: List<Photo>)
         fun onNetworkError()
+        fun onPhotosLoaded()
         fun showError()
     }
 }

@@ -55,7 +55,7 @@ class PhotoPresenterTest : BaseTest() {
     }
 
     @Test
-    fun testFetchPhotosFromAPI() {
+    fun testFetchPhotosFromApi() {
         val photos = dummyPhotos
         Mockito.doReturn(Observable.just(photos)).`when`(mockDataSource).getPhotos()
 
@@ -63,8 +63,19 @@ class PhotoPresenterTest : BaseTest() {
 
         Mockito.verify(mockDataSource).getPhotos()
         Mockito.verify(mockActivity).showPhotos(photos)
+        Mockito.verify(mockActivity).onPhotosLoaded()
         Mockito.verify(mockLocalDataStore.photosDao()).insert(photos[0])
         Mockito.verify(mockLocalDataStore.photosDao()).insert(photos[1])
+    }
+
+    @Test
+    fun testFetchPhotosFromApiError() {
+        Mockito.doReturn(Observable.error<Throwable>(Throwable("API fetch failed"))).`when`(mockDataSource).getPhotos()
+
+        photoPresenter.fetchPhotosFromAPI()
+
+        Mockito.verify(mockDataSource).getPhotos()
+        Mockito.verify(mockActivity).onNetworkError()
     }
 
     @Test

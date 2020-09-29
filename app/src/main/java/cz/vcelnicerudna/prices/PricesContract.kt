@@ -15,5 +15,6 @@ class PricesContract {
         fun showError()
         fun showPrices(prices: List<Price>)
         fun onReserveClicked(price: Price)
+        fun onPricesLoaded()
     }
 }

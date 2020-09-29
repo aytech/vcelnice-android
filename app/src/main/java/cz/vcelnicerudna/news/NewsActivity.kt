@@ -43,10 +43,6 @@ class NewsActivity : BaseActivity(), NewsContract.ViewInterface {
 
         newsPresenter = NewsPresenter(this, RepositoryImpl(), appDatabase)
 
-        action_call_news.setOnClickListener { handleCallAction() }
-        bottom_app_bar_news.setNavigationOnClickListener { navigateHome() }
-        bottom_app_bar_news.setOnMenuItemClickListener { onNavigationItemSelected(it, null) }
-
         val bundledNews: ArrayList<News>? = intent.getParcelableArrayListExtra(NEWS_KEY)
         if (bundledNews == null) {
             fetchNewsFromApi()
@@ -56,7 +52,6 @@ class NewsActivity : BaseActivity(), NewsContract.ViewInterface {
     }
 
     private fun fetchNewsFromApi() {
-        loading_content.visibility = View.VISIBLE
         newsPresenter.fetchNewsFromAPI()
     }
 
@@ -71,6 +66,6 @@ class NewsActivity : BaseActivity(), NewsContract.ViewInterface {
 
     override fun showError() {
         loading_content.visibility = View.GONE
-        getIndefiniteSnack(main_view_news, action_call_news, R.string.network_error, R.string.reload) { fetchNewsFromApi() }.show()
+        getIndefiniteSnack(main_view_news, R.string.network_error, R.string.reload) { fetchNewsFromApi() }.show()
     }
 }

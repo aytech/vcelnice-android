@@ -19,9 +19,6 @@ class NewsDetailActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_news_detail)
         binding.news = NewsDetailViewModel(null, null, null)
 
-
-        action_call.setOnClickListener { handleCallAction() }
-
         val news = intent.getParcelableExtra<News>(StringConstants.NEWS_KEY)
         if (news == null) {
             finish()

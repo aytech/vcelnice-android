@@ -31,12 +31,11 @@ class PhotoPresenter(
             }
 
             override fun onError(error: Throwable) {
-                Timber.d("Error fetching photos from API: $error")
                 activity.onNetworkError()
             }
 
             override fun onComplete() {
-                Timber.d("Finished loading photos")
+                activity.onPhotosLoaded()
             }
 
         }

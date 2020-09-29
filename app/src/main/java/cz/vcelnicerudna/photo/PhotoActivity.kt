@@ -65,10 +65,6 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoCon
         photo_collection.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         photo_collection.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL))
 
-        action_call_photo.setOnClickListener { handleCallAction() }
-        bottom_app_bar_photo.setNavigationOnClickListener { navigateHome() }
-        bottom_app_bar_photo.setOnMenuItemClickListener { onNavigationItemSelected(it, R.id.photo_page) }
-
         loadPhotos()
     }
 
@@ -106,12 +102,10 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoCon
     }
 
     private fun loadPhotos() {
-        loading_content.visibility = View.VISIBLE
         photoPresenter.fetchPhotosFromAPI()
     }
 
     override fun showPhotos(photos: List<Photo>) {
-        loading_content.visibility = View.GONE
         if (photos.isEmpty()) {
             no_content.visibility = View.VISIBLE
         } else {
@@ -124,8 +118,12 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoCon
         photoPresenter.fetchPhotosFromLocalDataStore()
     }
 
+    override fun onPhotosLoaded() {
+        loading_content.visibility = View.GONE
+    }
+
     override fun showError() {
         loading_content.visibility = View.GONE
-        getIndefiniteSnack(main_photo_view, action_call_photo, R.string.network_error, R.string.reload) { loadPhotos() }.show()
+        getIndefiniteSnack(main_photo_view, R.string.network_error, R.string.reload) { loadPhotos() }.show()
     }
 }

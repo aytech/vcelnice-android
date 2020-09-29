@@ -30,10 +30,6 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
 
         recyclerView = prices_recycler_view.apply { adapter = viewAdapter }
 
-        action_call_prices.setOnClickListener { handleCallAction() }
-        bottom_app_bar_prices.setNavigationOnClickListener { navigateHome() }
-        bottom_app_bar_prices.setOnMenuItemClickListener { onNavigationItemSelected(it, R.id.prices_page) }
-
         loadPrices()
     }
 
@@ -41,14 +37,13 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
         if (requestCode == reservationActivityCode && resultCode == RESULT_OK) {
             val postOk = data?.getBooleanExtra(RESERVATION_OK, false)
             if (postOk != null && postOk == true) {
-                getIndefiniteSnack(main_view_prices, action_call_prices, R.string.reservation_sent_success, R.string.ok) {}.show()
+                getIndefiniteSnack(main_view_prices, R.string.reservation_sent_success, R.string.ok) {}.show()
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun loadPrices() {
-        loading_content.visibility = View.VISIBLE
         pricesPresenter.fetchPricesFromApi()
     }
 
@@ -58,11 +53,10 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
 
     override fun showError() {
         loading_content.visibility = View.GONE
-        getIndefiniteSnack(main_view_prices, action_call_prices, R.string.network_error, R.string.reload) { loadPrices() }.show()
+        getIndefiniteSnack(main_view_prices, R.string.network_error, R.string.reload) { loadPrices() }.show()
     }
 
     override fun showPrices(prices: List<Price>) {
-        loading_content.visibility = View.GONE
         if (prices.isEmpty()) {
             empty_message.visibility = View.VISIBLE
         } else {
@@ -76,5 +70,9 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
         val intent = Intent(this, ReserveActivity::class.java)
         intent.putExtra(StringConstants.PRICE_KEY, price)
         startActivityForResult(intent, reservationActivityCode)
+    }
+
+    override fun onPricesLoaded() {
+        loading_content.visibility = View.GONE
     }
 }

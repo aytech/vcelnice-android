@@ -26,9 +26,9 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
     private val fabActionChangeListener: ViewTreeObserver.OnGlobalLayoutListener
         get() = ViewTreeObserver.OnGlobalLayoutListener {
             if (isKeyboardOpen(main_view_reserve)) {
-                setPromotedFabAction(action_call_reserve, R.drawable.ic_paper_plane) { postReservation() }
+                setPromotedFabAction(R.drawable.ic_paper_plane) { postReservation() }
             } else {
-                setPromotedFabAction(action_call_reserve, R.drawable.ic_baseline_phone_in_talk_30) { handleCallAction() }
+                setPromotedFabAction(R.drawable.ic_baseline_phone_in_talk_30) { handleCallAction() }
             }
         }
 
@@ -71,12 +71,6 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         }
         // Reservation button
         reserve_button.setOnClickListener { postReservation() }
-        // Promoted "call" FAB
-        action_call_reserve.setOnClickListener { handleCallAction() }
-        // Home button
-        bottom_app_bar_reserve.setNavigationOnClickListener { navigateHome() }
-        // Navigation
-        bottom_app_bar_reserve.setOnMenuItemClickListener { onNavigationItemSelected(it, null) }
         // Keyboard detector
         main_view_reserve.viewTreeObserver.addOnGlobalLayoutListener(fabActionChangeListener)
     }
@@ -89,7 +83,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
         if (viewModel.canPostReservation()) {
             reservePresenter.postReservation(viewModel.getReservation())
         } else {
-            getLongSnack(main_view_reserve, action_call_reserve, viewModel.validationMessage).show()
+            getLongSnack(main_view_reserve, viewModel.validationMessage).show()
         }
     }
 
@@ -103,7 +97,7 @@ class ReserveActivity : BaseActivity(), ReserveContract.ViewInterface {
 
     override fun onFailPostReservation(error: Throwable) {
         Timber.d("Error posting reservation to API: $error")
-        getLongSnack(main_view_reserve, action_call_reserve, R.string.network_error).show()
+        getLongSnack(main_view_reserve, R.string.network_error).show()
     }
 
     override fun onSuccessPostReservation() {

@@ -43,8 +43,6 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
             intent.putParcelableArrayListExtra(NEWS_KEY, ArrayList(mainPresenter.getNews()))
             startActivity(intent)
         }
-        action_call_main.setOnClickListener { handleCallAction() }
-        bottom_app_bar_main.setOnMenuItemClickListener { onNavigationItemSelected(it, null) }
 
         loadNews()
         loadHomeText()
@@ -84,7 +82,7 @@ class MainActivity : BaseActivity(), MainContract.ViewInterface {
     }
 
     override fun showError() {
-        getIndefiniteSnack(main_view, action_call_main, R.string.network_error, R.string.reload) { loadHomeText() }.show()
+        getIndefiniteSnack(main_view, R.string.network_error, R.string.reload) { loadHomeText() }.show()
     }
 
     override fun onDestroy() {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_photo_view"
     android:layout_width="match_parent"
@@ -10,9 +10,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone" />
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bottom_bar" />
 
     <ScrollView
+        android:id="@+id/scroll_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -42,21 +47,7 @@
         </RelativeLayout>
     </ScrollView>
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar_photo"
-        style="@style/Widget.App.BottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:menu="@menu/bottom_app_menu"
-        app:navigationContentDescription="@string/home"
-        app:navigationIcon="@drawable/ic_menu_home" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/action_call_photo"
-        style="@style/Widget.App.FloatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_phone_in_talk_30"
-        app:layout_anchor="@id/bottom_app_bar_photo" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <include
+        android:id="@+id/bottom_bar"
+        layout="@layout/fragment_app_bar" />
+</androidx.constraintlayout.widget.ConstraintLayout>

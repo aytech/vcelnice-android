@@ -33,7 +33,7 @@ class PricesPresenter(
             }
 
             override fun onComplete() {
-                Timber.d("Finished loading prices from API")
+                activity.onPricesLoaded()
             }
         }
 

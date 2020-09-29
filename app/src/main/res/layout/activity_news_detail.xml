@@ -10,7 +10,7 @@
             type="cz.vcelnicerudna.viewmodels.NewsDetailViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -63,22 +63,8 @@
 
         </ScrollView>
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottom_app_bar_news"
-            style="@style/Widget.App.BottomAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:menu="@menu/bottom_app_menu"
-            app:navigationContentDescription="@string/home"
-            app:navigationIcon="@drawable/ic_menu_home" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/action_call"
-            style="@style/Widget.App.FloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_phone_in_talk_30"
-            app:layout_anchor="@id/bottom_app_bar_news" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <include
+            android:id="@+id/bottom_bar"
+            layout="@layout/fragment_app_bar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

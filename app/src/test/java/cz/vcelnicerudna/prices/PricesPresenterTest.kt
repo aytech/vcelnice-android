@@ -61,6 +61,7 @@ class PricesPresenterTest : BaseTest() {
 
         Mockito.verify(mockDataSource).getPrices()
         Mockito.verify(mockActivity).showPrices(prices)
+        Mockito.verify(mockActivity).onPricesLoaded()
         Mockito.verify(mockLocalDataStore.pricesDao()).insert(prices[0])
         Mockito.verify(mockLocalDataStore.pricesDao()).insert(prices[1])
     }

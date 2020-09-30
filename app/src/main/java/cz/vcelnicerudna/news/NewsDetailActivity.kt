@@ -6,9 +6,8 @@ import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.databinding.ActivityNewsDetailBinding
-import cz.vcelnicerudna.models.News
-import cz.vcelnicerudna.viewmodels.NewsDetailViewModel
-import kotlinx.android.synthetic.main.activity_news_detail.*
+import cz.vcelnicerudna.data.model.News
+import cz.vcelnicerudna.data.viewmodels.NewsDetailViewModel
 
 class NewsDetailActivity : BaseActivity() {
 

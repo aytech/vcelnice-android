@@ -1,4 +1,4 @@
-package cz.vcelnicerudna.viewmodels
+package cz.vcelnicerudna.data.viewmodels
 
 data class NewsDetailViewModel(
         val title: String?,

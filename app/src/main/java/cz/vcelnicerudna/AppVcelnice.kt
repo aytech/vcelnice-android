@@ -1,6 +1,7 @@
 package cz.vcelnicerudna
 
 import android.app.Application
+import com.google.firebase.ktx.BuildConfig
 import timber.log.Timber
 
 @Suppress("unused")

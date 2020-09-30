@@ -1,10 +1,10 @@
-package cz.vcelnicerudna.interfaces
+package cz.vcelnicerudna.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import cz.vcelnicerudna.models.HomeText
+import cz.vcelnicerudna.data.model.HomeText
 import io.reactivex.Single
 
 @Dao

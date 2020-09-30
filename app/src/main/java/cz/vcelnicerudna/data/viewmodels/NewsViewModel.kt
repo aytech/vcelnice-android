@@ -1,4 +1,4 @@
-package cz.vcelnicerudna.viewmodels
+package cz.vcelnicerudna.data.viewmodels
 
 import android.text.Spanned
 

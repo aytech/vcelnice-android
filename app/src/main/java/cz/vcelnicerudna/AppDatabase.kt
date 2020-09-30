@@ -5,8 +5,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import android.content.Context
 import cz.vcelnicerudna.configuration.AppConstants
-import cz.vcelnicerudna.interfaces.*
-import cz.vcelnicerudna.models.*
+import cz.vcelnicerudna.data.dao.*
+import cz.vcelnicerudna.data.model.*
 
 // https://medium.com/mindorks/android-architecture-components-room-and-kotlin-f7b725c8d1d
 // https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929

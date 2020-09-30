@@ -1,8 +1,8 @@
 package cz.vcelnicerudna.photo
 
 import cz.vcelnicerudna.AppDatabase
-import cz.vcelnicerudna.interfaces.VcelniceAPI
-import cz.vcelnicerudna.models.Photo
+import cz.vcelnicerudna.data.Repository
+import cz.vcelnicerudna.data.model.Photo
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,7 +14,7 @@ import timber.log.Timber
 
 class PhotoPresenter(
         private var activity: PhotoContract.ViewInterface,
-        private var vcelniceAPI: VcelniceAPI,
+        private var vcelniceAPI: Repository,
         private var localDataStore: AppDatabase) : PhotoContract.PresenterInterface {
 
     private val compositeDisposable = CompositeDisposable()

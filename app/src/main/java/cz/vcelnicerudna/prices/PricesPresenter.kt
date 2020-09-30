@@ -1,8 +1,8 @@
 package cz.vcelnicerudna.prices
 
 import cz.vcelnicerudna.AppDatabase
-import cz.vcelnicerudna.interfaces.VcelniceAPI
-import cz.vcelnicerudna.models.Price
+import cz.vcelnicerudna.data.Repository
+import cz.vcelnicerudna.data.model.Price
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,7 +14,7 @@ import timber.log.Timber
 
 class PricesPresenter(
         private var activity: PricesContract.ViewInterface,
-        private var vcelniceAPI: VcelniceAPI,
+        private var vcelniceAPI: Repository,
         private var localDataSource: AppDatabase) : PricesContract.PresenterInterface {
 
     private val compositeDisposable = CompositeDisposable()

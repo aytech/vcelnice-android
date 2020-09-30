@@ -6,7 +6,7 @@ import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.configuration.Validator
 import cz.vcelnicerudna.data.model.Reservation
-import cz.vcelnicerudna.models.Location
+import cz.vcelnicerudna.data.model.Location
 import java.net.URLEncoder
 
 class ReserveViewModel : ViewModel() {

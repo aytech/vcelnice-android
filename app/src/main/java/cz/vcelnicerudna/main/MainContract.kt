@@ -1,7 +1,7 @@
 package cz.vcelnicerudna.main
 
-import cz.vcelnicerudna.models.HomeText
-import cz.vcelnicerudna.models.News
+import cz.vcelnicerudna.data.model.HomeText
+import cz.vcelnicerudna.data.model.News
 
 class MainContract {
     interface PresenterInterface {

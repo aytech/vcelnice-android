@@ -14,7 +14,7 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.APIConstants
-import cz.vcelnicerudna.models.Photo
+import cz.vcelnicerudna.data.model.Photo
 import timber.log.Timber
 import java.lang.Exception
 

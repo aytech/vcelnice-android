@@ -3,7 +3,7 @@ package cz.vcelnicerudna.reserve
 import cz.vcelnicerudna.AppDatabase
 import cz.vcelnicerudna.data.Repository
 import cz.vcelnicerudna.data.model.Reservation
-import cz.vcelnicerudna.models.Location
+import cz.vcelnicerudna.data.model.Location
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

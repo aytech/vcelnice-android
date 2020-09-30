@@ -1,11 +1,7 @@
 package cz.vcelnicerudna.data.net
 
 import cz.vcelnicerudna.configuration.APIConstants
-import cz.vcelnicerudna.data.model.EmailMessage
-import cz.vcelnicerudna.data.model.Reservation
-import cz.vcelnicerudna.models.HomeText
-import cz.vcelnicerudna.models.Location
-import cz.vcelnicerudna.models.News
+import cz.vcelnicerudna.data.model.*
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
@@ -53,5 +49,13 @@ class RetrofitClient {
 
     fun getNews(): Observable<List<News>> {
         return vcelniceApi.getNews()
+    }
+
+    fun getPhotos(): Observable<List<Photo>> {
+        return vcelniceApi.getPhotos()
+    }
+
+    fun getPrices(): Observable<List<Price>> {
+        return vcelniceApi.getPrices()
     }
 }

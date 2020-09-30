@@ -2,7 +2,7 @@ package cz.vcelnicerudna.news
 
 import cz.vcelnicerudna.AppDatabase
 import cz.vcelnicerudna.data.Repository
-import cz.vcelnicerudna.models.News
+import cz.vcelnicerudna.data.model.News
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

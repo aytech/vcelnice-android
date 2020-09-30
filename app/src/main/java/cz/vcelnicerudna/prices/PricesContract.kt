@@ -1,6 +1,6 @@
 package cz.vcelnicerudna.prices
 
-import cz.vcelnicerudna.models.Price
+import cz.vcelnicerudna.data.model.Price
 
 class PricesContract {
     interface PresenterInterface {

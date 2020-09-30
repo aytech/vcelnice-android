@@ -14,7 +14,7 @@ import android.view.View
 import cz.vcelnicerudna.R.layout.activity_photo_view
 import cz.vcelnicerudna.adapters.PhotoPagerAdapter
 import cz.vcelnicerudna.configuration.StringConstants
-import cz.vcelnicerudna.models.Photo
+import cz.vcelnicerudna.data.model.Photo
 import kotlinx.android.synthetic.main.activity_photo_view.*
 
 class PhotoViewActivity : AppCompatActivity() {

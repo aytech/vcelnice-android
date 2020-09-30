@@ -18,8 +18,8 @@ import cz.vcelnicerudna.BaseActivity
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.adapters.PhotoAdapter
 import cz.vcelnicerudna.configuration.StringConstants
-import cz.vcelnicerudna.interfaces.VcelniceAPI
-import cz.vcelnicerudna.models.Photo
+import cz.vcelnicerudna.data.RepositoryImpl
+import cz.vcelnicerudna.data.model.Photo
 import kotlinx.android.synthetic.main.activity_photo.*
 
 class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoContract.ViewInterface {
@@ -58,7 +58,7 @@ class PhotoActivity : BaseActivity(), PhotoAdapter.OnItemClickListener, PhotoCon
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo)
-        photoPresenter = PhotoPresenter(this, VcelniceAPI.create(), appDatabase)
+        photoPresenter = PhotoPresenter(this, RepositoryImpl(), appDatabase)
         ActivityCompat.setExitSharedElementCallback(this, exitElementCallback)
 
         photo_collection.setHasFixedSize(true)

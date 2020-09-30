@@ -1,6 +1,6 @@
 package cz.vcelnicerudna.news
 
-import cz.vcelnicerudna.models.News
+import cz.vcelnicerudna.data.model.News
 
 class NewsContract {
     interface PresenterInterface {

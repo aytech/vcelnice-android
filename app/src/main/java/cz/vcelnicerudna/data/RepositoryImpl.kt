@@ -1,11 +1,7 @@
 package cz.vcelnicerudna.data
 
-import cz.vcelnicerudna.data.model.EmailMessage
-import cz.vcelnicerudna.data.model.Reservation
+import cz.vcelnicerudna.data.model.*
 import cz.vcelnicerudna.data.net.RetrofitClient
-import cz.vcelnicerudna.models.HomeText
-import cz.vcelnicerudna.models.Location
-import cz.vcelnicerudna.models.News
 import io.reactivex.Observable
 
 class RepositoryImpl : Repository {
@@ -18,6 +14,14 @@ class RepositoryImpl : Repository {
 
     override fun getNews(): Observable<List<News>> {
         return retrofitClient.getNews()
+    }
+
+    override fun getPhotos(): Observable<List<Photo>> {
+        return retrofitClient.getPhotos()
+    }
+
+    override fun getPrices(): Observable<List<Price>> {
+        return retrofitClient.getPrices()
     }
 
     override fun getReservationLocations(): Observable<List<Location>> {

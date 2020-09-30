@@ -1,11 +1,7 @@
 package cz.vcelnicerudna.data.net
 
 import cz.vcelnicerudna.configuration.APIConstants
-import cz.vcelnicerudna.data.model.EmailMessage
-import cz.vcelnicerudna.data.model.Reservation
-import cz.vcelnicerudna.models.HomeText
-import cz.vcelnicerudna.models.Location
-import cz.vcelnicerudna.models.News
+import cz.vcelnicerudna.data.model.*
 import io.reactivex.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -15,6 +11,12 @@ import retrofit2.http.POST
 interface VcelniceApi {
     @GET(APIConstants.LOCATIONS_URL)
     fun getLocations(): Observable<List<Location>>
+
+    @GET(APIConstants.PHOTO_URL)
+    fun getPhotos(): Observable<List<Photo>>
+
+    @GET(APIConstants.PRICES_URL)
+    fun getPrices(): Observable<List<Price>>
 
     @POST(APIConstants.RESERVE_POST_URL)
     @FormUrlEncoded

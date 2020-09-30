@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import cz.vcelnicerudna.configuration.StringConstants.Companion.NEWS_KEY
 import cz.vcelnicerudna.databinding.FragmentNewsBinding
-import cz.vcelnicerudna.models.News
+import cz.vcelnicerudna.data.model.News
 import cz.vcelnicerudna.news.NewsDetailActivity
-import cz.vcelnicerudna.viewmodels.NewsViewModel
+import cz.vcelnicerudna.data.viewmodels.NewsViewModel
 
 class NewsAdapter(private var news: List<NewsViewModel>) :
         RecyclerView.Adapter<NewsAdapter.ViewHolder>() {

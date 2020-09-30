@@ -10,8 +10,8 @@ import cz.vcelnicerudna.R
 import cz.vcelnicerudna.adapters.PricesAdapter
 import cz.vcelnicerudna.configuration.StringConstants
 import cz.vcelnicerudna.configuration.StringConstants.Companion.RESERVATION_OK
-import cz.vcelnicerudna.interfaces.VcelniceAPI
-import cz.vcelnicerudna.models.Price
+import cz.vcelnicerudna.data.RepositoryImpl
+import cz.vcelnicerudna.data.model.Price
 import cz.vcelnicerudna.reserve.ReserveActivity
 import kotlinx.android.synthetic.main.activity_prices.*
 
@@ -27,7 +27,7 @@ class PricesActivity : BaseActivity(), PricesContract.ViewInterface {
         setContentView(R.layout.activity_prices)
 
         viewAdapter = PricesAdapter(this, listOf())
-        pricesPresenter = PricesPresenter(this, VcelniceAPI.create(), appDatabase)
+        pricesPresenter = PricesPresenter(this, RepositoryImpl(), appDatabase)
 
         recyclerView = prices_recycler_view.apply { adapter = viewAdapter }
 

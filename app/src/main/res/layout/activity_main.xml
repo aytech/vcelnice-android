@@ -8,7 +8,7 @@
 
         <variable
             name="main"
-            type="cz.vcelnicerudna.viewmodels.MainViewModel" />
+            type="cz.vcelnicerudna.data.viewmodels.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

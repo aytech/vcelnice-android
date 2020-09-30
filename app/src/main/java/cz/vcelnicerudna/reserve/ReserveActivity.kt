@@ -14,8 +14,8 @@ import cz.vcelnicerudna.configuration.StringConstants.Companion.PRICE_KEY
 import cz.vcelnicerudna.configuration.StringConstants.Companion.RESERVATION_OK
 import cz.vcelnicerudna.data.RepositoryImpl
 import cz.vcelnicerudna.databinding.ActivityReserveBinding
-import cz.vcelnicerudna.models.Location
-import cz.vcelnicerudna.models.Price
+import cz.vcelnicerudna.data.model.Location
+import cz.vcelnicerudna.data.model.Price
 import kotlinx.android.synthetic.main.activity_reserve.*
 import timber.log.Timber
 

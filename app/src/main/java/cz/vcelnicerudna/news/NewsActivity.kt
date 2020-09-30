@@ -10,7 +10,7 @@ import cz.vcelnicerudna.R
 import cz.vcelnicerudna.adapters.NewsAdapter
 import cz.vcelnicerudna.configuration.StringConstants.Companion.NEWS_KEY
 import cz.vcelnicerudna.data.RepositoryImpl
-import cz.vcelnicerudna.models.News
+import cz.vcelnicerudna.data.model.News
 import kotlinx.android.synthetic.main.activity_news.*
 import java.util.ArrayList
 

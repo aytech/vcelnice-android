@@ -1,4 +1,4 @@
-package cz.vcelnicerudna.models
+package cz.vcelnicerudna.data.model
 
 import android.os.Build
 import android.os.Parcel

@@ -4,9 +4,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import cz.vcelnicerudna.databinding.FragmentPricesBinding
-import cz.vcelnicerudna.models.Price
+import cz.vcelnicerudna.data.model.Price
 import cz.vcelnicerudna.prices.PricesContract
-import cz.vcelnicerudna.viewmodels.PriceViewModel
+import cz.vcelnicerudna.data.viewmodels.PriceViewModel
 import kotlinx.android.synthetic.main.fragment_prices.view.*
 
 class PricesAdapter(private val activity: PricesContract.ViewInterface, private var prices: List<PriceViewModel>) :
@@ -38,7 +38,7 @@ class PricesAdapter(private val activity: PricesContract.ViewInterface, private 
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(val binding: FragmentPricesBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: FragmentPricesBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(price: PriceViewModel) {
             binding.price = price
             binding.root.reserve_button.setOnClickListener { price.onClick() }

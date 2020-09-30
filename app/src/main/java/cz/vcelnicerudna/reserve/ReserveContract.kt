@@ -1,7 +1,7 @@
 package cz.vcelnicerudna.reserve
 
 import cz.vcelnicerudna.data.model.Reservation
-import cz.vcelnicerudna.models.Location
+import cz.vcelnicerudna.data.model.Location
 
 class ReserveContract {
     interface PresenterInterface {

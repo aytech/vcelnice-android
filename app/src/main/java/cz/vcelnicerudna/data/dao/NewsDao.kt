@@ -1,7 +1,7 @@
-package cz.vcelnicerudna.interfaces
+package cz.vcelnicerudna.data.dao
 
 import androidx.room.*
-import cz.vcelnicerudna.models.News
+import cz.vcelnicerudna.data.model.News
 import io.reactivex.Single
 
 @Dao

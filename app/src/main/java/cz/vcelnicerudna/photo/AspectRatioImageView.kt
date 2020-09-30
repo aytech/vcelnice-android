@@ -1,4 +1,4 @@
-package cz.vcelnicerudna.views
+package cz.vcelnicerudna.photo
 
 import android.content.Context
 import androidx.appcompat.widget.AppCompatImageView

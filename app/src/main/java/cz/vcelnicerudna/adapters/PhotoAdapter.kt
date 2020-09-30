@@ -8,8 +8,8 @@ import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import cz.vcelnicerudna.R
 import cz.vcelnicerudna.configuration.APIConstants
-import cz.vcelnicerudna.models.Photo
-import cz.vcelnicerudna.views.AspectRatioImageView
+import cz.vcelnicerudna.data.model.Photo
+import cz.vcelnicerudna.photo.AspectRatioImageView
 
 class PhotoAdapter(
         private var dataSet: List<Photo>,

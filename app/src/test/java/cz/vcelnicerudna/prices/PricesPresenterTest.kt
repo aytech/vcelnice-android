@@ -4,8 +4,8 @@ import com.nhaarman.mockitokotlin2.given
 import cz.vcelnicerudna.AppDatabase
 import cz.vcelnicerudna.BaseTest
 import cz.vcelnicerudna.RxImmediateSchedulerRule
-import cz.vcelnicerudna.interfaces.VcelniceAPI
-import cz.vcelnicerudna.models.Price
+import cz.vcelnicerudna.data.Repository
+import cz.vcelnicerudna.data.model.Price
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.junit.Before
@@ -28,7 +28,7 @@ class PricesPresenterTest : BaseTest() {
     private lateinit var mockActivity: PricesContract.ViewInterface
 
     @Mock
-    private lateinit var mockDataSource: VcelniceAPI
+    private lateinit var mockDataSource: Repository
 
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private lateinit var mockLocalDataStore: AppDatabase

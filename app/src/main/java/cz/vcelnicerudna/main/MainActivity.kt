@@ -13,10 +13,10 @@ import cz.vcelnicerudna.configuration.StringConstants.Companion.NEWS_KEY
 import cz.vcelnicerudna.data.RepositoryImpl
 import cz.vcelnicerudna.databinding.ActivityMainBinding
 import cz.vcelnicerudna.loadHTML
-import cz.vcelnicerudna.models.HomeText
-import cz.vcelnicerudna.models.News
+import cz.vcelnicerudna.data.model.HomeText
+import cz.vcelnicerudna.data.model.News
 import cz.vcelnicerudna.news.NewsActivity
-import cz.vcelnicerudna.viewmodels.MainViewModel
+import cz.vcelnicerudna.data.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 

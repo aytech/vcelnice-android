@@ -6,7 +6,7 @@
 
         <variable
             name="price"
-            type="cz.vcelnicerudna.viewmodels.PriceViewModel" />
+            type="cz.vcelnicerudna.data.viewmodels.PriceViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

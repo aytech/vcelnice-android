@@ -6,7 +6,7 @@
 
         <variable
             name="news"
-            type="cz.vcelnicerudna.viewmodels.NewsViewModel" />
+            type="cz.vcelnicerudna.data.viewmodels.NewsViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

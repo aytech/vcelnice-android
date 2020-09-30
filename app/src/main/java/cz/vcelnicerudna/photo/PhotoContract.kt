@@ -1,6 +1,6 @@
 package cz.vcelnicerudna.photo
 
-import cz.vcelnicerudna.models.Photo
+import cz.vcelnicerudna.data.model.Photo
 
 class PhotoContract {
     interface PresenterInterface {
